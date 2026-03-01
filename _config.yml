@@ -23,7 +23,7 @@ email: momosan2692@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   "Guessing is where ideas begin — but proof is where conviction is earned." 
   "What's the actual evidence? Not just reasoning — show me the numbers, contracts, and data."
-  "That's exactly the right investor mindset. Narrative is easy. Proof is everything.""
+  "That's exactly the right investor mindset. Narrative is easy. Proof is everything."
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: ""          # the base hostname & protocol for your site, e.g. http://example.com
@@ -35,7 +35,7 @@ github_username:  momosan2692
 # theme: beautiful-jekyll
 plugins:
   - jekyll-feed
-  - jekyll-remote-theme
+  # - jekyll-remote-theme
 
 # Exclude from processing.
 # The following items will not be processed, by default.
