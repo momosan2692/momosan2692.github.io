@@ -1,3 +1,13 @@
+---
+layout: post
+title: 分散式推論於 Ollama Backend 初始分析
+subtitle: AI inference engine, Llama.cpp and Ollama
+cover-img: /assets/img/path.jpg
+thumbnail-img: /assets/img/thumb.png
+share-img: /assets/img/path.jpg
+tags: [spec, test]
+---
+
 # 分散式推論於 Ollama Backend 初始分析
 
 ---
