@@ -9,10 +9,7 @@ tags: [spec, test]
 ---
 
 # 分散式推論於 Ollama Backend 初始分析
-
----
 ### Last Version
----
 # Ollama + llama.cpp RPC Integration Project Notes
 
 ## Project Overview
