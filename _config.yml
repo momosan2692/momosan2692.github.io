@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: "猜测是想法的起点——但证明才是信念的归宿。"
+title: "猜測是想法的起點──但證明才是信念的歸宿。"
 email: momosan2692@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   "Guessing is where ideas begin — but proof is where conviction is earned." 
