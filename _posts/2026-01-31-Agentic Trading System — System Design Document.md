@@ -1,3 +1,13 @@
+---
+layout: post
+title: Agentic Trading System
+subtitle: System Design Document v0.1 draft
+cover-img: /assets/img/path.jpg
+thumbnail-img: /assets/img/hello_world.jepg
+share-img: /assets/img/path.jpg
+tags: [analysis, test]
+---
+
 # Agentic Trading System — System Design Document
 
 > **版本：** v0.1 Draft  

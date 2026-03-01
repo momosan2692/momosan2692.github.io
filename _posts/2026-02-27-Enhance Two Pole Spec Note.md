@@ -1,3 +1,13 @@
+---
+layout: post
+title: Enhanced Two-Pole Oscillator v4.3
+subtitle: First Release — Technical Reference & User Guide
+cover-img: /assets/img/path.jpg
+thumbnail-img: /assets/img/crepe.jpg
+share-img: /assets/img/path.jpg
+tags: [report, test]
+---
+
 @CJH Two-Pole Oscillator v4.3
 
 First Release — Technical Reference & User Guide
