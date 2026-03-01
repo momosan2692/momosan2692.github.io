@@ -57,4 +57,4 @@ plugins:
 #   - vendor/ruby/
 future: true
 #remote_theme: daattali/beautiful-jekyll@6.0.1
-remote_theme: daattali/beautiful-jekyll@6.0.1
+# remote_theme: daattali/beautiful-jekyll@6.0.1
