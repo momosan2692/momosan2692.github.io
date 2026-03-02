@@ -288,4 +288,4 @@ AeroVironment生產真實戰場上使用的武器與無人機：
 
 ---
 
-*© 2026 Claude AI Research Analysis | 資料截至2026年3月2日*
+*© 2026 BJH Fintech AI Research Analysis | 資料截至2026年3月2日*
