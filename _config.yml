@@ -25,11 +25,8 @@ cover-img: "assets/img/path.jpg"
 
 navbar-links:
   Blog: "/"
-  About: "aboutme"
+  About: "about"
   Tags: "tags"
-
-
-
 
 # title: "What's the actual evidence? Not just reasoning — show me the numbers, contracts, and data."
 email: momosan2692@gmail.com
