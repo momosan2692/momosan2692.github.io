@@ -1,11 +1,11 @@
 ---
-版面：貼文
+layout: post
 title: 伊朗-美國衝突與國防科技股分析報告
-副標題：重點國防科技股分析 PLTR RKLB AVAV
-封面圖：/assets/img/path.jpg
-縮圖：/assets/img/crepe.jpg
-分享圖片：/assets/img/header/evidence.png
-標籤：[報告，測試]
+subtitle: 重點國防科技股分析 PLTR RKLB AVAV
+cover-img: /assets/img/path.jpg
+thumbnail-img: /assets/img/header/semiconductor.webp
+share-img: /assets/img/header/evidence.png
+tags: [report, test]
 ---
 
 # 🌍 伊朗-美國衝突與國防科技股分析報告
