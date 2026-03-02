@@ -1,13 +1,12 @@
 ---
 layout: post
-title: OCKET LAB USA, INC. (NASDAQ: RKLB)
-subtitle: Comprehensive Investment Analysis & Valuation Report
+title: ROCKET LAB Comprehensive Investment Analysis Report
+subtitle: Q4 2025
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/hello_world.jpeg
 share-img: /assets/img/path.jpg
 tags: [report, test]
 ---
-
 
 # ROCKET LAB USA, INC. (NASDAQ: RKLB)
 ## Comprehensive Investment Analysis & Valuation Report
