@@ -19,6 +19,17 @@
 # in the templates via {{ site.myvariable }}.
 
 title: "猜測是想法的起點──但證明才是信念的歸宿。"
+subtitle: "什麼才是真正的證據？不只是推理──給我數字、合約和數據。"
+avatar: "assets/img/avatar-icon.png"
+cover-img: "assets/img/path.jpg"
+
+navbar-links:
+  Blog: "/"
+  About: "aboutme"
+  Tags: "tags"
+
+
+
 
 # title: "What's the actual evidence? Not just reasoning — show me the numbers, contracts, and data."
 email: momosan2692@gmail.com
