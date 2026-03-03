@@ -754,8 +754,5 @@ hline(0, color=color.new(color.orange, 70), linestyle=hline.style_dotted)
 
 ---
 
-![Crepe](https://raw.githubusercontent.com/momosan2692/momosan2692.github.io/refs/heads/main/assets/img/avatar-icon.png){: .mx-auto.d-block :}
-
-
 *Document generated: 2026-02-25 | @CJH Two-Pole Oscillator v4.3 | First Release*  
 *License: CC BY-NC-SA 4.0 — Free for personal and educational use. Commercial use prohibited without permission.*
