@@ -469,7 +469,7 @@ This was the root cause of the **OKLO Nov 26, 2025** missing buy signal — the 
 
 ## 11. Full Source Code
 
-```pine
+{% highlight pine linenos %}
 // This work is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International  
 // @CJH - Two-Pole Oscillator v4.3
 // 改善項目：
@@ -750,7 +750,7 @@ fill(p1, p2, two_p, signal, osc_color, na)
 plot(show_vel ? vel_s : na,
      color=color.new(color.orange, 20), linewidth=1, title="Velocity")
 hline(0, color=color.new(color.orange, 70), linestyle=hline.style_dotted)
-```
+{% endhighlight %}
 
 ---
 
