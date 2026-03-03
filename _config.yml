@@ -66,9 +66,9 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
-exclude:
-  - private/
-  
+#exclude:
+#  - private/
+
 future: true
 #remote_theme: daattali/beautiful-jekyll@6.0.1
 # remote_theme: daattali/beautiful-jekyll@6.0.1
