@@ -26,10 +26,17 @@ cover-img: "assets/img/path.jpg"
 navbar-links:
   Blog: "/"
   About: "about"
-  Tags: "tag"
+  Tags: "tags"
 
+# Tag settings for Beautiful Jekyll
+tag_page_layout: tag_page
+tag_page_dir: tag
+tag_page_title: "Posts tagged with:"
+tag_page_title_more: "Posts tagged with:"
 # title: "What's the actual evidence? Not just reasoning — show me the numbers, contracts, and data."
 email: momosan2692@gmail.com
+
+
 description: >- # this means to ignore newlines until "baseurl:"
   "Guessing is where ideas begin — but proof is where conviction is earned." 
   "What's the actual evidence? Not just reasoning — show me the numbers, contracts, and data."
@@ -71,11 +78,5 @@ plugins:
 
 future: true
 #remote_theme: daattali/beautiful-jekyll@6.0.1
-# remote_theme: daattali/beautiful-jekyll@6.0.1
+remote_theme: daattali/beautiful-jekyll@6.0.1
 
-
-# Tag settings for Beautiful Jekyll
-tag_page_layout: tag_page
-tag_page_dir: tag
-tag_page_title: "Posts tagged with:"
-tag_page_title_more: "Posts tagged with:"
