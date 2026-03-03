@@ -45,7 +45,7 @@ github_username:  momosan2692
 # theme: beautiful-jekyll
 plugins:
   - jekyll-feed
-  # - jekyll-remote-theme
+  - jekyll-remote-theme
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -72,3 +72,10 @@ plugins:
 future: true
 #remote_theme: daattali/beautiful-jekyll@6.0.1
 # remote_theme: daattali/beautiful-jekyll@6.0.1
+
+
+# Tag settings for Beautiful Jekyll
+tag_page_layout: tag_page
+tag_page_dir: tag
+tag_page_title: "Posts tagged with:"
+tag_page_title_more: "Posts tagged with:"

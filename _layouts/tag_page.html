@@ -1,0 +1,14 @@
+---
+layout: page
+---
+
+<div id="tag_page">
+  <h1>{{ page.title }}</h1>
+  {% assign posts = site.posts | where: 'tags', page.tag %}
+  {% for post in posts %}
+    <article>
+      <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      <small>{{ post.date | date: "%B %d, %Y" }}</small>
+    </article>
+  {% endfor %}
+</div>
