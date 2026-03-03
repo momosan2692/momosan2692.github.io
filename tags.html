@@ -1,13 +1,4 @@
 ---
 layout: tags
-title: Tags on 
+title: Tags
 ---
-
-<h2>All Tags</h2>
-{% capture tags %}
-  {% for tag in site.tags %}
-    {{ tag[0] | replace: '_', ' ' | append: '/' | prepend: '/tag/' }}
-  {% endfor %}
-{% endcapture %}
-{{ tags | split:'/' | compact | uniq | sort | join: ', ' }}
-
