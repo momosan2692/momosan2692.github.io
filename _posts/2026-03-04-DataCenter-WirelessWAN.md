@@ -2,6 +2,9 @@
 layout: post
 title: Wireless WAN for AI Data Centers
 subtitle: From Earth to Space
+cover-img: /assets/img/header/2026-03-04/DATACENTER.jpeg
+thumbnail-img: /assets/img/thumb.png
+share-img: /assets/img/header/2026-03-04/DATACENTER.jpeg
 tags: [report, analysis,draft]
 ---
 
