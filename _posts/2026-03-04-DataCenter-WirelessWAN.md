@@ -57,6 +57,7 @@ The foundation layer for AI DC connectivity. Modern AI-native SD-WAN goes far be
 - **Cisco Catalyst SD-WAN:** Cloud OnRamp automation with direct secure connections to GPU-as-a-Service (GPUaaS) offerings[1]
 - **Palo Alto Prisma:** Zero-trust integrated SD-WAN with inline AI security[1]
 
+
 ### 2.2 5G Private Networks & FWA
 5G is the access layer connecting inference zones to end users.[6]
 - Ultra-low latency: ~1ms radio access[6]
@@ -385,3 +386,39 @@ The question for every organization, government, and nation is no longer *"do we
 [17] Oracle's $40 Billion Investment in Nvidia AI Chips for Massive OpenAI Data Center https://theoutpost.ai/news-story/oracle-s-40-billion-investment-in-nvidia-chips-for-open-ai-s-stargate-data-center-15792/
 [18] Data Center Space Race Heats Up As Startup Requests ... https://www.pcmag.com/news/data-center-space-race-heats-up-as-starcloud-startup-requests-88000-satellites
 [19] Hyperscaler CapEx 2026 में $600B तक पहुंचा: AI Infrastructure ... - Introl https://introl.com/hi/blog/hyperscaler-capex-600b-2026-ai-infrastructure-debt-january-2026
+
+
+Classify 2.1
+是的，Broadcom 的 VeloRAIN 確實適用於 WAN，尤其針對 AI 工作負載的 SD-WAN 優化，包括無線鏈路。[1][2]
+
+## VeloRAIN 核心功能
+VeloRAIN（VeloCloud Robust Artificial Intelligence Networking）是基於 VeloCloud SD-WAN 平台的 AI 原生架構，主要提升分散式 AI 網路效能、安全與可擴展性。它不僅限於資料中心外，還專為邊緣 AI 應用設計。[3][1]
+
+- **AI 應用識別與切片**：動態辨識 AI 流量（如生成式 AI），並提供應用基礎切片（DABS），優化 QoE。[4][3]
+- **AIOps 管理**：自動調整政策、增強遙測，適應 AI 流量變化。[1]
+
+## 是否支援無線 WAN？
+**明確支援**，非僅「超越資料中心」：
+- **通道估計智慧**：針對無線鏈路（5G、衛星、FWA）進行 ML 預測，管理頻寬、延遲、抖動，即使作為主要或輔助鏈路，也達「類光纖 QoS」。這直接支援 5G + 衛星 bonding，正如報告所述。[2][5][6][3][4]
+- **混合網路**：優化無線與有線組合，適用企業邊緣部署。[7]
+
+報告描述「ML-based prediction of network conditions, bonding 5G + satellite links for generative AI traffic」完全符合官方規格，**無需標為 Not Firmed**。[8][2]
+
+## 建議修正報告
+移除 2.1 節 VeloRAIN 的「**Not Firmed**」標記，並加引文：
+```
+- **VeloRAIN (Broadcom):** ML-based prediction of network conditions, bonding 5G + satellite links for generative AI traffic [web:22][web:23]
+```
+這強化報告準確性，VeloRAIN 正是 AI WAN 的產業先驅。[8][1]
+
+來源
+[1] The AI-Ready WAN: https://docs.broadcom.com/doc/the-ai-ready-wan-how-velocloud-closes-the-ai-networking-gap
+[2] Broadcom Unveils VeloRAIN, an Industry-First for Robust AI Networking Beyond the Data Center | Taiwan News | Nov. 5, 2024 16:01 https://www.taiwannews.com.tw/news/5965261
+[3] VeloRAIN: AI Networking is the Next SD-WAN Revolution - Broadcom Community https://community.broadcom.com/blogs/vernon-apperson/2025/01/21/velorain-ai-networking-is-the-next-sd-wan-revoluti
+[4] Broadcom VeloRAIN adds AI on top of VeloCloud SD-WAN - SDxCentral https://www.sdxcentral.com/analysis/broadcom-velorain-adds-ai-on-top-of-velocloud-sd-wan/
+[5] Broadcom introduces VeloRAIN platform for optimized edge networking | brief | SC Media https://www.scworld.com/brief/broadcom-introduces-velorain-platform-for-optimized-edge-networking
+[6] Broadcom Juices VeloCloud SD-WAN For AI Networking https://www.gfmreview.com/technology/broadcom-juices-velocloud-sd-wan-for-ai-networking
+[7] Broadcom VeloSky brings application-based slicing to FWA, fibre and satellite links https://www.techzine.eu/blogs/infrastructure/129263/broadcom-velosky-brings-application-based-slicing-to-fwa-fibre-and-satellite-links/
+[8] Broadcom Unveils VeloRAIN, an Industry-First for Robust AI Networking Beyond the Data Center https://www.broadcom.com/company/news/product-releases/62666
+[9] Broadcom Unveils VeloRAIN, an Industry-First for Robust AI Networking Beyond the Data Center | Broadcom Inc. https://investors.broadcom.com/news-releases/news-release-details/broadcom-unveils-velorain-industry-first-robust-ai-networking
+[10] Broadcom推出業界首創VeloRAIN 打造超越數據中心的強健AI網路 - VMware Blogs https://blogs.vmware.com/vmware-taiwan/2024/11/06/broadcom%E6%8E%A8%E5%87%BA%E6%A5%AD%E7%95%8C%E9%A6%96%E5%89%B5velorain-%E6%89%93%E9%80%A0%E8%B6%85%E8%B6%8A%E6%95%B8%E6%93%9A%E4%B8%AD%E5%BF%83%E7%9A%84%E5%BC%B7%E5%81%A5ai%E7%B6%B2%E8%B7%AF/
