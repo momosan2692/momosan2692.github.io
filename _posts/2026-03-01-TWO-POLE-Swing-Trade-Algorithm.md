@@ -817,9 +817,12 @@ Every possible state transition is shown below. There are **no dead ends** — e
 *Last updated: 2026-03-05*  
 *License: CC BY-NC-SA 4.0 — Free for personal and educational use. Commercial use prohibited.*
 
+---
+# Appendix: Swing-Trade State Machine  v3.0 python code
 
+``` python
 """
-signals.py  —  Swing-Trade State Machine  v3.0
+# signals.py  —  Swing-Trade State Machine  v3.0
 ================================================
 CORE FIX v3.0:  Evidence Window Accumulator
 --------------------------------------------
@@ -1485,3 +1488,5 @@ def get_trade_summary(df, osc_payload=None, **kwargs) -> Dict[str, Any]:
         "win_rate":         round(len(profits)/len(exits)*100, 1) if exits else 0,
         "events":           [e.to_dict() for e in reversed(events)],
     }
+
+```
