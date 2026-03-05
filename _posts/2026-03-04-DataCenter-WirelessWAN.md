@@ -422,3 +422,5 @@ VeloRAIN（VeloCloud Robust Artificial Intelligence Networking）是基於 VeloC
 [8] Broadcom Unveils VeloRAIN, an Industry-First for Robust AI Networking Beyond the Data Center https://www.broadcom.com/company/news/product-releases/62666
 [9] Broadcom Unveils VeloRAIN, an Industry-First for Robust AI Networking Beyond the Data Center | Broadcom Inc. https://investors.broadcom.com/news-releases/news-release-details/broadcom-unveils-velorain-industry-first-robust-ai-networking
 [10] Broadcom推出業界首創VeloRAIN 打造超越數據中心的強健AI網路 - VMware Blogs https://blogs.vmware.com/vmware-taiwan/2024/11/06/broadcom%E6%8E%A8%E5%87%BA%E6%A5%AD%E7%95%8C%E9%A6%96%E5%89%B5velorain-%E6%89%93%E9%80%A0%E8%B6%85%E8%B6%8A%E6%95%B8%E6%93%9A%E4%B8%AD%E5%BF%83%E7%9A%84%E5%BC%B7%E5%81%A5ai%E7%B6%B2%E8%B7%AF/
+
+
