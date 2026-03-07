@@ -1,11 +1,11 @@
 ---
 layout: post
-title: CUTE/ Clever Ultimate Trading-data Engine 
+title: CUTE Clever Ultimate Trading-data Engine 
 subtitle: Multi-Source Stock Data Fetcher System
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/header/semiconductor.webp
 share-img: /assets/img/header/evidence.png
-published: true   # ← add this, post won't show on blog
+published: true 
 tags: [spec]
 ---
 
