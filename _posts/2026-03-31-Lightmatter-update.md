@@ -5,9 +5,9 @@ subtitle: Key Updates from Late 2024 to March 2026
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/header/semiconductor.webp
 share-img: /assets/img/header/evidence.png
-tags: [report, update]
 published: true    # ← add this, post won't show on blog
 pinned: true  # — pin a post to the top
+tags: [report, update]
 ---
 
 # Lightmatter — Updated Investment Analysis Supplement
