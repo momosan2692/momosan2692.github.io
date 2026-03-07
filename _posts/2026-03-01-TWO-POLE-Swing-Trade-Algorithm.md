@@ -6,7 +6,7 @@ cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/hello_world.jpeg
 share-img: /assets/img/path.jpg
 pinned: true
-tags: [Release Guide, draft]
+tags: [Release Guide, draft, pinned]
 ---
 
 # @CJH Swing-Trade Signal System
