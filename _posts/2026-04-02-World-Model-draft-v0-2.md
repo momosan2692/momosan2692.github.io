@@ -1,3 +1,15 @@
+---
+layout: post
+title: World Model From Video Generation to the Edge of AGI
+subtitle: A Discussion Report draft v0.2 — March 2026
+cover-img: /assets/img/path.jpg
+thumbnail-img: /assets/img/header/semiconductor.webp
+share-img: /assets/img/header/evidence.png
+published: true    # ← add this, post won't show on blog
+pinned: true  # — pin a post to the top
+tags: [report, draft]
+---
+
 # World Model: From Video Generation to the Edge of AGI
 ### A Discussion Report — March 2026
 
