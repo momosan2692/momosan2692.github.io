@@ -1,6 +1,6 @@
 ---
 layout: post
-title: World Model From Video Generation to the Edge of AGI
+title: World Model Draft v0.2
 subtitle: A Discussion Report draft v0.2 — March 2026
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/header/semiconductor.webp
