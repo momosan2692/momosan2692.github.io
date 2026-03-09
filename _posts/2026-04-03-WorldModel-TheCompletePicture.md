@@ -1,7 +1,7 @@
 ---
 layout: post
 title: World Model The Complete Picture
-subtitle: rom R2D2 to AGI
+subtitle: from R2D2 to AGI
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/header/r2d2.png
 share-img: /assets/img/header/r2d2.png
