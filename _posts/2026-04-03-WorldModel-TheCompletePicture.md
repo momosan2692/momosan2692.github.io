@@ -12,7 +12,23 @@ tags: [report, draft]
 
 # World Model: The Complete Picture
 ### From R2D2 to AGI — A Research Summary
-**March 8–9, 2026 | Definitive Edition**
+**March 8–9, 2026 | Version 2 — Fact-Checked Edition**
+
+---
+
+## ⚠️ Corrections Log (v1 → v2)
+
+All corrected items are marked inline with `⚠️ CORRECTED` throughout the document.
+
+| # | Section | v1 Error | v2 Correction |
+|---|---|---|---|
+| C1 | §3 Timeline | V-JEPA 2 listed as **2026** | Released **June 2025** |
+| C2 | §3 Timeline | SSI events implied **2026** | SSI founded **June 2024**; $1B Sep 2024 + $2B Mar 2025 |
+| C3 | §6 Three Tribes | Sutskever timeline vague | Left OpenAI **May 2024**; SSI founded **June 2024** |
+| C4 | §7 Research Teams | "Meta FAIR continues JEPA lineage" | FAIR effectively dissolved — restructured into Meta Superintelligence Labs **Aug 2025**, 600 layoffs **Oct 2025** |
+| C5 | §9 Tesla FSD | "FSD v12 adding RL" | FSD v12 = **Imitation Learning only**. RL arrives at **v14** |
+| C6 | §9 Tesla FSD | No hardware compatibility | FSD v14 requires **HW4 minimum**. HW3 locked at v12.6 |
+| C7 | §10 JEPA Table | V-JEPA 2 = **Jan 2026** | V-JEPA 2 = **June 2025** |
 
 ---
 
@@ -136,15 +152,22 @@ AI progress has never been linear. It arrives in bursts separated by long winter
       ● ChatGPT reaches 100M users
 2024  ● V-JEPA, Genie 1, Cosmos announced
       ● Tenstorrent $700M Series D
+      ● Ilya Sutskever leaves OpenAI (May) ⚠️ CORRECTED
+      ● Safe Superintelligence Inc. founded (June) ⚠️ CORRECTED
+      ● SSI raises $1B at $5B valuation (September) ⚠️ CORRECTED
 2025  ● NVIDIA Cosmos (9,000T tokens, 20M hours video)
-      ● DeepMind Genie 3 (real-time 3D, 24 FPS)
-      ● LeCun departs Meta
-      ● Runway GWM-1 released
-      ● Meta V-JEPA 2 — 65-80% robotics success
-2026  ● AMI Labs launched (€500M)
-      ● Tesla Robotaxi Austin (no safety driver)
-      ● Seedance 2.0 (ByteDance)
-      ● Anthropic revises Responsible Scaling Policy
+      ● Meta V-JEPA 2 released (June) ⚠️ CORRECTED — was listed as 2026
+      ● SSI raises $2B more — valuation reaches $32B (March) ⚠️ CORRECTED
+      ● DeepMind Genie 3 (real-time 3D, 24 FPS) (August)
+      ● Meta FAIR restructured into Meta Superintelligence Labs (August) ⚠️ CORRECTED
+      ● FSD v14 launched — IL + RL architecture (October)
+      ● Meta FAIR 600 layoffs — FAIR effectively dissolved (October) ⚠️ CORRECTED
+      ● LeCun departs Meta (December)
+      ● Runway GWM-1 released (December)
+2026  ● AMI Labs launched (€500M) (January)
+      ● Tesla Robotaxi Austin — no safety driver (January)
+      ● Seedance 2.0 (ByteDance) (February)
+      ● Anthropic revises Responsible Scaling Policy (February)
       ● Safety researcher resignations (Sharma, Hitzig, Leike)
 
 ━━━━  WE ARE HERE  ━━━━
@@ -229,7 +252,7 @@ Your observation is precise. The field has fractured into three camps — and th
 - Mrinank Sharma (Anthropic Safeguards lead) resigned, posting a letter that got 14.7M views on X
 - Zoë Hitzig (OpenAI) resigned via New York Times op-ed
 - Jan Leike (OpenAI Superalignment lead) resigned: "Safety has taken a backseat to shiny products"
-- Ilya Sutskever left OpenAI, founded Safe Superintelligence Inc., raised $3B, ships nothing
+- Ilya Sutskever left OpenAI **May 2024**, founded Safe Superintelligence Inc. **June 2024**, raised $1B (Sep 2024) + $2B (Mar 2025) = $3B total at $32B valuation — ~20 employees, ships nothing ⚠️ CORRECTED
 - The second International AI Safety Report published — the US declined to back it
 
 **Internal schism:**
@@ -309,8 +332,15 @@ Released **Genie 3** (August 2025): first real-time interactive world model. Gen
 ### ⚡ NVIDIA — Cosmos Team
 **Cosmos Predict 2.5** trained on 200M curated video clips. 9,000 trillion tokens from 20 million hours of real-world data. Downloaded 2M+ times by early 2026. Primary use: synthetic training data for robotics and autonomous vehicles.
 
-### 🔬 Meta FAIR
-V-JEPA 2 (January 2026): trained on 1M+ hours of internet video. 65–80% success on robotic pick-and-place in novel environments using only 62 hours of robot training data. Continues JEPA lineage post-LeCun.
+### 🔬 Meta FAIR ⚠️ CORRECTED — Status Changed
+V-JEPA 2 released **June 2025** (not January 2026): trained on 1M+ hours of internet video. 65–80% success on robotic pick-and-place in novel environments using only 62 hours of robot training data. This was among FAIR's last major outputs before organizational collapse.
+
+**What happened to FAIR:**
+- **May 2025:** Director Joelle Pineau departed
+- **August 2025:** Meta restructured all AI teams into **Meta Superintelligence Labs (MSL)** — FAIR became one of four sub-teams
+- **October 2025:** 600 layoffs hit FAIR, AI products, and infrastructure teams
+- FAIR's research is being absorbed into **TBD Lab**, led by Chief AI Officer Alexandr Wang
+- V-JEPA 2 was open-sourced (MIT license) before the restructuring — the research lives on through the community and LeCun's AMI Labs, not through FAIR itself
 
 ### 🤝 Boston Dynamics + Google DeepMind
 Electric Atlas robots integrated with Gemini Robotics models — world model research connected directly to physical deployment.
@@ -331,19 +361,46 @@ Electric Atlas robots integrated with Gemini Robotics models — world model res
 
 ## 9. Tesla FSD
 
-The closest deployed world model approximation on Earth — not by theoretical elegance, but by sheer scale.
+The closest deployed world model approximation on Earth — not by theoretical elegance, but by sheer scale and real-world data.
 
-- **FSD v12** (2024): Deleted 300,000+ lines of rule-based code. Replaced with a single end-to-end neural network.
-- **FSD v14** (2025–26): Adding RL and reasoning — key world model ingredients.
-- **8.3 billion FSD miles** accumulated by February 2026.
-- **January 2026:** Robotaxi service launched in Austin, Texas. No safety driver. Service area expanded four times.
+### Architecture — Precisely Stated ⚠️ CORRECTED
 
-| Feature | True World Model | Tesla FSD (2026) |
+| Version | Architecture | Key Change |
 |---|---|---|
-| Simulates future states | ✅ | ⚠️ Partial |
-| Physical reasoning | ✅ | ⚠️ Learned patterns |
-| Generalizes globally | ✅ | ❌ US-centric |
-| Unsupervised operation | ✅ | 🔄 Limited zones |
+| **FSD v12** (2024) | **Imitation Learning (IL)** | Deleted 300,000+ rule-based lines → single end-to-end neural net trained on human driving video. No reward signal. No RL. |
+| **FSD v14** (Oct 2025) | **IL + Reinforcement Learning** | Foundation from imitation; RL layer discovers strategies beyond human behavior. 10x larger model. "Park to Park" autonomy. |
+| **AI5 / HW5** (late 2026) | **IL + RL + purpose-built silicon** | 40x performance vs HW4. First in Cybercab. Potential first true edge world model. |
+
+> ⚠️ **v1 error corrected:** The original report said "FSD v12 adding RL." This is wrong. FSD v12 is pure Imitation Learning. RL arrives at v14.
+
+### Is FSD a World Model?
+
+FSD is **not** a world model by architecture — there is no explicit internal simulation engine. It is a world model **by behavior** — the occupancy network builds a 3D spatial representation of the environment, and 8.3 billion real-world miles encode an implicit physical understanding that no lab-built world model yet matches.
+
+| Feature | True World Model | FSD v12 (IL) | FSD v14 (IL+RL) |
+|---|---|---|---|
+| Internal simulation | ✅ Explicit | ❌ None | ❌ None |
+| Physical reasoning | ✅ Explicit | ⚠️ Implicit | ⚠️ Better |
+| Plans before acting | ✅ | ❌ | ⚠️ Emerging via RL |
+| Generalizes globally | ✅ | ❌ US-centric | ❌ Still limited |
+| Runs on edge | ✅ Required | ✅ HW4 | ✅ HW4 (HW5 for full) |
+
+### Hardware Compatibility — Who Can Run What ⚠️ CORRECTED (new section)
+
+| Hardware | Cars | FSD Version | Notes |
+|---|---|---|---|
+| **HW3 (AI3)** | Pre-2022 most models | v12.6 — frozen | Cannot run v14 full. v14 Lite coming Q2 2026 |
+| **HW4 (AI4)** | 2023+ Model 3/Y/S/X | v14 ✅ | Running now. Retrofit available for FSD purchasers |
+| **HW5 (AI5)** | Cybercab + late 2026+ | v14+ / future | 40x HW4, 800W power, required for unsupervised FSD at scale |
+
+**Why HW3 cannot simply upgrade via software:**
+- FSD v14 model is 10x larger than v12 — requires double the memory
+- HW4 has 5 megapixel cameras vs HW3's 1.2 megapixel
+- Different physical connector and cooling requirements
+- Hardware retrofit promised only for FSD **purchasers** (not subscribers) — no firm timeline
+
+**8.3 billion FSD miles** accumulated by February 2026.
+**January 2026:** Robotaxi service launched in Austin, Texas. No safety driver. Service area expanded four times.
 
 ---
 
@@ -371,7 +428,7 @@ Image
 | **I-JEPA** | 2023 | Images | Self-supervised without hand-crafted augmentation |
 | **V-JEPA** | 2024 | Video | Temporal physical world model from observation |
 | **MC-JEPA** | 2024 | Motion+Content | Captures what AND how simultaneously |
-| **V-JEPA 2** | Jan 2026 | Video+Robotics | 65-80% novel environment robotics success |
+| **V-JEPA 2** | **Jun 2025** ⚠️ | Video+Robotics | 65-80% novel environment robotics success |
 | **VL-JEPA** | Dec 2025 | Vision+Language | Comparable VLM at 50% fewer parameters |
 | **LeJEPA** | 2025 | Theory | Full theoretical foundation, ~50 lines of code |
 
@@ -550,7 +607,7 @@ The cost per transistor stopped decreasing at 5nm. Smaller is no longer cheaper.
 
 ## 15. Could 2026 Be the Next AI Winter?
 
-### Two Arguments Are Supported by Data
+### Your Two Arguments Are Supported by Data
 
 **Argument 1 — Hardware Gap:** TSMC's CoWoS advanced packaging and HBM supply chains are sold out through 2026 into 2027. Power availability is now the primary physical constraint on AI expansion. Data centers could consume 12% of US electricity by 2030.
 
