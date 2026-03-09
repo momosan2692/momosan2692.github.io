@@ -2,9 +2,9 @@
 layout: post
 title: World Model The Complete Picture
 subtitle: rom R2D2 to AGI
-cover-img: /assets/img/header/r2d2_friends.png
-thumbnail-img: /assets/img/header/semiconductor.webp
-share-img: /assets/img/header/evidence.png
+cover-img: /assets/img/path.jpg
+thumbnail-img: /assets/img/header/r2d2.png
+share-img: /assets/img/header/r2d2.png
 published: true    # ← add this, post won't show on blog
 pinned: false  # — pin a post to the top
 tags: [report, draft]
