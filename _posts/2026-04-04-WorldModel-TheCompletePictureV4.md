@@ -5,14 +5,15 @@ subtitle: from R2D2 to AGI
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/header/r2d2.png
 share-img: /assets/img/header/r2d2.png
-published: false    # ← add this, post won't show on blog
-pinned: false  # — pin a post to the top
+published: true    # ← add this, post won't show on blog
+pinned: true  # — pin a post to the top
 tags: [report, draft]
 ---
 
+
 # World Model: The Complete Picture
 ### From R2D2 to AGI — A Research Summary
-**March 8–9, 2026 | Version 2 — Fact-Checked Edition**
+**March 8–9, 2026 | Version 2.4 — Fact-Checked Edition**
 
 ---
 
@@ -26,9 +27,9 @@ All corrected items are marked inline with `⚠️ CORRECTED` throughout the doc
 | C2 | §3 Timeline | SSI events implied **2026** | SSI founded **June 2024**; $1B Sep 2024 + $2B Mar 2025 |
 | C3 | §6 Three Tribes | Sutskever timeline vague | Left OpenAI **May 2024**; SSI founded **June 2024** |
 | C4 | §7 Research Teams | "Meta FAIR continues JEPA lineage" | FAIR effectively dissolved — restructured into Meta Superintelligence Labs **Aug 2025**, 600 layoffs **Oct 2025** |
-| C5 | §9 Tesla FSD | "FSD v12 adding RL" | FSD v12 = **Imitation Learning only**. RL arrives at **v14** |
-| C6 | §9 Tesla FSD | No hardware compatibility | FSD v14 requires **HW4 minimum**. HW3 locked at v12.6 |
-| C7 | §10 JEPA Table | V-JEPA 2 = **Jan 2026** | V-JEPA 2 = **June 2025** |
+| C5 | §10 Tesla FSD | "FSD v12 adding RL" | FSD v12 = **Imitation Learning only**. RL arrives at **v14** |
+| C6 | §10 Tesla FSD | No hardware compatibility | FSD v14 requires **HW4 minimum**. HW3 locked at v12.6 |
+| C7 | §11 JEPA Table | V-JEPA 2 = **Jan 2026** | V-JEPA 2 = **June 2025** |
 
 ---
 
@@ -42,17 +43,18 @@ All corrected items are marked inline with `⚠️ CORRECTED` throughout the doc
 6. [The Three Tribes of AI Research](#6-the-three-tribes-of-ai-research)
 7. [Key Research Teams](#7-key-research-teams)
 8. [Product-Ready Projects](#8-product-ready-projects)
-9. [Tesla FSD — The Closest Real Approximation](#9-tesla-fsd)
-10. [I-JEPA and the Architecture Family](#10-i-jepa-and-the-architecture-family)
-11. [Hardware Requirements](#11-hardware-requirements)
-12. [Jim Keller and Tenstorrent](#12-jim-keller-and-tenstorrent)
-13. [Japan's LSTC ↔ Rapidus](#13-japans-lstc--rapidus)
-14. [The Semiconductor Cost Wall](#14-the-semiconductor-cost-wall)
-15. [Could 2026 Be the Next AI Winter](#15-could-2026-be-the-next-ai-winter)
-16. [The 抽象概念 Problem — The Deepest Gap](#16-the-抽象概念-problem)
-17. [The Big Picture Map](#17-the-big-picture-map)
-18. [Lucky, Unlucky — or Simply Wise](#18-lucky-unlucky--or-simply-wise)
-19. [References](#19-references)
+9. [The World Model Misconception — A Medical AI Case Study](#9-the-world-model-misconception)
+10. [Tesla FSD — The Closest Real Approximation](#10-tesla-fsd)
+11. [I-JEPA and the Architecture Family](#11-i-jepa-and-the-architecture-family)
+12. [Hardware Requirements](#12-hardware-requirements)
+13. [Jim Keller and Tenstorrent](#13-jim-keller-and-tenstorrent)
+14. [Japan's LSTC ↔ Rapidus](#14-japans-lstc--rapidus)
+15. [The Semiconductor Cost Wall](#15-the-semiconductor-cost-wall)
+16. [Could 2026 Be the Next AI Winter](#16-could-2026-be-the-next-ai-winter)
+17. [The 抽象概念 Problem — The Deepest Gap](#17-the-抽象概念-problem)
+18. [The Big Picture Map](#18-the-big-picture-map)
+19. [Lucky, Unlucky — or Simply Wise](#19-lucky-unlucky--or-simply-wise)
+20. [References](#20-references)
 
 ---
 
@@ -359,7 +361,109 @@ Electric Atlas robots integrated with Gemini Robotics models — world model res
 
 ---
 
-## 9. Tesla FSD
+## 9. The World Model Misconception — A Medical AI Case Study
+
+The medical AI landscape in 2026 provides the clearest illustration of a confusion spreading across the entire field: **multimodal capability is being mistaken for world model capability.** Three models released within months of each other make the distinction precise — and necessary.
+
+---
+
+### The Three Models
+
+**BiomedGPT** (Lehigh University / NSF, 2024)
+Generalist biomedical AI trained on vast amounts of biomedical text and images. One model handles tumor detection, literature analysis, molecular behavior prediction, and clinical image interpretation — with minimal retraining per task. This is the *GPT moment* for biomedicine: the shift from narrow specialist tools to a broad generalist foundation model.
+
+**MedGemma** (Google DeepMind, May 2025 → v1.5 January 2026)
+Open-source medical foundation model built on Gemma 3. Available in 4B (multimodal, edge-deployable) and 27B sizes. Strong on radiology report generation, clinical summarization, patient triage, and medical question answering. Downloadable, hospital-deployable, privacy-preserving — the model runs on institutional hardware, addressing clinical data privacy requirements.
+
+**SMB-Structure** (Standard Model Biomedicine, January 2026)
+Applies JEPA architecture directly to longitudinal Electronic Health Records. Combines supervised fine-tuning (SFT) for clinical semantic grounding with JEPA latent-space prediction for trajectory dynamics. The paper's title states the thesis precisely: *"The Patient is not a Moving Document."* Validated on 40,000+ patients across Memorial Sloan Kettering oncology and Stanford pulmonary embolism cohorts.
+
+---
+
+### The Distinction — Precisely Drawn
+
+| Property | BiomedGPT | MedGemma | SMB-Structure |
+|---|---|---|---|
+| Modalities | Text + Image | Text + Image | Text / EHR only |
+| Core paradigm | **Reconstruction** | **Reconstruction** | **Simulation** |
+| Core question | "What is present?" | "What does this show?" | "Where is this going?" |
+| Time horizon | Single snapshot | Single snapshot | Longitudinal trajectory |
+| Multimodal? | ✅ | ✅ | ❌ Not yet |
+| World model? | ❌ | ❌ | ✅ Partial |
+
+The single question that separates them:
+
+> *"Can it predict what happens next — causally, not statistically — in a situation it has never seen before?"*
+
+BiomedGPT and MedGemma cannot. They describe. They reconstruct. They are extraordinarily useful for what they are — but they are sophisticated pattern matchers operating on medical data, not simulators of biological dynamics.
+
+SMB-Structure attempts something different. By forcing the encoder to predict future patient embeddings **before observing future states**, it encodes the direction and velocity of disease — what the paper calls *"clinical momentum."* This is the world model property: not describing where the patient is, but simulating where the patient is going.
+
+---
+
+### The Three Common Misconceptions — Addressed Directly
+
+**Misconception 1: "Multimodal = World Model"**
+
+Processing multiple input types does not confer causal understanding. A security camera sees everything in a room — it has zero world model. GPT-4o processes text, images, and audio fluently. Ask it to predict where a ball lands after bouncing off two walls — it fails by guessing from statistical patterns. A three-year-old succeeds by running a mental simulation.
+
+BiomedGPT and MedGemma are powerful *because* they are multimodal. But multimodality is about *input breadth*, not *causal depth.*
+
+**Misconception 2: "Video Generation = World Model"**
+
+Sora, Seedance 2.0, and Runway GWM-1 generate physically plausible video. They learned what physics *looks like* statistically — not what physics *is* causally. They cannot be queried about physics. They cannot plan using physics. They are brilliant cinematographers, not physicists. Realism of output ≠ correctness of internal causal model.
+
+**Misconception 3: "Medical AI + Images = Medical World Model"**
+
+This is the most consequential misconception in healthcare specifically. A model that reads an X-ray and describes a tumor is not simulating disease progression. A model that summarizes a patient's history is not predicting their trajectory. The SMB-Structure paper states this directly: the training objective of autoregressive models enables them to answer *"what word comes next?"* — but nothing incentivizes them to answer *"how will the patient's state evolve?"*
+
+BiomedGPT and MedGemma answer the first question exceptionally well. SMB-Structure is the first serious attempt at the second.
+
+---
+
+### The Taxonomy — Four Categories, Clearly Separated
+
+```
+UNIMODAL MODELS
+  Examples: GPT-2, BERT, Whisper
+  → One input type. Reconstruction only.
+  → World model: ❌
+
+MULTIMODAL MODELS
+  Examples: GPT-4V, MedGemma, BiomedGPT, Gemini, Claude
+  → Multiple input types. Still reconstruction.
+  → Common mistake: "Sees everything → understands reality"
+  → World model: ❌
+
+GENERATIVE SIMULATORS
+  Examples: Sora, Seedance 2.0, Runway GWM-1
+  → Generates physically plausible output.
+  → Common mistake: "Realistic physics output → has world model"
+  → World model: ❌ Looks like one. Isn't one.
+
+TRUE WORLD MODELS
+  Examples: V-JEPA 2, Genie 3, SMB-Structure, Dreamer
+  → Internal simulation of state transitions
+  → Predicts future states WITHOUT generating pixels
+  → Plans by imagining before acting
+  → Causal structure encoded in latent space
+  → World model: ✅
+```
+
+---
+
+### The Medical World Model — Still Missing
+
+What does not yet exist: a model combining BiomedGPT's input breadth (images + text + labs + genomics) with SMB-Structure's trajectory simulation — extended to **intervention-conditioned counterfactual reasoning:**
+
+> *"If we give this patient Drug A versus Drug B — simulate both trajectories and show where each leads in 365 days."*
+
+SMB-Structure's authors name this explicitly as their next step. When it arrives, the distinction between multimodal model and world model will matter enormously for how clinicians trust and act on its predictions. A model that *describes* a patient and a model that *simulates* a patient are not the same tool — and should never be evaluated or deployed as if they were.
+
+---
+
+
+## 10. Tesla FSD
 
 The closest deployed world model approximation on Earth — not by theoretical elegance, but by sheer scale and real-world data.
 
@@ -404,7 +508,7 @@ FSD is **not** a world model by architecture — there is no explicit internal s
 
 ---
 
-## 10. I-JEPA and the Architecture Family
+## 11. I-JEPA and the Architecture Family
 
 ### The Core Idea
 Rather than predicting raw pixels (generative models) or comparing augmented views (contrastive models), JEPA predicts in **abstract representation space**:
@@ -450,7 +554,7 @@ CONTRASTIVE (DINO, SimCLR, CLIP):
 
 ---
 
-## 11. Hardware Requirements
+## 12. Hardware Requirements
 
 ### The Memory Bottleneck — The Core Constraint
 
@@ -489,7 +593,7 @@ CONTRASTIVE (DINO, SimCLR, CLIP):
 
 ---
 
-## 12. Jim Keller and Tenstorrent
+## 13. Jim Keller and Tenstorrent
 
 Jim Keller — designer of AMD Zen, Apple A4, Tesla Autopilot silicon — became CEO of Tenstorrent in 2023.
 
@@ -511,7 +615,7 @@ Jim Keller — designer of AMD Zen, Apple A4, Tesla Autopilot silicon — became
 
 ---
 
-## 13. Japan's LSTC ↔ Rapidus
+## 14. Japan's LSTC ↔ Rapidus
 
 Japan once commanded 50% of global semiconductor market share in the 1980s. Three decades of decline followed — the 1986 US-Japan Semiconductor Agreement, the rise of Samsung, the rise of TSMC. By 2022, Japan produced almost none of the world's leading-edge chips.
 
@@ -569,7 +673,7 @@ Jim Keller (Tenstorrent)
 
 ---
 
-## 14. The Semiconductor Cost Wall
+## 15. The Semiconductor Cost Wall
 
 ### The Tapeout Escalation
 
@@ -605,7 +709,7 @@ The cost per transistor stopped decreasing at 5nm. Smaller is no longer cheaper.
 
 ---
 
-## 15. Could 2026 Be the Next AI Winter?
+## 16. Could 2026 Be the Next AI Winter?
 
 ### Your Two Arguments Are Supported by Data
 
@@ -641,7 +745,7 @@ The hardware wall and model non-linearity together are forcing exactly the archi
 
 ---
 
-## 16. The 抽象概念 Problem
+## 17. The 抽象概念 Problem
 
 This is the **deepest unsolved problem** in world model research — and the most honest answer to "when will world models reach AGI?"
 
@@ -689,7 +793,7 @@ No announced architecture directly addresses the abstract concept layer. No benc
 
 ---
 
-## 17. The Big Picture Map
+## 18. The Big Picture Map
 
 ### The AGI Formula
 
@@ -729,7 +833,7 @@ AGI = World Model
 
 ---
 
-## 18. Lucky, Unlucky — or Simply Wise?
+## 19. Lucky, Unlucky — or Simply Wise?
 
 After everything in this report — the architectures, the products, the silicon economics, the three camps, the abstract concept gap — one observation emerges quietly at the end.
 
@@ -761,7 +865,7 @@ Understanding without exposure is not passivity. It is preparation.
 
 ---
 
-## 19. References
+## 20. References
 
 | # | Source |
 |---|---|
