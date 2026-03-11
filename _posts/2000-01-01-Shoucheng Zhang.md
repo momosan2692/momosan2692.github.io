@@ -5,7 +5,7 @@ subtitle: 天使粒子和量子計算與未竟的統一理論
 cover-img: /assets/img/header/2026-03-04/DATACENTER.jpeg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-03-04/DATACENTER.jpeg
-published: false    # ← add this, post won't show on blog
+published: true    # ← add this, post won't show on blog
 pinned: false # true — pin a post to the top
 tags: []
 ---
