@@ -5,7 +5,8 @@ subtitle: User Guide — Release v2.1 Draft
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/hello_world.jpeg
 share-img: /assets/img/path.jpg
-pinned: true
+published: false    # ← add this, post won't show on blog
+pinned: false
 tags: [Release Guide, draft, pinned]
 ---
 
