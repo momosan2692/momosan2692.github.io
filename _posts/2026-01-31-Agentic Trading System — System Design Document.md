@@ -5,7 +5,7 @@ subtitle: System Design Document
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/hello_world.jpeg
 share-img: /assets/img/path.jpg
-tags: [report, test]
+tags: [release]
 ---
 
 # Agentic Trading System — System Design Document
