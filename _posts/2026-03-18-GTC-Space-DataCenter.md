@@ -35,7 +35,7 @@ tags: [report]
 
 At GTC 2026 on March 16, Jensen Huang declared **"Space computing, the final frontier, has arrived."**
 
-NVIDIA announced that its latest accelerated computing platforms are unlocking a new era of space innovation, bringing AI compute to **Orbital Data Centers (ODCs)**, geospatial intelligence, and autonomous space operations — enabling AI applications to run seamlessly from ground to space, and space to space.
+NVIDIA announced that its latest accelerated computing platforms are unlocking a new era of space innovation, bringing AI compute to **Orbital Data Centers (ODCs)**, geospatial intelligence, and autonomous space operations — enabling AI applications to run seamlessly from ground to space, and space to space. 
 
 > *"As we deploy satellite constellations and explore deeper into space, intelligence must live wherever data is generated. AI processing across space and ground systems enables real-time sensing, decision-making and autonomy."*
 > — Jensen Huang, NVIDIA CEO
