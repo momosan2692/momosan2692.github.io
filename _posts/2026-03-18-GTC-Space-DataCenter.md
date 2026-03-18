@@ -1,4 +1,3 @@
-```markdown
 ---
 layout: post
 title: Space Data Centers
