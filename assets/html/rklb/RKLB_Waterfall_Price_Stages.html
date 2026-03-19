@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RKLB — Neutron Stage Price Scenarios</title>
+<style>
+  :root {
+    --bg: #ffffff; --bg2: #f6f5f0; --bg3: #eeede8;
+    --text: #1a1a18; --text2: #73726c; --text3: #9c9a92;
+    --border: rgba(0,0,0,0.12); --border2: rgba(0,0,0,0.2);
+    --radius: 10px;
+    --green: #639922; --green-bg: #EAF3DE; --green-text: #27500A;
+    --amber: #BA7517; --amber-bg: #FAEEDA; --amber-text: #633806;
+    --red: #A32D2D; --red-bg: #FCEBEB; --red-text: #501313;
+    --blue: #185FA5; --blue-bg: #E6F1FB; --blue-text: #0C447C;
+    --teal: #0F6E56; --teal-bg: #E1F5EE; --teal-text: #085041;
+    --gray-bg: #F1EFE8; --gray-text: #444441;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1e1e1c; --bg2: #2a2a27; --bg3: #333330;
+      --text: #e8e6dc; --text2: #9c9a92; --text3: #73726c;
+      --border: rgba(255,255,255,0.1); --border2: rgba(255,255,255,0.2);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+         background: var(--bg); color: var(--text); padding: 32px 24px; max-width: 760px; margin: 0 auto; line-height: 1.5; }
+  h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: var(--text2); margin-bottom: 24px; }
+  .top-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+  .metric { background: var(--bg2); border-radius: 8px; padding: 12px 14px; }
+  .metric-num { font-size: 22px; font-weight: 600; line-height: 1.2; }
+  .metric-label { font-size: 11px; color: var(--text2); margin-top: 3px; }
+  .stage-nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .sn-btn { font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 20px;
+            border: 1px solid var(--border2); background: var(--bg2); color: var(--text2);
+            cursor: pointer; transition: all .15s; }
+  .sn-btn.active { color: #fff; border-color: transparent; }
+  .sn-btn.s0.active { background: #888780; }
+  .sn-btn.s1.active { background: #A32D2D; }
+  .sn-btn.s2.active { background: #BA7517; }
+  .sn-btn.s3.active { background: #185FA5; }
+  .sn-btn.s4.active { background: #3B6D11; }
+  .sn-btn.s5.active { background: #0F6E56; }
+  .card { border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 14px; background: var(--bg); }
+  .card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+  .stage-dot { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center;
+               justify-content: center; font-size: 13px; font-weight: 600; flex-shrink: 0; color: #fff; }
+  .card-title { font-size: 14px; font-weight: 600; line-height: 1.4; }
+  .card-sub { font-size: 12px; color: var(--text2); margin-top: 4px; line-height: 1.5; }
+  .price-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 14px 0; }
+  .price-cell { background: var(--bg2); border-radius: 7px; padding: 10px 12px; }
+  .price-cell-label { font-size: 10px; color: var(--text3); margin-bottom: 3px; text-transform: uppercase; letter-spacing: .04em; }
+  .price-cell-val { font-size: 18px; font-weight: 600; }
+  .prob-bar-wrap { margin: 12px 0; }
+  .prob-bar-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); margin-bottom: 5px; }
+  .prob-bar-bg { background: var(--bg2); border-radius: 4px; height: 7px; overflow: hidden; }
+  .prob-bar-fill { height: 100%; border-radius: 4px; transition: width .4s ease; }
+  .divider { height: 1px; background: var(--border); margin: 12px 0; }
+  .catalyst-list { font-size: 12px; color: var(--text2); line-height: 1.8; }
+  .catalyst-list span { display: block; padding-left: 14px; position: relative; }
+  .catalyst-list span::before { content: "·"; position: absolute; left: 0; color: var(--text3); }
+  .section-title { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase;
+                   letter-spacing: .06em; margin-bottom: 10px; }
+  .waterfall-wrap { margin: 14px 0; }
+  .wf-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .wf-label { font-size: 11px; color: var(--text2); width: 160px; flex-shrink: 0; text-align: right; }
+  .wf-bar-outer { flex: 1; background: var(--bg2); border-radius: 4px; height: 22px; overflow: hidden; }
+  .wf-bar-inner { height: 100%; border-radius: 4px; display: flex; align-items: center;
+                  padding: 0 8px; font-size: 11px; font-weight: 600; color: #fff; transition: width .5s ease; }
+  .wf-price { font-size: 11px; font-weight: 600; width: 44px; flex-shrink: 0; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 14px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text2); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .note { font-size: 11px; color: var(--text3); padding: 10px 14px; background: var(--bg2);
+          border-radius: 7px; line-height: 1.6; margin-top: 8px; border-left: 3px solid var(--border2); }
+  .timestamp { font-size: 11px; color: var(--text3); text-align: right; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<h1>Rocket Lab (RKLB) — Neutron Stage Price Scenarios</h1>
+<div class="subtitle">Investment scenario analysis by hardware milestone · March 2026</div>
+
+<div class="top-bar">
+  <div class="metric">
+    <div class="metric-num" style="color:#185FA5">$72</div>
+    <div class="metric-label">Current price (Mar 19, 2026)</div>
+  </div>
+  <div class="metric">
+    <div class="metric-num" style="color:#3B6D11">$88</div>
+    <div class="metric-label">Analyst consensus target</div>
+  </div>
+  <div class="metric">
+    <div class="metric-num" style="color:#633806">$120</div>
+    <div class="metric-label">Bull case (BofA target)</div>
+  </div>
+</div>
+
+<div class="section-title">Select a milestone stage</div>
+<div class="stage-nav" id="nav"></div>
+<div id="stage-content"></div>
+
+<div class="divider"></div>
+<div class="section-title">Waterfall: price path by stage</div>
+<div class="waterfall-wrap" id="waterfall"></div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#888780"></div>Baseline now</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#A32D2D"></div>Bear / delay</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#BA7517"></div>Recovery</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#185FA5"></div>Progress</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#3B6D11"></div>Launch success</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#0F6E56"></div>Full optionality</div>
+</div>
+
+<div class="note">⚠ All price estimates are scenario-based projections for investor framing only, not financial advice. RKLB is pre-profitability with beta 2.08. Actual price movements may significantly exceed any range shown.</div>
+
+<div class="timestamp">Generated: March 19, 2026 · Source: Rocket Lab SEC filings, Q4 2025 earnings, SDA contract announcements</div>
+
+<script>
+const stages = [
+  { id:0, key:"s0", label:"Today baseline", dot:"#888780", color:"#888780",
+    trigger:"Current state — March 2026",
+    desc:"Stage 1 tank failure under remediation. ATM raise dilutes ~3–4%. Backlog $1.85B. Neutron Q4 2026 guidance intact but unproven.",
+    bear:58, base:72, bull:82, prob:100,
+    catalysts:["SDA TRKT3 ($816M) begins ramp — revenue 2027–2029","MACH-TB 2.0 ($190M HASTE) starts flowing Q2 2026","Q1 2026 revenue guided $185–200M (+38% YoY)","ATM overhang: $1B raise = ~3–4% dilution at current price"] },
+  { id:1, key:"s1", label:"Tank fails again", dot:"#A32D2D", color:"#A32D2D",
+    trigger:"Stage 1 tank fails requalification (Q2 2026)",
+    desc:"Second structural failure pushes Neutron to mid/late 2027. NSSL Lane 1 task orders remain locked. Market prices out Neutron premium entirely.",
+    bear:38, base:48, bull:60, prob:15,
+    catalysts:["Analyst downgrades — Needham $55 floor tested; possible cut to $38–42","Electron + SDA backlog holds floor (~$40–45 ex-Neutron)","ATM proceeds fund operations for 18–24 months","SpaceX IPO narrative pulls capital away from RKLB"] },
+  { id:2, key:"s2", label:"Tank requalified", dot:"#BA7517", color:"#BA7517",
+    trigger:"Tank passes requalification testing (Q2 2026)",
+    desc:"Critical risk removed. Vehicle moves to LC-3 integration. Q4 launch back on track. Market begins re-rating Neutron optionality.",
+    bear:68, base:82, bull:95, prob:55,
+    catalysts:["Consensus target $88 becomes floor, not ceiling","NSSL Lane 1 task order bidding rights priced back in","Peter Beck press release re-ignites retail momentum","Q2 earnings: Neutron spend plateaus → margin improvement visible","Analyst upgrades — expect 2–3 ratings lifts"] },
+  { id:3, key:"s3", label:"Static fire passed", dot:"#185FA5", color:"#185FA5",
+    trigger:"First-stage full-duration static fire success (Q3 2026)",
+    desc:"All 7 Archimedes engines fire for full mission duration. Technical proof-of-concept complete. Hard launch date set within Q4.",
+    bear:80, base:95, bull:115, prob:42,
+    catalysts:["Hard launch date set within Q4 — high-conviction re-rating","BofA $120 target achievable on this milestone alone","Live-streamed static fire = massive retail momentum","First NSSL task order RFPs may already be in circulation","Institutional accumulation ahead of launch window"] },
+  { id:4, key:"s4", label:"Orbit reached", dot:"#3B6D11", color:"#3B6D11",
+    trigger:"Neutron Flight 1 reaches orbit (Q4 2026)",
+    desc:"Neutron successfully delivers payload to orbit — expendable (no recovery on Flight 1). NSSL Lane 1 fully unlocked. Largest single catalyst in RKLB history.",
+    bear:95, base:120, bull:155, prob:35,
+    catalysts:["NSSL Phase 3 Lane 1: $5.6B pool, min 30 missions now bid-eligible","2 pre-sold commercial constellation missions activate","ATH $99.58 surpassed; price discovery above $100","Potential index inclusion triggers forced institutional buying","FY2027 revenue est. jumps to $1.2–1.4B on Neutron addition"] },
+  { id:5, key:"s5", label:"Recovery + NSSL wins", dot:"#0F6E56", color:"#0F6E56",
+    trigger:"Flight 2 recovery success + first NSSL task orders (2027)",
+    desc:"Booster recovered on barge. First NSSL task orders awarded. Neutron is now cost-competitive. RKLB becomes a full-spectrum launch + space systems company.",
+    bear:120, base:155, bull:200, prob:20,
+    catalysts:["Reusable medium launch: ~$30–40M/mission vs Falcon 9 ~$67M","Each NSSL task order worth $50–150M individually","SDA TRKT3 satellites in delivery — $816M flowing through P&L","Revenue run-rate reaches $1.5–1.8B; path to EBITDA positive","International launch contracts open (ESA, JAXA, commercial)"] }
+];
+
+const MAX_PRICE = 200;
+
+function render(idx) {
+  const s = stages[idx];
+  document.getElementById('nav').innerHTML = stages.map((st,i)=>
+    `<button class="sn-btn ${st.key} ${i===idx?'active':''}" onclick="render(${i})">${st.label}</button>`
+  ).join('');
+  const upside = Math.round(((s.base - 72) / 72) * 100);
+  const upsideStr = upside >= 0 ? `+${upside}%` : `${upside}%`;
+  document.getElementById('stage-content').innerHTML = `
+    <div class="card">
+      <div class="card-header">
+        <div class="stage-dot" style="background:${s.dot}">S${s.id}</div>
+        <div>
+          <div class="card-title">${s.trigger}</div>
+          <div class="card-sub">${s.desc}</div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div class="price-cell">
+          <div class="price-cell-label">Bear case</div>
+          <div class="price-cell-val" style="color:#A32D2D">$${s.bear}</div>
+        </div>
+        <div class="price-cell">
+          <div class="price-cell-label">Base case</div>
+          <div class="price-cell-val" style="color:${s.color}">$${s.base} <span style="font-size:12px">(${upsideStr})</span></div>
+        </div>
+        <div class="price-cell">
+          <div class="price-cell-label">Bull case</div>
+          <div class="price-cell-val" style="color:#3B6D11">$${s.bull}</div>
+        </div>
+      </div>
+      <div class="prob-bar-wrap">
+        <div class="prob-bar-label">
+          <span>Probability this stage is reached</span>
+          <span style="font-weight:600;color:${s.color}">${s.prob}%</span>
+        </div>
+        <div class="prob-bar-bg">
+          <div class="prob-bar-fill" style="width:${s.prob}%;background:${s.color}"></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="catalyst-list">${s.catalysts.map(c=>`<span>${c}</span>`).join('')}</div>
+    </div>`;
+  document.getElementById('waterfall').innerHTML = stages.map((st,i)=>{
+    const w = Math.round((st.base / MAX_PRICE) * 100);
+    const active = i === idx;
+    return `
+      <div class="wf-bar-row">
+        <div class="wf-label">${st.label}</div>
+        <div class="wf-bar-outer">
+          <div class="wf-bar-inner" style="width:${w}%;background:${st.dot};opacity:${active?1:0.4}">
+            ${active ? `$${st.base}` : ''}
+          </div>
+        </div>
+        <div class="wf-price" style="opacity:${active?1:0.4};color:${active?st.color:'var(--text2)'}">$${st.base}</div>
+      </div>`;
+  }).join('');
+}
+render(0);
+</script>
+</body>
+</html>
