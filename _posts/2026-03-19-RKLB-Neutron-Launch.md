@@ -144,7 +144,7 @@ The number code decoded:
 
 The most common investor mistake around ATMs is using stale or wrong share counts. The dilution percentage is:
 
-$$\text{Dilution} = \frac{\text{ATM Amount} \div \text{Stock Price}}{\text{Shares Outstanding}}$$
+**Dilution % = (ATM Amount ÷ Stock Price) ÷ Shares Outstanding**
 
 **Always use the most current shares outstanding from the filing itself — not from a financial data terminal, which may lag by a quarter.**
 
