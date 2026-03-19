@@ -76,7 +76,7 @@ Stage 5 — Recovery + NSSL wins   ███████████████
 
 *Bar length proportional to base case price vs $200 ceiling. Bear/bull ranges shown in scenario detail below.*
 
-> 🔗 **Interactive version:** [RKLB Waterfall — Stage Price Scenarios](assets/html/rklb/RKLB_Waterfall_Price_Stages.html)
+> 🔗 **Interactive version:** [RKLB Waterfall — Stage Price Scenarios][Chart](/assets/html/rklb/RKLB_Waterfall_Price_Stages.html)
 > *(Static link — update path when deploying)*
 
 ---
