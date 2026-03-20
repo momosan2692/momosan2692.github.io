@@ -170,7 +170,7 @@ The canonical next-generation agentic architecture separates concerns across fiv
 ## 6. Reasoning in 1B Models — What Actually Works
 
 > **Figure 2 — 1B model reasoning capability map: what works vs. what doesn't**
->
+> ![Reasoning in Models](/assets/img/header/2026-03-20/figure2.png){: width="90%" height="90%" .mx-auto.d-block}
 > *(paste screenshot here)*
 
 ### The core problem
