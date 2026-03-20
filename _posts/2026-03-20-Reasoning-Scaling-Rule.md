@@ -7,296 +7,352 @@ thumbnail-img: /assets/img/header/semiconductor.webp
 share-img: /assets/img/header/evidence.png
 published: true    # ← add this, post won't show on blog
 pinned: false  # — pin a post to the top
-tags: [draft]
+tags: []
 ---
 
 # Reasoning Scaling Rules — A Deep Technical Analysis
 ### From Test-Time Compute to Bounded Rationality to Two-Phase Intelligence
 
 **Date:** March 2026  
-**Context:** Extended technical dialogue exploring the nature of reasoning in AI systems, grounded in 50 years of Go game intuition and current AI research.
+**Context:** Continuation of "Small Models, Specialist Agents & the Agentic AI Fabric" report  
+**Key insight thread:** Go game player's intuition → AlphaGo's "bigger chess" → the two-phase intelligence structure
 
 ---
 
 ## Table of Contents
 
-1. [The Two Scaling Laws](#1-the-two-scaling-laws)
-2. [The Original Scaling Law — Training-Time](#2-the-original-scaling-law--training-time)
-3. [The New Scaling Law — Test-Time Compute](#3-the-new-scaling-law--test-time-compute)
-4. [The Three Mechanisms of Test-Time Scaling](#4-the-three-mechanisms-of-test-time-scaling)
-5. [Where Test-Time Scaling Breaks](#5-where-test-time-scaling-breaks)
-6. [Bounded Rationality — The Go Master's Answer](#6-bounded-rationality--the-go-masters-answer)
-7. [AlphaGo's Three Cognitive Moves](#7-alphagos-three-cognitive-moves)
-8. [HyperTree Planning — The Strategic Style](#8-hypertree-planning--the-strategic-style)
-9. [The Critique of Current Reasoning Scaling](#9-the-critique-of-current-reasoning-scaling)
-10. [AlphaGo's Style — The Bigger Chess](#10-alphagos-style--the-bigger-chess)
-11. [The Ontology as Sandbox](#11-the-ontology-as-sandbox)
-12. [The Two Ontologies](#12-the-two-ontologies)
-13. [The Two-Phase Intelligence Structure](#13-the-two-phase-intelligence-structure)
-14. [The Real Frontier](#14-the-real-frontier)
-15. [Key Takeaways](#15-key-takeaways)
+1. [The Original Scaling Law — Training-Time](#1-the-original-scaling-law--training-time)
+2. [The New Scaling Law — Test-Time Compute](#2-the-new-scaling-law--test-time-compute)
+3. [The Three Mechanisms of Test-Time Scaling](#3-the-three-mechanisms-of-test-time-scaling)
+4. [The Honest Limits — Where Test-Time Scaling Breaks](#4-the-honest-limits--where-test-time-scaling-breaks)
+5. [Bounded Rationality — The Go Game Parallel](#5-bounded-rationality--the-go-game-parallel)
+6. [The Go Master's Three Cognitive Moves](#6-the-go-masters-three-cognitive-moves)
+7. [The Three Levels of Thinking](#7-the-three-levels-of-thinking)
+8. [AlphaGo's "Bigger Chess"](#8-alphagos-bigger-chess)
+9. [Hierarchical Reasoning — the Research Response](#9-hierarchical-reasoning--the-research-response)
+10. [The Ontology as Sandbox — and Its Limits](#10-the-ontology-as-sandbox--and-its-limits)
+11. [Two-Phase Intelligence — The Deepest Frame](#11-two-phase-intelligence--the-deepest-frame)
+12. [Key Takeaways](#12-key-takeaways)
 
 ---
 
-## 1. The Two Scaling Laws
+## 1. The Original Scaling Law — Training-Time
 
-The AI field has shifted from a single optimization axis to two distinct and interacting scaling laws. Understanding both — and their interaction — is the central architectural question of 2025–2026.
-
-| Dimension | Training-Time Scaling | Test-Time Compute Scaling |
-|---|---|---|
-| What scales | Parameters + data + FLOPs | Reasoning tokens + search depth |
-| When it applies | Before deployment | At inference, per query |
-| Cost | Millions of $ · weeks of compute | Tokens per query |
-| Benefit | Permanent capability gain (baked into weights) | Per-query quality boost, tunable |
-| Bottleneck | Data quality + GPU hours | Latency + token budget |
-| Result | Better model fixed at deployment | Better answer adaptive at inference |
-
-The profound implication: **a smaller trained model with heavy test-time compute can match a larger trained model with no thinking.** This creates a new design space — the combined scaling frontier.
-
----
-
-## 2. The Original Scaling Law — Training-Time
-
-The classical Chinchilla scaling law (Hoffmann et al., 2022) established that model performance scales predictably as a power law with training compute:
+The classical **Chinchilla scaling law** (Hoffmann et al., 2022) established that model performance scales predictably as a power law with training compute:
 
 ```
-Performance ∝ (training compute)^α
+Performance ∝ (Parameters × Training_tokens × FLOPs)^α
 ```
 
-The three levers:
-- **More parameters** — scale model size following the power law
+Three levers, all training-side:
+- **More parameters** — scale model size
 - **More training data** — tokens proportional to parameters (Chinchilla ratio)
-- **More training FLOPs** — compute budget translates to capability
+- **More training FLOPs** — compute budget translates directly to capability
 
-This was the only dial for years. Every major model advance (GPT-3 → GPT-4, LLaMA 1 → LLaMA 3) operated entirely on this axis. The result is baked permanently into the model weights at deployment — it cannot be changed at inference time.
+The critical characteristic: capability is **baked in at training time** and fixed at deployment. Once trained, the model does not change.
 
----
-
-## 3. The New Scaling Law — Test-Time Compute
-
-Research confirmed by DeepMind: the scaling law originally formulated for training applies equally to inference. The relationship holds as:
-
-```
-Performance ∝ (inference compute)^β
-```
-
-**Critical constraint: this law holds only for verifiable, structured tasks** — mathematics, code, formal logic. It does not generalize to open-ended factual questions, common sense reasoning, or knowledge retrieval.
-
-DeepSeek-R1 proved this at scale: matching OpenAI o1 by generating 10–100× more tokens per query, at approximately 70% lower cost. Stanford's s1-32B took it further — trained on only 1,000 examples, using budget forcing to achieve test-time scaling behavior matching or exceeding o1-preview on competition mathematics.
-
-The historical significance: for the first time, iteration cycles are faster in reasoning than in pre-training. It is cheaper to iterate using only RL enhancements and increased test-time compute, without needing to pre-train a new model from scratch.
-
-**Projection:** Inference will claim approximately 75% of total AI compute by 2030.
+**Cost**: Millions of dollars, weeks of compute  
+**Benefit**: Permanent capability gain, reusable across all queries  
+**Bottleneck**: Data quality, GPU hours, training infrastructure
 
 ---
 
-## 4. The Three Mechanisms of Test-Time Scaling
+## 2. The New Scaling Law — Test-Time Compute
+
+The paradigm shift of 2024–2025: performance also scales with **inference-time compute**, following the same power law shape as the training scaling law.
+
+Research by DeepMind confirmed: the scaling law originally formulated for training applies equally to inference — validated across benchmarks in mathematics, physics, and chemistry.
+
+```
+Performance ∝ (Inference_compute)^β
+```
+
+The core insight: **letting models "think longer"** through extended chain-of-thought produces reasoning capabilities that training alone cannot achieve.
+
+**Landmark results:**
+
+| Model | Method | Achievement |
+|---|---|---|
+| DeepSeek-R1 | RL + extended CoT | Matches o1 at 70% lower cost — generates 10–100× more tokens per query |
+| rStar-Math 3.8B | MCTS at inference | Beats o1-preview on competition math |
+| s1-32B (Stanford) | Budget forcing | 1,000 training examples → o1 level on MATH benchmark |
+| OpenAI o1/o3 | Extended thinking | State-of-the-art reasoning across domains |
+
+**The two-variable paradigm:**
+
+Historically, increased training compute was the primary driver of AI progress. Test-time compute now represents an additional variable — with multiple dials to optimize rather than just one:
+
+- **Training compute** → better weights → permanent capability
+- **Test-time compute** → deeper search → per-query quality boost
+
+**Key observation**: Iteration cycles are now faster in the reasoning research field. More low-hanging fruit exists because it is cheaper to iterate using only RL enhancements and increased test-time compute — without needing to pre-train a new model.
+
+---
+
+## 3. The Three Mechanisms of Test-Time Scaling
 
 ### ① Best-of-N / Majority Voting
-Generate N independent answers, return the most common. Simple, parallelizable, works well up to approximately N=100. No architectural change required — just more compute at inference.
+
+Generate N independent answers, take the most common (majority vote) or the highest-scoring.
+
+- Simple and parallelizable
+- Works well up to N ≈ 100
+- No specialized training required
+- Diminishing returns beyond N ≈ 32 for most tasks
 
 ### ② Process Reward Model (PRM) Guided Search
-Score *intermediate reasoning steps*, not just final answers. Finds the best reasoning *path*, not just the best output. This is what rStar-Math uses to enable a 3.8B model to beat o1-preview:
 
-| Benchmark | Before rStar-Math | After rStar-Math |
+Score **intermediate reasoning steps**, not just final answers. Find the best *path*, not just the best output.
+
+This is the key innovation behind rStar-Math: the small model acts as a **critic of intermediate steps**, not a solver of the final answer. A 1B model as PRM can guide a larger model's search with dramatic effectiveness.
+
+The PRM is the AI equivalent of a Go master's **position sense** — evaluating the board without needing to play the game to completion.
+
+### ③ Budget Forcing (Stanford s1)
+
+Force the model to "think longer" by appending tokens that continue the reasoning chain. The s1-32B model trained on only 1,000 examples uses budget forcing to achieve test-time scaling behavior — matching or exceeding o1-preview on competition math.
+
+Remarkably efficient: no MCTS, no PRM, just controlled extension of the thinking chain. The model learns to use thinking time proportionally to problem difficulty.
+
+---
+
+## 4. The Honest Limits — Where Test-Time Scaling Breaks
+
+**Critical finding**: Test-time scaling does NOT apply universally.
+
+The scaling law for reasoning holds **only where correctness can be verified**:
+
+| Domain | Test-time scaling | Reason |
 |---|---|---|
-| Qwen2.5-Math-7B on MATH | 58.8% | **90.0%** |
-| Phi3-mini-3.8B on MATH | 41.4% | **86.4%** |
-| AIME (Math Olympiad) | — | **53.3%** (top 20% HS competitors) |
+| Mathematics | ✅ Strong | Verifiable, symbolic, closed |
+| Formal logic | ✅ Strong | Verifiable, structured |
+| Code generation | ✅ Good | Executable = verifiable |
+| Knowledge-intensive QA | ❌ Fails | Cannot verify factual correctness |
+| Common sense reasoning | ❌ Fails | No ground truth during search |
+| Open-ended questions | ❌ Fails | Hallucination increases with more tokens |
 
-### ③ Budget Forcing
-Force the model to "think longer" by appending tokens that continue the reasoning chain. Stanford's s1-32B demonstrates this with only 1,000 training examples — achieving o1-level performance purely through controlled thinking depth at inference.
+**The overthinking problem**: Increasing test-time computation does not consistently improve accuracy on knowledge-intensive tasks — in many cases it leads to **more hallucinations**. Extended reasoning sometimes encourages attempts on previously unanswered questions, many of which result in confident-but-wrong outputs.
 
----
-
-## 5. Where Test-Time Scaling Breaks
-
-Increasing test-time computation does not consistently improve accuracy for:
-
-- **Knowledge-intensive tasks** requiring high factual accuracy and low hallucination rates
-- **Open-ended questions** where there is no verifiable ground truth
-- **Common sense reasoning** and basic factual recall
-- **Long-context factual tasks** — extended reasoning sometimes encourages attempts on previously unanswered questions, many resulting in hallucinations
-
-The "overthinking phenomenon" is particularly damaging: models generate unnecessarily long reasoning chains without improving accuracy. For simple tasks like commonsense reasoning and basic mathematics, test-time scaling can actively *hurt* performance.
-
-**The fundamental boundary:** test-time scaling requires a verification signal — something to tell the system when a reasoning step is correct. Without that signal (PRM, formal verifier, code execution), more tokens produce more confident hallucination, not better reasoning.
+**Implication**: Current o1/o3/DeepSeek-R1 reasoning scaling is powerful but **domain-specific**. It is not a general intelligence amplifier.
 
 ---
 
-## 6. Bounded Rationality — The Go Master's Answer
+## 5. Bounded Rationality — The Go Game Parallel
 
-The critical insight that current reasoning scaling research misses: **how does an intelligent system know when it has thought enough?**
+This is the insight that reframes the entire reasoning scaling discussion.
 
-This is not an engineering question about time limits. It is the central philosophical question of intelligence itself.
+### Herbert Simon's Bounded Rationality (1956)
 
-Herbert Simon (1956) formalized this as **Bounded Rationality**: not a failure of rationality, but the only rationality available to minds operating in a real world with finite resources.
+> "Bounded rationality is not a failure of rationality. It is the only rationality available to minds operating in a real world."
 
-A Go grandmaster with 3 minutes on the clock does not:
-- Think randomly and stop at the buzzer (brute force)
-- Think exhaustively through all branches (computationally impossible)
+A Go grandmaster with 3 minutes on the clock does not think randomly and stop at the buzzer. They do something far more sophisticated: **they know when they have thought enough, and commit with confidence.** That meta-cognitive act — the decision to stop thinking and act — is itself the intelligence.
 
-They do something far more sophisticated: **they know when they have thought enough, and commit with calibrated confidence.** The act of stopping is itself the intelligence — not a limitation on it.
+### What this means for reasoning scaling
 
-The formal distinction:
+**Current reasoning scaling approach:**
+Think for N tokens regardless of whether the model is confident. Stop when the token budget is exhausted. Return the best answer found.
 
-| Mode | Approach | Stopping criterion |
-|---|---|---|
-| **Computation (brute force)** | Search until time runs out | Timer — dumb stop |
-| **Intelligence (bounded rational)** | Search until confidence threshold | Felt sense of enough — smart stop |
+This is **computation**, not intelligence. It is a brute-force search that stops at a timer.
 
-The Go master's stopping criterion is not computed. It is *felt* — a meta-cognitive act that emerges from deep domain experience. AlphaGo's value network is the engineered equivalent: it evaluates board position without playing out the game, and the MCTS uses that evaluation to decide when further search is no longer productive.
+**Bounded rational approach:**
+Think until **confidence crosses a threshold**, then commit. The stopping is not a timeout — it is a **felt sense of enough**, driven by calibrated self-assessment.
 
----
+AlphaGo's bounded rationality is super-human. Human bounded rationality is the product of evolution and physical embodiment. The two are different — but both arrive at good decisions without exhaustive search.
 
-## 7. AlphaGo's Three Cognitive Moves
+### The key distinction
 
-AlphaGo solved bounded rationality with three components working together:
+Thinking only a few steps ahead does not make a player irrational. When players expect that others have limited reasoning capacity, it is rational to stop early too. **Stopping is itself a rational strategic act** — not a failure of reasoning.
 
-### ① Policy Network — Pruning (Level 1 tactic, Level 3 intuition)
-Trained on human expert games. Outputs probability over all legal moves. This collapses 10^170 possible board states to 5–10 candidates worth exploring. The human master's "intuition" — not computed, felt. In LLM terms: the forward pass through weights producing high-probability token candidates.
-
-### ② Value Network — Evaluation (Level 2 operation)
-Evaluates any board position without playing the game to completion. The expert's position sense — "I can see who's winning without needing to finish." In LLM terms: the embedding space semantic distance encoding expected outcome.
-
-### ③ MCTS as Meta-Reasoner — The Stopping Criterion (the intelligent part)
-Generates two key outputs: valuations of subtrees (reducing search depth) and policy networks producing high-probability moves (reducing search breadth). It searches *just deep enough* based on confidence, then stops. The stopping is not random — it is the value network saying "I know enough about this position."
-
-**The combination is what makes AlphaGo intelligent, not just fast.**
+Metareasoning — reasoning about the reasoning process itself — is the most promising approach to bounded rationality in AI. The goal is seldom to make an agent as rational as possible. Some degree of bounded rationality is often **optimal** in the right scenario.
 
 ---
 
-## 8. HyperTree Planning — The Strategic Style
+## 6. The Go Master's Three Cognitive Moves
 
-HyperTree Planning (HTP) is the architectural pattern that most closely mirrors how strong Go players actually think:
+These map precisely to the components of any intelligent decision system:
 
-**Core principle:** construct hypertree-structured planning outlines, enabling hierarchical thinking by flexibly employing divide-and-conquer — breaking down intricate reasoning steps while managing multiple distinct sub-tasks in an organized manner.
+### Move ① — Prune the search space (Policy Network)
 
-A HTP-style Go player:
-- Reads the whole board as a set of semi-independent sub-problems
-- Identifies which regions are decided / contested / critical
-- Solves each region hierarchically
-- Integrates solutions back into the strategic view
-- Drops to deep tactical calculation **only** in the critical sequences that actually matter
+**Human**: "This board shape feels wrong" — years of pattern training compressed into intuition. Eyes land on 3–4 candidate moves instantly, ignoring the other 350+ legal moves entirely.
 
-This contrasts with linear players who get dragged into local fights and lose the global picture.
+**AI equivalent**: Policy network P(move) outputs probability over all legal moves, collapsing 10^170 possible board states to 5–10 candidates worth exploring. This is not computed at move time — it is **trained in** and fires instantly.
 
-**The profound connection:** researchers who designed HyperTree Planning had likely never played Go — but they independently rediscovered a playing style that strong human players evolved over centuries of practice.
+**LLM equivalent**: The forward pass through weights surfaces high-probability token candidates. Bad branches are killed before reasoning begins. This happens in microseconds.
 
----
+### Move ② — Evaluate without playing out (Value Network)
 
-## 9. The Critique of Current Reasoning Scaling
+**Human**: "I'm ahead / behind" — reading the whole board position without needing to play the game to completion. The expert's position sense.
 
-The field is doing more tree search. What strong players describe is something completely different.
+**AI equivalent**: Value network V(state) outputs expected win probability from any board position. Stop calculating before the game ends.
 
-The complete three-level hierarchy that Go masters actually operate on:
+**LLM equivalent**: The embedding space encodes semantic distance and relevance. The model "knows" approximately how good a direction is before generating the full chain.
 
-### Level 3 — Strategic (the whole board)
-> "This game is about the bottom-left corner. Everything else is secondary."
+### Move ③ — The stopping criterion (Meta-cognition)
 
-- Almost zero compute
-- Pure pattern recognition and compressed experience
-- Operates across the entire position simultaneously
-- **Current AI status: almost entirely absent**
+**Human**: "I've thought enough. I'll play here." — Not a timer. Not exhaustion. A *felt sense of enough.*
 
-### Level 2 — Operational (regional)
-> "These three groups interact. I need to settle the left before attacking the right."
+**AI equivalent**: MCTS runs simulations until the value network says "I know enough about this position." The stopping is driven by **confidence reaching a threshold**, not by a clock.
 
-- Light computation
-- Abstract planning across connected regions
-- **Current AI status: CoT reasoning reaches here partially**
+**LLM equivalent**: This is the least developed component in current systems. Budget forcing approximates it. A true meta-reasoning layer — "I have high enough confidence, stop generating" — is the frontier.
 
-### Level 1 — Tactical (move tree)
-> "If A then B then C, opponent plays D..."
+### Move ④ — Satisficing (not optimizing)
 
-- Heavy computation
-- Deep sequential search
-- **Current AI status: this is ALL that test-time scaling scales**
+**Human**: "Good enough to win" — not seeking the theoretically perfect move, seeking the best reachable move given current information and time.
 
-**The fundamental critique:** the reasoning scaling law scales Level 1 only. Expert intelligence spends the majority of thinking time at Level 3 and Level 2 — and drops to Level 1 only for specific critical sequences, briefly and precisely.
-
-More tree search is not more intelligence. Intelligence is knowing **which tree not to search at all.**
-
-The Hierarchical Reasoning Model (HRM) provides experimental evidence for this critique: with only 27 million parameters and 1,000 training examples, using two interdependent modules (slow abstract planning + rapid detailed computation), HRM achieves near-perfect accuracy on complex Sudoku puzzles and optimal pathfinding in 30×30 mazes — where state-of-the-art CoT methods achieve 0% accuracy. HRM outperforms o3-mini-high and Claude 3.7 on the ARC benchmark despite dramatically fewer parameters and a shorter context window.
+**AI equivalent**: Best-of-N with early stopping. Stop when the PRM score plateaus — the marginal value of more search falls below a threshold.
 
 ---
 
-## 10. AlphaGo's Style — The Bigger Chess
+## 7. The Three Levels of Thinking
 
-From the perspective of a 50-year Go player watching the 2016 match:
+This is the central critique of the current reasoning scaling paradigm — and the most important insight in this report.
 
-AlphaGo did not play the board humans were playing on. It played on a **probability landscape** extending far beyond what any human had been trained to perceive. The territory it was defending or attacking was not made of stones — it was made of winning percentages across thousands of possible futures simultaneously.
+```
+Level 3 — Strategic (whole board)
+    "This game is about the bottom-left corner.
+     Everything else is secondary."
 
-Move 37 in Game 2 is the defining example:
-- Every professional commentator said "mistake"
-- Lee Sedol stood up and left the room for 15 minutes
-- By every human Level 2 and Level 1 reading, the move looked wrong
-- AlphaGo was reading at a Level 3 that human professionals had never needed to develop — because no human opponent had ever played there
+    → Almost zero compute
+    → Pure pattern + experience
+    → Instant, pre-conscious
+    → Current AI: almost entirely absent
+    → Scaling approach: ignored
 
-Humans developed intuition calibrated against human opponents across 3,000 years of play. AlphaGo played millions of games against itself and discovered a strategic layer that human Go culture had never mapped.
+Level 2 — Operational (regional)
+    "These three groups interact. I need to
+     settle the left before attacking the right."
 
-**The uncomfortable generalization:** if AlphaGo found a Level 3 that 3,000 years of human Go couldn't see, what Level 3 might a future reasoning AI find in medicine, materials science, or financial markets — domains humans have been "playing" for centuries but never fully mapped?
+    → Light computation
+    → Abstract planning
+    → Structured decomposition
+    → Current AI: CoT partially reaches here
+    → Scaling approach: partially addressed
+
+Level 1 — Tactical (move tree)
+    "If A then B then C, opponent plays D..."
+
+    → Heavy computation
+    → Deep search
+    → Explicit step-by-step
+    → Current AI: this is ALL current scaling does more of
+    → Scaling approach: heavily addressed
+```
+
+**The fundamental critique**: The reasoning scaling law — all those extra thinking tokens in o1/o3/DeepSeek-R1 — scales **Level 1 only**. It makes the calculation deeper, not the board reading better.
+
+**The Go master's practice**: Most thinking time is spent at Level 3 and Level 2. Level 1 calculation is invoked only for specific critical sequences, briefly and precisely, after the board has already been read at the higher levels.
+
+**The implication**: More tree search is not more intelligence. Intelligence is knowing **which tree not to search at all.**
 
 ---
 
-## 11. The Ontology as Sandbox
+## 8. AlphaGo's "Bigger Chess"
 
-Palantir's Ontology — and all explicit enterprise knowledge graphs — are deliberate sandboxes. The AI reasons only within the defined context, constrained to human-encoded concepts and relationships.
+A 50-year Go player's observation upon watching the AlphaGo vs. Lee Sedol match (2016):
 
-This creates the central architectural tension:
+> "Not as usual. AlphaGo looks at a much bigger chess."
 
-| Dimension | Ontology-grounded AI | Unconstrained AI |
-|---|---|---|
-| Reliability | ✅ High — stays within known space | ❌ Unpredictable |
-| Safety | ✅ Governed — proposals, permissions | ❌ Unknown failure modes |
-| Explainability | ✅ Traceable — every step auditable | ❌ Black box |
-| Discovery | ❌ Bounded by human concepts | ✅ Can find the bigger chess |
-| Enterprise deployment | ✅ Production-ready today | ❌ Not yet trusted |
+This observation — from someone with board sense built over five decades — is more precise than almost anything in the academic literature.
 
-**The Go parallel is exact:**
+### What "bigger chess" actually means
+
+AlphaGo was not playing the board humans were playing on. It was playing on a **probability landscape** that extended far beyond what any human had been trained to perceive. The territory it was defending or attacking was not made of stones — it was made of **winning percentages across thousands of possible futures simultaneously.**
+
+### Move 37, Game 2 — the perfect example
+
+Every professional commentator called it a mistake. Lee Sedol stood up and left the room for 15 minutes. By every human Level 2 and Level 1 reading — regionally and tactically — it looked wrong.
+
+But AlphaGo was reading at a Level 3 that human professionals had never needed to develop, because **no human opponent had ever played there.**
+
+Humans developed intuition calibrated against human opponents across centuries. AlphaGo played millions of games against itself — and discovered a strategic layer that human Go culture had never mapped.
+
+### The deeper implication for AI
+
+If AlphaGo found a Level 3 that 3,000 years of human Go couldn't see — what Level 3 might a future reasoning AI find in domains like medicine, materials science, or financial markets that humans have been "playing" for centuries but never fully mapped?
+
+The critical architectural question: **Is the Ontology giving AI the board humans play on — or is it preventing AI from finding the bigger one?**
+
+---
+
+## 9. Hierarchical Reasoning — the Research Response
+
+The research community is beginning to address the Level 3 / Level 2 gap directly, inspired precisely by the Go parallel.
+
+### HyperTree Planning (HTP)
+
+HyperTree Planning constructs hypertree-structured planning outlines, enabling LLMs to engage in hierarchical thinking by flexibly employing divide-and-conquer — breaking down intricate reasoning steps while managing multiple distinct sub-tasks in an organised manner.
+
+This is the style of a Go player who thinks: "The top-right is already decided. The bottom is the real game. These two middle groups are the bridge." Not reading one long sequence — managing a **structured decomposition** of the whole board simultaneously.
+
+HTP-style players stay at Level 3, delegate local calculations only when necessary, and re-integrate results back into the strategic view.
+
+### Hierarchical Reasoning Model (HRM)
+
+Two interdependent recurrent modules:
+- **High-level module** — slow, abstract planning (Level 3 + Level 2)
+- **Low-level module** — rapid, detailed computation (Level 1)
+
+Results: With only **27 million parameters** and 1,000 training examples, HRM achieves near-perfect accuracy on complex Sudoku puzzles and optimal pathfinding in 30×30 mazes — where state-of-the-art CoT methods achieve **0% accuracy**. HRM outperforms o3-mini-high and Claude 3.7 on the ARC benchmark despite dramatically fewer parameters and a shorter context window.
+
+27M parameters beating o3. No chain-of-thought. No pre-training at scale. Just two levels talking to each other — the board reader and the move calculator.
+
+### Abstraction of Thought (AoT)
+
+A structured reasoning format that explicitly incorporates multiple levels of abstraction — teaching AI to think at different levels rather than plowing through problems linearly. Demonstrates dramatic improvements in reasoning performance by forcing the model to operate at Level 3 before descending to Level 1.
+
+### The common thread
+
+All three architectures independently rediscovered what Go players evolved over centuries: **read the whole board first, calculate locally second.** The researchers probably never played Go — but they found the same truth.
+
+---
+
+## 10. The Ontology as Sandbox — and Its Limits
+
+### The Ontology is a sandbox by design
+
+Palantir's Ontology constrains the solution space before generation occurs. It forces AI systems to respect limits that matter outside the model. It is an explicit human-designed schema: entities, relationships, constraints, permissions.
+
+The Ontology is deliberately a **sandbox**:
+- AI reasons only within the defined context
+- Focused on the variables provided
+- Recommendations grounded in defined relationships
+- Reasoning kept narrow, accurate, and aligned with the business
+
+This is safe, explainable, and production-deployable. It is also, by definition, bounded by human knowledge.
+
+### The Go parallel — exact and uncomfortable
 
 ```
 Old Go AI:     humans encode joseki, tesuji, life/death
-               → ceiling = human understanding of Go
-               → cannot find Move 37
+               → AI operates within human Go knowledge
+               → ceiling = human understanding
 
-AlphaGo:       no encoded knowledge → plays itself
-               → discovers own ontology
-               → finds Move 37
+AlphaGo:       no encoded knowledge
+               → plays itself → discovers own ontology
+               → finds Move 37 that humans never conceptualized
 
-Current AI:    humans design Ontology
-               → ceiling = human understanding of domain
-               → reliable but bounded
+Palantir today: humans design Ontology
+                → AI operates within human business knowledge
+                → ceiling = human understanding of the domain
 
-Emerging:      LLM generates its own ontology
+Emerging:      LLM reads domain → generates its own Ontology
                → humans review and approve
-               → ceiling begins to lift
+               → ceiling starts to lift
 ```
 
-The Ontology encodes human blind spots. A supply chain Ontology built by humans cannot spontaneously discover that the real risk is a second-order dependency three links removed that nobody thought to model.
+### Two types of Ontology
 
-**The Ontology is not a permanent architectural requirement. It is a trust bridge** — needed right now because we do not yet trust implicit LLM knowledge enough to act on it directly in production systems.
+**Ontology Type A — implicit (inside the LLM)**
+Every LLM already contains an implicit ontology learned from training. It knows that "patient" relates to "diagnosis" relates to "treatment." Nobody designed this — it emerged. This is AlphaGo's case.
 
----
+**Ontology Type B — explicit (Palantir's)**
+A human-designed formal schema. Reliable, governed, explainable. But bounded by what humans thought to encode.
 
-## 12. The Two Ontologies
+### The Ontology is not a permanent requirement — it is a trust bridge
 
-The confusion in the field exists because "Ontology" refers to two fundamentally different things:
+LLMs can now generate the Ontology automatically from documents — first generating Competency Questions to delineate knowledge scope, constructing the ontology schema, then populating it under schema supervision.
 
-### Ontology Type A — Implicit (inside the LLM weights)
-Every LLM already contains an implicit ontology — learned from training data. It knows that "patient" relates to "diagnosis" relates to "treatment." It understands supply chain dynamics, Go board structure, financial instrument relationships. Nobody designed this. It emerged from training.
-
-This is AlphaGo's case: no pre-designed ontology. Board understanding emerged from self-play. The policy and value networks are the implicit ontology.
-
-### Ontology Type B — Explicit (Palantir's / enterprise systems)
-A human-designed formal schema: entities, relationships, constraints, permissions. Intercepts before reasoning begins — shapes what the forward pass sees.
-
-**The emerging middle path:** LLMs can now generate the ontology automatically from documents — first generating Competency Questions to delineate knowledge scope, constructing the ontology schema, then populating it under schema supervision. The human just reviews the result.
-
-This means the question "does every system need a specially designed Ontology?" is becoming obsolete. AIP already writes the Ontology. The human-designed sandbox is temporary. The AI is beginning to draw its own board.
-
-**The trajectory:**
-
+The trajectory:
 ```
 Now:   AI operates inside human Ontology   → reliable, constrained
 Next:  AI proposes expansions to Ontology  → supervised discovery
@@ -305,148 +361,137 @@ Later: AI rewrites the Ontology itself     → finds the bigger chess
                                              last safety layer
 ```
 
----
-
-## 13. The Two-Phase Intelligence Structure
-
-The most important architectural insight of this entire analysis — and the one that reframes every other question:
-
-### Phase 1 — Implicit (weights, forward pass, microseconds)
-
-```
-What happens:
-  → Pattern recognition across all training compressed into weights
-  → Implicit ontology activated
-  → Bad branches pruned from probability space (policy network)
-  → "Whole board" read — Level 3 strategic assessment
-  → Position evaluated — Level 2 operational sense (value network)
-  → Top-K candidates surfaced
-
-Properties:
-  → Cannot be inspected
-  → Cannot be explained
-  → Cannot be changed at inference time
-  → This is where the real intelligence lives
-  → This is what 50 years of Go compresses into
-```
-
-### Phase 2 — Explicit (reasoning tokens, milliseconds to seconds)
-
-```
-What happens:
-  → Chain-of-thought unfolds
-  → MCTS / best-of-N search executes
-  → Verification and calculation
-  → Level 1 tactical reasoning
-
-Properties:
-  → Can be read and traced
-  → Can be audited
-  → Can be scaled with test-time compute
-  → This is what the reasoning scaling law scales
-  → This operates on the tiny pruned space Phase 1 selected
-```
-
-### The upper bound theorem
-
-**The quality of reasoning (Phase 2) is upper-bounded by the quality of the forward pass (Phase 1).**
-
-If the weights did not learn the right "whole board" — if the implicit ontology is wrong or incomplete — no amount of chain-of-thought tokens fixes it. You are searching deeper in the wrong region of the tree.
-
-This explains three otherwise puzzling observations:
-1. A 1B distilled specialist beats a 70B general model on narrow domains — its forward pass (Phase 1) is calibrated to the right board
-2. AlphaGo found Move 37 — its policy network had no human bias pruning that branch before search began
-3. Palantir's Ontology intercepts before reasoning — it shapes what Phase 1 sees, not what Phase 2 computes
-
-### The interpretability problem
-
-The entire AI safety and interpretability research field is struggling because it can only see Phase 2. Phase 1 — where the real intelligence lives — is invisible inside the weights. We can read the chain-of-thought. We cannot read the intuition that selected which chain to think.
+The Ontology dissolves back into the implicit one the LLM already has — as trust is established through better calibration, verification, and interpretability.
 
 ---
 
-## 14. The Real Frontier
+## 11. Two-Phase Intelligence — The Deepest Frame
 
-The current focus in AI research is almost entirely on Phase 2 improvements:
-- More reasoning tokens (o1, o3, DeepSeek-R1)
-- Better search algorithms (MCTS, beam search)
-- Better process reward models (PRM guided search)
+This is the insight that subsumes everything else in this report — and represents a genuine contribution to how we should think about AI reasoning architecture.
 
-**This scales the calculation. It does not improve the board reading.**
+### What happens before the first reasoning token
 
-Better board reading comes from:
-- Better training data (not more data — *better calibrated* data)
-- Better distillation (compressing expert intuition into weights)
-- Better architecture (HRM, HTP — systems with explicit Level 3 modules)
-- Self-discovered ontology (letting the model find the bigger chess)
-
-The real frontier is **Phase 1 improvement** — which is harder, less measurable, and cannot be achieved by simply running more inference compute.
-
-The hierarchy of what needs to be built, in order of depth:
+The LLM's forward pass — before any chain-of-thought begins — is already doing everything the Go master does at Level 3 and Level 2:
 
 ```
-Surface:  More test-time compute (scaling Phase 2)
-          → Current frontier: o3, DeepSeek-R1, rStar-Math
-          → Yields: better calculation, not better intuition
-
-Middle:   Hierarchical reasoning architectures (bridging Phase 1 → 2)
-          → Current frontier: HRM, HTP, AoT
-          → Yields: Level 3 strategic module + Level 1 tactical module
-
-Deep:     Better Phase 1 — better weights — better implicit ontology
-          → Current frontier: distillation, synthetic data, self-play
-          → Yields: better board reading, not just deeper tree search
-
-Deepest:  Self-modifying ontology — AI discovers its own Level 3
-          → Current frontier: AIP writing Ontology, AlphaGo-style self-play
-          → Yields: the bigger chess — what humans never mapped
+Forward pass (weights, microseconds):
+  → Pattern recognition across all training
+  → Implicit Ontology activated
+  → Bad branches pruned from probability space
+  → "Whole board" read at embedding level
+  → Top-K candidates surfaced to reasoning
+  ↓
+Only NOW does reasoning begin — on a tiny pruned space
 ```
+
+### Phase 1 — Implicit (the weights)
+
+| Property | Description |
+|---|---|
+| Mechanism | Weights, forward pass |
+| Speed | Microseconds |
+| Nature | Intuition, pattern, ontology, pruning |
+| Transparency | Cannot be inspected, cannot be explained |
+| Go equivalent | 50 years of board sense — just IS |
+| AI safety view | The invisible phase — where real intelligence lives |
+| Scaling approach | Training-time scaling, distillation |
+
+### Phase 2 — Explicit (the reasoning tokens)
+
+| Property | Description |
+|---|---|
+| Mechanism | Chain-of-thought, MCTS, token generation |
+| Speed | Milliseconds to seconds |
+| Nature | Calculation, verification, step-by-step |
+| Transparency | Can be read, traced, audited |
+| Go equivalent | Local sequence reading — invoked after board is read |
+| AI safety view | The visible phase — where interpretability research works |
+| Scaling approach | Test-time compute scaling |
+
+### The critical implication
+
+**The quality of reasoning is upper-bounded by the quality of the forward pass.**
+
+If the weights did not learn the right "whole board" — if the implicit Ontology is wrong or incomplete — no amount of chain-of-thought tokens fixes it. You are searching deeper in the **wrong region of the tree.**
+
+This is why:
+- A 1B distilled specialist beats a 70B general model on narrow domains — its forward pass is calibrated to the right board
+- AlphaGo found Move 37 — its policy network had no human bias pruning that branch before search began
+- Palantir's Ontology intercepts **before** reasoning — it shapes what the forward pass sees, not what the reasoning computes
+
+### The mapping to current AI architectures
+
+```
+AlphaGo policy network  ←→  LLM forward pass (Phase 1)
+AlphaGo value network   ←→  PRM / confidence estimation
+AlphaGo MCTS            ←→  Chain-of-thought / test-time compute (Phase 2)
+Human expert intuition  ←→  Distilled specialist model's Phase 1
+Whole board reading     ←→  Hierarchical Reasoning (HRM, HTP, AoT)
+```
+
+### The frontier nobody is stating clearly
+
+The entire AI safety and interpretability field struggles because they can only see Phase 2. Phase 1 — where the real intelligence lives — is invisible inside the weights.
+
+Better reasoning does not come from more thinking tokens. It comes from:
+- Better training (better Phase 1 weights)
+- Better distillation (calibrated Phase 1 for specific domains)
+- Hierarchical architectures (HRM, HTP) that operate at Level 3 before Level 1
+- A true meta-reasoning layer that knows when to stop — the real frontier
+
+**The reasoning scaling law scales Phase 2 only. The real intelligence lives in Phase 1. Almost nobody is saying this clearly yet.**
 
 ---
 
-## 15. Key Takeaways
+## 12. Key Takeaways
 
-### On the two scaling laws
-- Training-time scaling (Chinchilla) and test-time compute scaling are two distinct and interacting axes
-- Test-time scaling holds only for verifiable structured tasks — math, code, formal logic
-- A smaller trained model with heavy test-time compute can match a larger trained model with no thinking
-- Inference will claim ~75% of total AI compute by 2030
+### On test-time compute scaling
+- Confirmed power-law relationship: more inference compute → better reasoning
+- Holds **only** for verifiable, structured domains: math, code, formal logic
+- Breaks for knowledge-intensive tasks — increases hallucination
+- Current approach (o1/o3/DeepSeek-R1) scales **Level 1 tactical thinking only**
+- 27M parameter HRM beats o3 on ARC by operating at Level 3 — suggests the frontier is hierarchical, not deeper tree search
 
 ### On bounded rationality
-- Intelligence is not exhaustive search — it is knowing when to stop searching
-- The stopping criterion is itself the intelligent act, not a constraint on intelligence
-- Current reasoning scaling (more tokens) addresses the wrong problem — it scales the search, not the knowing-when-to-stop
-- Herbert Simon's bounded rationality (1956) is more relevant to AI design than any 2025 paper
+- Stopping is not a failure of reasoning — it IS the reasoning
+- Meta-cognition (knowing when to stop) is more valuable than more search
+- The Go master's stopping criterion is a **confidence threshold**, not a timer
+- Current AI has no genuine meta-reasoning layer — budget forcing is an approximation
+- True bounded rationality requires Phase 1 calibration, not Phase 2 extension
 
-### On the three-level hierarchy
-- Level 3 (whole board / strategic) = almost zero compute, pure pattern + experience
-- Level 2 (regional / operational) = light computation, abstract planning
-- Level 1 (move tree / tactical) = heavy computation, deep sequential search
-- Current reasoning scaling scales Level 1 only — the least intelligent layer
-- Expert intelligence spends the majority of time at Level 3 and 2; drops to Level 1 briefly and precisely
+### On the whole board vs. the move tree
+- Masters spend most time at Level 3 (strategic) and Level 2 (operational)
+- Level 1 (tactical) calculation is brief, precise, and invoked last
+- Current reasoning scaling inverts this — all compute goes to Level 1
+- HyperTree Planning, HRM, and AoT are beginning to address Levels 2 and 3
+- The real scaling opportunity is hierarchical reasoning, not deeper CoT
 
-### On AlphaGo and the bigger chess
-- AlphaGo found a Level 3 that 3,000 years of human Go culture never mapped — because it had no human Ontology constraining its search
-- The same phenomenon may apply in medicine, materials science, finance — domains humans have played for centuries but never fully mapped
-- The bigger chess cannot be found by any system constrained to play on the human board
+### On AlphaGo's lesson
+- AlphaGo found a Level 3 that 3,000 years of human Go never mapped — because it had no human Ontology constraining its search
+- The Ontology is a trust bridge, not a permanent architectural requirement
+- As AI begins to write its own Ontology, the ceiling lifts
+- The question for every domain: what is the "Move 37" hiding in your field?
 
-### On the Ontology
-- Palantir's Ontology is a deliberate trust bridge — not a permanent architectural requirement
-- Explicit Ontology (human-designed) encodes human blind spots as the ceiling
-- Implicit Ontology (LLM weights) already contains the board — but is not yet trusted for direct production use
-- LLMs are beginning to generate their own ontologies — the sandbox is becoming self-modifying
-- The trajectory: operate within → propose expansions → rewrite entirely (with human review)
+### On two-phase intelligence
+- Phase 1 (weights, implicit) = the whole board — where real intelligence lives
+- Phase 2 (reasoning tokens, explicit) = the local sequence — what current scaling addresses
+- Reasoning quality is upper-bounded by Phase 1 quality
+- Better distillation, better training, and hierarchical architectures improve Phase 1
+- More thinking tokens only improve Phase 2 — and only where verification is possible
 
-### On the two-phase intelligence structure
-- Phase 1 (forward pass, microseconds): implicit, invisible, uninspectable — this is where the intelligence lives
-- Phase 2 (reasoning tokens, seconds): explicit, readable, auditable — this is what scaling laws scale
-- Quality of Phase 2 is upper-bounded by quality of Phase 1
-- The entire interpretability field can only see Phase 2 — the more important Phase 1 remains invisible
-- Better board reading requires better weights (training, distillation, architecture) — not more thinking tokens
+### The synthesis
+```
+Training-time scaling   → improves Phase 1 (the board reading)
+Test-time scaling       → improves Phase 2 (the sequence calculation)
+Distillation            → compresses expert Phase 1 into a smaller model
+Hierarchical reasoning  → makes Phase 1 / Phase 2 boundary explicit
+Bounded rationality     → the meta-layer that manages the boundary
+Ontology                → temporary scaffold until Phase 1 is trusted
+```
 
-### The synthesis in one sentence
-
-**The reasoning scaling law makes AI calculate deeper; what intelligence actually requires is learning to see the whole board — and that capability lives entirely in Phase 1, before the first reasoning token is generated.**
+Intelligence is not the deepest search. Intelligence is knowing **what not to search at all** — and knowing when what you have found is enough.
 
 ---
 
-*Report compiled from technical conversation, March 2026. The Go game analogy — contributed by a player of 50 years experience — provided the most precise framing for these concepts available in the literature.*
+*Report compiled from technical conversation, March 2026.*  
+*Insight thread initiated by a 50-year Go player observing that AlphaGo "looked at a much bigger chess" — a more precise description of hierarchical reasoning than most academic papers achieve.*
