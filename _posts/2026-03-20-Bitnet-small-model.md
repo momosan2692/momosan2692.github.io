@@ -234,6 +234,9 @@ The 1B model does not need to *be* smart to make the system smarter — it needs
 The paradigm is shifting from "compress a general model" to **domain-specific superintelligence** — a model that excels in task-specific reasoning within a narrow domain. A 1B model that knows everything weakly is useless. A 1B model that knows one domain deeply is genuinely deployable in production.
 
 > **Figure 3 — Domain distillation pipeline from corpus → teacher → distillation → specialist SLM → safety re-alignment**
+> ![Domain distillation pipeline](/assets/img/header/2026-03-20/figure3.png){: width="80%" height="90%" .mx-auto.d-block}
+>
+>
 >
 > *(paste screenshot here)*
 
