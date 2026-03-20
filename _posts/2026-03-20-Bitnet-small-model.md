@@ -140,8 +140,8 @@ The real power is not benchmarks — it is **where these models can live**. Smal
 ## 5. Hybrid Agentic AI Architecture
 
 > **Figure 1 — Hybrid agentic AI architecture with local/cloud tiers and safety layers**
->
-> *(paste screenshot here)*
+> ![Hybrid agentic AI architecture](/assets/img/header/2026-03-20/figure1.png){: width="80%" height="100%" .mx-auto.d-block}
+> 
 
 The canonical next-generation agentic architecture separates concerns across five layers:
 
@@ -294,7 +294,7 @@ Anthropic's own multi-agent documentation uses "specialist agent." LangGraph use
 
 > **Figure 4 — Four specialist agent composition patterns: centralized, decentralized, hierarchical, hybrid, and agents-as-tools**
 > ![Four specialist agent composition patterns](/assets/img/header/2026-03-20/figure4.png){: width="80%" height="80%" .mx-auto.d-block}
-> *(paste screenshot here)*
+> 
 
 ### The defining property
 
