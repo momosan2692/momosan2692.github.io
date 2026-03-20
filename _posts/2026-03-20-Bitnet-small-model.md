@@ -140,7 +140,7 @@ The real power is not benchmarks — it is **where these models can live**. Smal
 ## 5. Hybrid Agentic AI Architecture
 
 > **Figure 1 — Hybrid agentic AI architecture with local/cloud tiers and safety layers**
-> ![Hybrid agentic AI architecture](/assets/img/header/2026-03-20/figure1.png){: width="80%" height="100%" .mx-auto.d-block}
+> ![Hybrid agentic AI architecture](/assets/img/header/2026-03-20/figure1.png){: width="100%" height="120%" .mx-auto.d-block}
 > 
 
 The canonical next-generation agentic architecture separates concerns across five layers:
