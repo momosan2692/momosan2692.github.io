@@ -44,6 +44,8 @@ tags: [draft]
 10. [Key Risk Factors](#10-key-risk-factors)
 11. [Conclusion](#11-conclusion)
 
+> 🔗 **Interactive version:** [RKLB Waterfall — Stage Price Scenarios](/assets/html/rklb/RKLB_Waterfall_Price_Stages.html)
+> 
 ---
 
 ## 1. Executive Summary
@@ -530,7 +532,7 @@ Stage 5 — Recovery + NSSL wins   ███████████████
 *Bar length proportional to base case price vs $200 ceiling. Bear/bull ranges shown in each stage below.*
 
 > 🔗 **Interactive version:** [RKLB Waterfall — Stage Price Scenarios](/assets/html/rklb/RKLB_Waterfall_Price_Stages.html)
-> *(Absolute path from site root — update directory if file is moved)*
+> 
 
 ---
 
