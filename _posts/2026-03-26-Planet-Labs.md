@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Planet Labs (PL)
-subtitle: Investment Research Summary
+subtitle: The Unified Space Story Investment Research Summary
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/header/semiconductor.webp
 share-img: /assets/img/header/evidence.png
@@ -10,7 +10,7 @@ pinned: true  # — pin a post to the top
 tags: [draft]
 ---
 
-# Planet Labs (PL) — Investment Research Summary
+# Planet Labs (PL) — The Unified Space Story Investment Research Summary
 **Date:** March 26, 2026 | **Prepared from:** Multi-session research thread
 
 ---
