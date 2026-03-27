@@ -366,4 +366,4 @@ Everything else is valuation math on top of that binary.
 
 ---
 
-*Research compiled March 26, 2026. Based on public earnings reports, analyst notes, and structured investment research discussion. This document does not constitute financial advice.*
+*Research compiled March 26, 2026. Based on public earnings reports, analyst notes, and structured investment research discussion.*
