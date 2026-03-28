@@ -1,7 +1,7 @@
 ---
 layout: post
-title: The Algorithmic Efficiency Revolution
-subtitle: 1-Bit Models, KV Cache Compression, and inference market
+title: The Jevons Paradox — Why Efficiency Expands, The Algorithmic Efficiency Revolution of AI memory
+subtitle: Google TurboQuant and Microsoft BitNet
 cover-img: /assets/img/header/2026-03-04/DATACENTER.jpeg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-03-04/DATACENTER.jpeg
