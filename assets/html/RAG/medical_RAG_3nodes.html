@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medical Multi-Agent RAG — 3-Node Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117; --surface: #161b22; --surface2: #1c2333;
+    --border: #30363d; --text: #e6edf3; --muted: #7d8590;
+    --blue: #58a6ff; --green: #3fb950; --orange: #f0883e;
+    --purple: #bc8cff; --red: #ff7b72; --teal: #2ea8a0;
+    --yellow: #d29922; --med: #e67e22; --hipaa: #c0392b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); font-family: 'DM Sans', sans-serif;
+    color: var(--text); min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; padding: 40px 20px;
+  }
+  header { text-align: center; margin-bottom: 40px; }
+  header h1 {
+    font-family: 'JetBrains Mono', monospace; font-size: 1.5rem;
+    font-weight: 700; color: var(--text); letter-spacing: -0.5px;
+  }
+  header h1 span { color: #2ea8a0; }
+  header p { font-size: 0.82rem; color: var(--muted); margin-top: 6px; font-family: 'JetBrains Mono', monospace; }
+  .badge {
+    display: inline-block; background: rgba(46,168,160,0.15);
+    border: 1px solid rgba(46,168,160,0.4); color: #2ea8a0;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    padding: 2px 8px; border-radius: 3px; margin-left: 8px; vertical-align: middle;
+  }
+  .hipaa-badge {
+    display: inline-block; background: rgba(192,57,43,0.15);
+    border: 1px solid rgba(192,57,43,0.4); color: #e74c3c;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    padding: 2px 8px; border-radius: 3px; margin-left: 8px; vertical-align: middle;
+  }
+  .diagram-wrap { width: 100%; max-width: 1120px; overflow-x: auto; }
+  svg { display: block; width: 100%; height: auto; }
+  .legend {
+    display: flex; gap: 20px; margin-top: 24px; flex-wrap: wrap;
+    justify-content: center; font-size: 0.77rem; color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+  footer { margin-top: 32px; font-size: 0.72rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Medical Multi-Agent RAG <span>— 3-Node Architecture</span>
+    <span class="badge">MEDICAL</span>
+    <span class="hipaa-badge">HIPAA-AWARE</span>
+  </h1>
+  <p>// HIPAA-aware · PHI on-premise · de-identified cloud dispatch · timer-gated aggregator · context firewall</p>
+</header>
+
+<div class="diagram-wrap">
+<svg viewBox="0 0 1120 800" xmlns="http://www.w3.org/2000/svg" font-family="'DM Sans', sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#7d8590"/></marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#58a6ff"/></marker>
+    <marker id="arr-teal" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2ea8a0"/></marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#3fb950"/></marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#ff7b72"/></marker>
+    <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f0883e"/></marker>
+    <marker id="arr-yellow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#d29922"/></marker>
+    <filter id="glow-blue">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-teal">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-green">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-red">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- BG -->
+  <rect width="1120" height="800" fill="#0d1117"/>
+  <rect x="16" y="16" width="1088" height="768" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Title Bar -->
+  <rect x="16" y="16" width="1088" height="34" rx="10" fill="#1c2333"/>
+  <rect x="16" y="38" width="1088" height="12" fill="#1c2333"/>
+  <circle cx="40" cy="33" r="5" fill="#ff5f57"/>
+  <circle cx="58" cy="33" r="5" fill="#febc2e"/>
+  <circle cx="76" cy="33" r="5" fill="#28c840"/>
+  <text x="560" y="38" text-anchor="middle" font-size="11" fill="#7d8590" font-family="'JetBrains Mono', monospace">medical_multi_agent_rag.arch  —  3-node · HIPAA-aware · PHI on-premise · timer-gated</text>
+
+  <!-- ══════════ MEMORY & PLANNING ══════════ -->
+  <rect x="108" y="56" width="370" height="78" rx="8" fill="#1c2333" stroke="#30363d" stroke-width="1"/>
+  <text x="292" y="74" text-anchor="middle" font-size="10" fill="#7d8590" font-family="'JetBrains Mono', monospace" letter-spacing="1">MEDICAL  MEMORY  &amp;  PLANNING</text>
+  <!-- Patient Context -->
+  <rect x="120" y="80" width="82" height="44" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="161" y="96" text-anchor="middle" font-size="9" fill="#2ea8a0" font-weight="600">Patient Ctx</text>
+  <text x="161" y="108" text-anchor="middle" font-size="8" fill="#7d8590">PHI store</text>
+  <rect x="132" y="114" width="6" height="8" rx="1" fill="#2ea8a0" opacity="0.4"/>
+  <rect x="142" y="111" width="6" height="11" rx="1" fill="#2ea8a0" opacity="0.6"/>
+  <rect x="152" y="116" width="6" height="6" rx="1" fill="#2ea8a0" opacity="0.4"/>
+  <!-- Clinical History -->
+  <rect x="214" y="80" width="82" height="44" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="255" y="96" text-anchor="middle" font-size="9" fill="#bc8cff" font-weight="600">Clin. History</text>
+  <ellipse cx="255" cy="112" rx="12" ry="4" fill="none" stroke="#bc8cff" stroke-width="1.2" opacity="0.6"/>
+  <rect x="243" y="112" width="24" height="8" fill="none" stroke="#bc8cff" stroke-width="1.2" opacity="0.6"/>
+  <ellipse cx="255" cy="120" rx="12" ry="4" fill="none" stroke="#bc8cff" stroke-width="1.2" opacity="0.6"/>
+  <!-- ReACT -->
+  <rect x="308" y="80" width="58" height="44" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="337" y="96" text-anchor="middle" font-size="9" fill="#3fb950" font-weight="600">ReACT</text>
+  <path d="M326,112 Q337,118 348,112 Q359,106 348,102" fill="none" stroke="#3fb950" stroke-width="1.5" opacity="0.7"/>
+  <polygon points="325,110 322,117 330,115" fill="#3fb950" opacity="0.7"/>
+  <!-- Timer Gate -->
+  <rect x="378" y="80" width="88" height="44" rx="5" fill="#0d1117" stroke="#d29922" stroke-width="1.2"/>
+  <text x="422" y="96" text-anchor="middle" font-size="9" fill="#d29922" font-weight="600">Timer-Gated</text>
+  <text x="422" y="107" text-anchor="middle" font-size="8" fill="#7d8590">decision policy</text>
+  <!-- clock icon -->
+  <circle cx="422" cy="117" r="5" fill="none" stroke="#d29922" stroke-width="1.2" opacity="0.8"/>
+  <line x1="422" y1="113" x2="422" y2="117" stroke="#d29922" stroke-width="1" opacity="0.8"/>
+  <line x1="422" y1="117" x2="425" y2="120" stroke="#d29922" stroke-width="1" opacity="0.8"/>
+
+  <!-- ══════════ USER COLUMN ══════════ -->
+  <rect x="26" y="90" width="68" height="590" rx="8" fill="#1c2333" stroke="#2ea8a0" stroke-width="1.5"/>
+  <circle cx="60" cy="130" r="15" fill="none" stroke="#2ea8a0" stroke-width="2"/>
+  <circle cx="60" cy="124" r="6" fill="#2ea8a0" opacity="0.8"/>
+  <path d="M45,140 Q60,134 75,140" fill="#2ea8a0" opacity="0.8"/>
+  <!-- stethoscope icon -->
+  <text x="60" y="160" text-anchor="middle" font-size="11" fill="#2ea8a0" font-weight="600">Clinician</text>
+  <text x="60" y="310" text-anchor="middle" font-size="9" fill="#7d8590" font-family="'JetBrains Mono', monospace">query</text>
+  <text x="60" y="322" text-anchor="middle" font-size="9" fill="#7d8590" font-family="'JetBrains Mono', monospace">+PHI</text>
+  <text x="60" y="600" text-anchor="middle" font-size="9" fill="#7d8590" font-family="'JetBrains Mono', monospace">report</text>
+
+  <!-- ══════════ NODE 0 — AGGREGATOR ══════════ -->
+  <rect x="108" y="148" width="430" height="574" rx="10" fill="rgba(46,168,160,0.04)" stroke="#2ea8a0" stroke-width="1.8" filter="url(#glow-teal)"/>
+  <rect x="122" y="140" width="196" height="18" rx="4" fill="#2ea8a0"/>
+  <text x="220" y="153" text-anchor="middle" font-size="10" fill="#0d1117" font-weight="700" font-family="'JetBrains Mono', monospace">Node 0 — Aggregator</text>
+  <text x="400" y="168" text-anchor="end" font-size="8.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">no local inference · HTTPS outbound · audit log</text>
+
+  <!-- AGGREGATOR AGENT BLOCK -->
+  <rect x="122" y="178" width="148" height="280" rx="8" fill="#1c2333" stroke="#2ea8a0" stroke-width="1.5" filter="url(#glow-teal)"/>
+  <text x="196" y="196" text-anchor="middle" font-size="9.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">AGGREGATOR</text>
+  <!-- robot face -->
+  <rect x="148" y="204" width="96" height="68" rx="9" fill="#0d1117" stroke="#2ea8a0" stroke-width="1.5"/>
+  <circle cx="172" cy="224" r="8" fill="none" stroke="#2ea8a0" stroke-width="1.5"/>
+  <circle cx="172" cy="224" r="3" fill="#2ea8a0"/>
+  <circle cx="220" cy="224" r="8" fill="none" stroke="#2ea8a0" stroke-width="1.5"/>
+  <circle cx="220" cy="224" r="3" fill="#2ea8a0"/>
+  <path d="M168,244 Q196,253 224,244" fill="none" stroke="#2ea8a0" stroke-width="1.5"/>
+  <rect x="190" y="197" width="12" height="8" rx="2" fill="#2ea8a0" opacity="0.6"/>
+  <!-- cross (medical) -->
+  <rect x="186" y="260" width="20" height="6" rx="2" fill="#2ea8a0" opacity="0.5"/>
+  <rect x="192" y="254" width="6" height="18" rx="2" fill="#2ea8a0" opacity="0.5"/>
+  <!-- FULL CONTEXT badge -->
+  <rect x="132" y="282" width="128" height="18" rx="4" fill="rgba(46,168,160,0.2)" stroke="#2ea8a0" stroke-width="1"/>
+  <text x="196" y="294" text-anchor="middle" font-size="9" fill="#2ea8a0" font-family="'JetBrains Mono', monospace" font-weight="600">⊕ FULL CONTEXT + PHI</text>
+  <!-- context firewall -->
+  <text x="196" y="314" text-anchor="middle" font-size="9" fill="#7d8590" font-family="'JetBrains Mono', monospace">context + PHI firewall</text>
+  <path d="M188,320 L196,317 L204,320 L204,330 Q196,335 188,330 Z" fill="none" stroke="#2ea8a0" stroke-width="1.5" opacity="0.7"/>
+  <path d="M191,325 L194,328 L201,321" fill="none" stroke="#2ea8a0" stroke-width="1.2" opacity="0.7"/>
+  <!-- Timer policy -->
+  <rect x="132" y="340" width="128" height="26" rx="4" fill="rgba(210,153,34,0.12)" stroke="#d29922" stroke-width="0.8"/>
+  <text x="196" y="352" text-anchor="middle" font-size="8.5" fill="#d29922" font-family="'JetBrains Mono', monospace">timer-gated policy</text>
+  <text x="196" y="362" text-anchor="middle" font-size="8" fill="#7d8590" font-family="'JetBrains Mono', monospace">timeout → partial synthesis</text>
+  <!-- labels -->
+  <text x="196" y="390" text-anchor="middle" font-size="11" fill="#2ea8a0" font-weight="600">Medical</text>
+  <text x="196" y="404" text-anchor="middle" font-size="11" fill="#2ea8a0" font-weight="600">Aggregator</text>
+  <text x="196" y="420" text-anchor="middle" font-size="8.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">reason · dispatch · merge</text>
+  <text x="196" y="432" text-anchor="middle" font-size="8.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">synthesize · audit log</text>
+  <text x="196" y="444" text-anchor="middle" font-size="8.5" fill="#d29922" font-family="'JetBrains Mono', monospace">de-identify before cloud</text>
+
+  <!-- AGENT 3 — MEDICAL LITERATURE -->
+  <rect x="284" y="178" width="240" height="100" rx="8" fill="#1c2333" stroke="#f0883e" stroke-width="1.5"/>
+  <!-- book icon -->
+  <rect x="298" y="200" width="28" height="34" rx="3" fill="none" stroke="#f0883e" stroke-width="1.5"/>
+  <line x1="312" y1="200" x2="312" y2="234" stroke="#f0883e" stroke-width="1" opacity="0.5"/>
+  <line x1="302" y1="210" x2="310" y2="210" stroke="#f0883e" stroke-width="1" opacity="0.4"/>
+  <line x1="302" y1="216" x2="310" y2="216" stroke="#f0883e" stroke-width="1" opacity="0.4"/>
+  <text x="342" y="200" font-size="11" fill="#f0883e" font-weight="600">Agent 3 — Literature</text>
+  <text x="342" y="215" font-size="9" fill="#7d8590">PubMed · Clinical Guidelines</text>
+  <text x="342" y="228" font-size="9" fill="#7d8590">WHO · UpToDate · Cochrane</text>
+  <rect x="342" y="237" width="104" height="14" rx="3" fill="rgba(240,136,62,0.15)" stroke="#f0883e" stroke-width="0.8"/>
+  <text x="394" y="247" text-anchor="middle" font-size="8.5" fill="#f0883e" font-family="'JetBrains Mono', monospace">sub-task C · de-identified</text>
+  <text x="510" y="266" text-anchor="end" font-size="8.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">→ HTTPS</text>
+
+  <!-- AGENT 4 — DRUG / INTERACTION -->
+  <rect x="284" y="296" width="240" height="100" rx="8" fill="#1c2333" stroke="#f0883e" stroke-width="1.5"/>
+  <!-- pill icon -->
+  <ellipse cx="304" cy="336" rx="16" ry="8" fill="none" stroke="#f0883e" stroke-width="1.5" transform="rotate(-30 304 336)"/>
+  <line x1="292" y1="329" x2="316" y2="343" stroke="#f0883e" stroke-width="1.2" opacity="0.5"/>
+  <text x="342" y="316" font-size="11" fill="#f0883e" font-weight="600">Agent 4 — Drug / Rx</text>
+  <text x="342" y="331" font-size="9" fill="#7d8590">FDA API · DrugBank</text>
+  <text x="342" y="344" font-size="9" fill="#7d8590">Interaction · Contraindication</text>
+  <rect x="342" y="353" width="104" height="14" rx="3" fill="rgba(240,136,62,0.15)" stroke="#f0883e" stroke-width="0.8"/>
+  <text x="394" y="363" text-anchor="middle" font-size="8.5" fill="#f0883e" font-family="'JetBrains Mono', monospace">sub-task D · de-identified</text>
+  <text x="510" y="384" text-anchor="end" font-size="8.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">→ HTTPS</text>
+
+  <!-- DE-IDENTIFICATION NOTICE -->
+  <rect x="284" y="412" width="240" height="56" rx="6" fill="rgba(192,57,43,0.08)" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="404" y="430" text-anchor="middle" font-size="9" fill="#e74c3c" font-family="'JetBrains Mono', monospace" font-weight="600">⚠  PHI DE-IDENTIFICATION</text>
+  <text x="294" y="447" font-size="8" fill="#7d8590">All cloud sub-tasks stripped of PHI</text>
+  <text x="294" y="460" font-size="8" fill="#7d8590">before dispatch → HIPAA Safe Harbor</text>
+
+  <!-- CONTEXT ISOLATION NOTE -->
+  <rect x="284" y="484" width="240" height="68" rx="6" fill="rgba(46,168,160,0.04)" stroke="#30363d" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="404" y="501" text-anchor="middle" font-size="9" fill="#7d8590" font-family="'JetBrains Mono', monospace">CONTEXT  ISOLATION</text>
+  <text x="294" y="517" font-size="8.5" fill="#7d8590">▸ Agents receive sub-task only</text>
+  <text x="294" y="531" font-size="8.5" fill="#7d8590">▸ No agent sees full clinical query</text>
+  <text x="294" y="545" font-size="8.5" fill="#7d8590">▸ Aggregator owns all PHI + merge</text>
+
+  <!-- AUDIT LOG + DISCLAIMER -->
+  <rect x="122" y="468" width="148" height="76" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="196" y="484" text-anchor="middle" font-size="9" fill="#7d8590" font-family="'JetBrains Mono', monospace">AUDIT  LOG</text>
+  <text x="132" y="500" font-size="8" fill="#7d8590">▸ Query hash · timestamp</text>
+  <text x="132" y="514" font-size="8" fill="#7d8590">▸ Agent dispatch record</text>
+  <text x="132" y="528" font-size="8" fill="#7d8590">▸ Sub-task IDs logged</text>
+  <text x="132" y="542" font-size="8" fill="#d29922">▸ PHI never logged</text>
+
+  <!-- GENERATIVE MODEL + DISCLAIMER -->
+  <rect x="122" y="558" width="148" height="82" rx="8" fill="#1c2333" stroke="#30363d" stroke-width="1.5"/>
+  <path d="M136" y="578" fill="none"/>
+  <path d="M136,578 L150,572 L164,578 L164,586 L150,592 L136,586 Z" fill="none" stroke="#bc8cff" stroke-width="1.5" opacity="0.8"/>
+  <path d="M150,572 L150,592" stroke="#bc8cff" stroke-width="1" opacity="0.5"/>
+  <text x="200" y="574" font-size="9.5" fill="#bc8cff" font-weight="600">Synthesis +</text>
+  <text x="200" y="588" font-size="9.5" fill="#bc8cff" font-weight="600">Disclaimer</text>
+  <text x="200" y="600" font-size="8" fill="#7d8590">not clinical advice</text>
+  <text x="200" y="614" font-size="8" fill="#7d8590">consult physician</text>
+  <text x="200" y="628" font-size="8" fill="#d29922">⚠ AI-generated</text>
+
+  <!-- SSH TUNNEL LABELS -->
+  <rect x="420" y="148" width="72" height="16" rx="3" fill="rgba(210,153,34,0.15)" stroke="#d29922" stroke-width="1"/>
+  <text x="456" y="160" text-anchor="middle" font-size="8.5" fill="#d29922" font-family="'JetBrains Mono', monospace">SSH tunnel</text>
+  <rect x="420" y="468" width="72" height="16" rx="3" fill="rgba(210,153,34,0.15)" stroke="#d29922" stroke-width="1"/>
+  <text x="456" y="480" text-anchor="middle" font-size="8.5" fill="#d29922" font-family="'JetBrains Mono', monospace">SSH tunnel</text>
+
+  <!-- ══════════ NODE 1 — CLINICAL DATA RAG ══════════ -->
+  <rect x="622" y="148" width="244" height="280" rx="10" fill="rgba(63,185,80,0.04)" stroke="#3fb950" stroke-width="1.8" filter="url(#glow-green)"/>
+  <rect x="636" y="140" width="190" height="18" rx="4" fill="#3fb950"/>
+  <text x="731" y="153" text-anchor="middle" font-size="10" fill="#0d1117" font-weight="700" font-family="'JetBrains Mono', monospace">Node 1 — Clinical RAG</text>
+  <rect x="826" y="140" width="36" height="18" rx="4" fill="rgba(63,185,80,0.2)" stroke="#3fb950" stroke-width="1"/>
+  <text x="844" y="153" text-anchor="middle" font-size="9" fill="#3fb950" font-family="'JetBrains Mono', monospace">:8000</text>
+  <!-- PHI stays here notice -->
+  <rect x="636" y="165" width="188" height="14" rx="3" fill="rgba(192,57,43,0.12)" stroke="#c0392b" stroke-width="0.8"/>
+  <text x="730" y="175" text-anchor="middle" font-size="8" fill="#e74c3c" font-family="'JetBrains Mono', monospace">PHI stays on-premise · no external</text>
+
+  <!-- Agent 1 block -->
+  <rect x="636" y="184" width="216" height="100" rx="8" fill="#1c2333" stroke="#3fb950" stroke-width="1.5"/>
+  <!-- EMR icon -->
+  <rect x="648" y="196" width="36" height="40" rx="4" fill="#0d1117" stroke="#3fb950" stroke-width="1.5"/>
+  <line x1="654" y1="207" x2="678" y2="207" stroke="#3fb950" stroke-width="1" opacity="0.5"/>
+  <line x1="654" y1="215" x2="678" y2="215" stroke="#3fb950" stroke-width="1" opacity="0.5"/>
+  <line x1="654" y1="223" x2="672" y2="223" stroke="#3fb950" stroke-width="1" opacity="0.5"/>
+  <text x="704" y="202" font-size="11" fill="#3fb950" font-weight="600">Agent 1</text>
+  <text x="704" y="217" font-size="9.5" fill="#3fb950">Clinical Data RAG</text>
+  <rect x="704" y="225" width="116" height="14" rx="3" fill="rgba(63,185,80,0.15)" stroke="#3fb950" stroke-width="0.8"/>
+  <text x="762" y="235" text-anchor="middle" font-size="8.5" fill="#3fb950" font-family="'JetBrains Mono', monospace">sub-task A · PHI included</text>
+  <text x="648" y="264" font-size="8.5" fill="#7d8590">▸ EMR · patient records</text>
+  <text x="648" y="277" font-size="8.5" fill="#7d8590">▸ Lab results · imaging reports</text>
+
+  <!-- vMLX block Node 1 -->
+  <rect x="636" y="294" width="216" height="118" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="744" y="312" text-anchor="middle" font-size="9" fill="#7d8590" font-family="'JetBrains Mono', monospace">vMLX Engine</text>
+  <text x="744" y="328" text-anchor="middle" font-size="11" fill="#3fb950" font-weight="700" font-family="'JetBrains Mono', monospace">vmlx serve &lt;med-model&gt;</text>
+  <text x="744" y="343" text-anchor="middle" font-size="8.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">--host 127.0.0.1 --port 8000</text>
+  <text x="744" y="357" text-anchor="middle" font-size="8.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">--api-key ●●●  --continuous-batching</text>
+  <text x="744" y="371" text-anchor="middle" font-size="8.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">--enable-prefix-cache --enable-disk-cache</text>
+  <text x="744" y="385" text-anchor="middle" font-size="8.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">--kv-cache-quantization q8</text>
+  <text x="744" y="400" text-anchor="middle" font-size="8.5" fill="#2ea8a0" font-family="'JetBrains Mono', monospace">medical domain LLM</text>
+
+  <!-- ══════════ NODE 2 — DIAGNOSTIC REASONING ══════════ -->
+  <rect x="622" y="448" width="244" height="280" rx="10" fill="rgba(255,123,114,0.04)" stroke="#ff7b72" stroke-width="1.8" filter="url(#glow-red)"/>
+  <rect x="636" y="440" width="190" height="18" rx="4" fill="#ff7b72"/>
+  <text x="731" y="453" text-anchor="middle" font-size="10" fill="#0d1117" font-weight="700" font-family="'JetBrains Mono', monospace">Node 2 — Reasoning</text>
+  <rect x="826" y="440" width="36" height="18" rx="4" fill="rgba(255,123,114,0.2)" stroke="#ff7b72" stroke-width="1"/>
+  <text x="844" y="453" text-anchor="middle" font-size="9" fill="#ff7b72" font-family="'JetBrains Mono', monospace">:8001</text>
+  <!-- PHI stays here notice -->
+  <rect x="636" y="465" width="188" height="14" rx="3" fill="rgba(192,57,43,0.12)" stroke="#c0392b" stroke-width="0.8"/>
+  <text x="730" y="475" text-anchor="middle" font-size="8" fill="#e74c3c" font-family="'JetBrains Mono', monospace">PHI stays on-premise · no external</text>
+
+  <!-- Agent 2 block -->
+  <rect x="636" y="484" width="216" height="110" rx="8" fill="#1c2333" stroke="#ff7b72" stroke-width="1.5"/>
+  <!-- brain icon (simple) -->
+  <path d="M648,514 Q648,504 658,504 Q658,498 666,500 Q668,494 676,496 Q684,492 686,500 Q694,498 694,508 Q700,510 698,518 Q700,526 692,528 Q690,534 682,532 Q678,538 670,534 Q662,538 658,532 Q650,530 648,524 Z" fill="none" stroke="#ff7b72" stroke-width="1.5"/>
+  <text x="710" y="502" font-size="11" fill="#ff7b72" font-weight="700">Agent 2</text>
+  <text x="710" y="517" font-size="9.5" fill="#ff7b72">Diagnostic Reasoning</text>
+  <rect x="710" y="525" width="116" height="14" rx="3" fill="rgba(255,123,114,0.15)" stroke="#ff7b72" stroke-width="0.8"/>
+  <text x="768" y="535" text-anchor="middle" font-size="8.5" fill="#ff7b72" font-family="'JetBrains Mono', monospace">sub-task B · PHI included</text>
+  <text x="648" y="568" font-size="8.5" fill="#7d8590">▸ differential diagnosis</text>
+  <text x="648" y="581" font-size="8.5" fill="#7d8590">▸ clinical reasoning · CoT</text>
+
+  <!-- vMLX block Node 2 -->
+  <rect x="636" y="604" width="216" height="108" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="744" y="622" text-anchor="middle" font-size="9" fill="#7d8590" font-family="'JetBrains Mono', monospace">vMLX Engine</text>
+  <text x="744" y="638" text-anchor="middle" font-size="11" fill="#ff7b72" font-weight="700" font-family="'JetBrains Mono', monospace">vmlx serve &lt;reason-model&gt;</text>
+  <text x="744" y="653" text-anchor="middle" font-size="8.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">--host 127.0.0.1 --port 8001</text>
+  <text x="744" y="667" text-anchor="middle" font-size="8.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">--api-key ●●●  --continuous-batching</text>
+  <text x="744" y="681" text-anchor="middle" font-size="8.5" fill="#7d8590" font-family="'JetBrains Mono', monospace">--enable-prefix-cache --enable-disk-cache</text>
+  <text x="744" y="695" text-anchor="middle" font-size="8.5" fill="#2ea8a0" font-family="'JetBrains Mono', monospace">reasoning-capable LLM</text>
+
+  <!-- ══════════ RIGHT PANEL ══════════ -->
+  <rect x="882" y="148" width="206" height="574" rx="8" fill="rgba(22,27,34,0.9)" stroke="#30363d" stroke-width="1"/>
+  <text x="985" y="168" text-anchor="middle" font-size="10" fill="#7d8590" font-family="'JetBrains Mono', monospace" letter-spacing="1">TOPOLOGY</text>
+
+  <line x1="894" y1="176" x2="1076" y2="176" stroke="#30363d" stroke-width="1"/>
+  <rect x="894" y="182" width="38" height="14" rx="3" fill="#2ea8a0"/>
+  <text x="913" y="192" text-anchor="middle" font-size="8" fill="#0d1117" font-weight="700">Node 0</text>
+  <text x="940" y="192" font-size="8.5" fill="#2ea8a0">Aggregator</text>
+  <text x="894" y="208" font-size="8" fill="#7d8590">  Aggregator (reasoning agent)</text>
+  <text x="894" y="222" font-size="8" fill="#7d8590">  Agent 3 — Med Literature</text>
+  <text x="894" y="236" font-size="8" fill="#7d8590">  Agent 4 — Drug / Rx API</text>
+  <text x="894" y="250" font-size="8" fill="#f0883e">  HTTPS · de-id before dispatch</text>
+  <text x="894" y="264" font-size="8" fill="#7d8590">  Audit log · no local LLM</text>
+
+  <line x1="894" y1="274" x2="1076" y2="274" stroke="#30363d" stroke-width="1"/>
+  <rect x="894" y="280" width="38" height="14" rx="3" fill="#3fb950"/>
+  <text x="913" y="290" text-anchor="middle" font-size="8" fill="#0d1117" font-weight="700">Node 1</text>
+  <text x="940" y="290" font-size="8.5" fill="#3fb950">:8000</text>
+  <text x="894" y="306" font-size="8" fill="#7d8590">  Agent 1 — Clinical RAG</text>
+  <text x="894" y="320" font-size="8" fill="#7d8590">  EMR · lab · imaging</text>
+  <text x="894" y="334" font-size="8" fill="#e74c3c">  PHI on-premise only</text>
+  <text x="894" y="348" font-size="8" fill="#7d8590">  vMLX medical domain LLM</text>
+
+  <line x1="894" y1="358" x2="1076" y2="358" stroke="#30363d" stroke-width="1"/>
+  <rect x="894" y="364" width="38" height="14" rx="3" fill="#ff7b72"/>
+  <text x="913" y="374" text-anchor="middle" font-size="8" fill="#0d1117" font-weight="700">Node 2</text>
+  <text x="940" y="374" font-size="8.5" fill="#ff7b72">:8001</text>
+  <text x="894" y="390" font-size="8" fill="#7d8590">  Agent 2 — Diag. Reasoning</text>
+  <text x="894" y="404" font-size="8" fill="#7d8590">  Differential diagnosis</text>
+  <text x="894" y="418" font-size="8" fill="#e74c3c">  PHI on-premise only</text>
+  <text x="894" y="432" font-size="8" fill="#7d8590">  vMLX reasoning LLM</text>
+
+  <line x1="894" y1="442" x2="1076" y2="442" stroke="#30363d" stroke-width="1"/>
+  <text x="985" y="458" text-anchor="middle" font-size="9" fill="#d29922" font-family="'JetBrains Mono', monospace">TRANSPORT</text>
+  <text x="894" y="474" font-size="8" fill="#7d8590">  Node0 → Node1/2</text>
+  <text x="894" y="488" font-size="8" fill="#d29922">  SSH tunnel (encrypted)</text>
+  <text x="894" y="502" font-size="8" fill="#7d8590">  Agent3/4 → cloud</text>
+  <text x="894" y="516" font-size="8" fill="#f0883e">  HTTPS · de-identified only</text>
+
+  <line x1="894" y1="526" x2="1076" y2="526" stroke="#30363d" stroke-width="1"/>
+  <text x="985" y="542" text-anchor="middle" font-size="9" fill="#e74c3c" font-family="'JetBrains Mono', monospace">HIPAA</text>
+  <text x="894" y="558" font-size="8" fill="#7d8590">  PHI never leaves Node 1/2</text>
+  <text x="894" y="572" font-size="8" fill="#7d8590">  Cloud sees de-id sub-tasks</text>
+  <text x="894" y="586" font-size="8" fill="#7d8590">  Safe Harbor de-identification</text>
+  <text x="894" y="600" font-size="8" fill="#7d8590">  Audit trail on Aggregator</text>
+  <text x="894" y="614" font-size="8" fill="#d29922">  Timer-gated decision policy</text>
+  <text x="894" y="628" font-size="8" fill="#7d8590">  AI disclaimer on all output</text>
+
+  <line x1="894" y1="638" x2="1076" y2="638" stroke="#30363d" stroke-width="1"/>
+  <text x="985" y="654" text-anchor="middle" font-size="9" fill="#7d8590" font-family="'JetBrains Mono', monospace">SECURITY</text>
+  <text x="894" y="670" font-size="8" fill="#7d8590">  --host 127.0.0.1 all nodes</text>
+  <text x="894" y="684" font-size="8" fill="#7d8590">  --api-key per node</text>
+  <text x="894" y="698" font-size="8" fill="#2ea8a0">  Context isolated per agent</text>
+
+  <!-- ══════════ ARROWS ══════════ -->
+  <!-- Clinician → Aggregator -->
+  <line x1="94" y1="310" x2="122" y2="310" stroke="#2ea8a0" stroke-width="2" marker-end="url(#arr-teal)"/>
+
+  <!-- Memory/Planning → Aggregator -->
+  <line x1="292" y1="134" x2="230" y2="178" stroke="#7d8590" stroke-width="1.2" stroke-dasharray="4,2" marker-end="url(#arr)"/>
+
+  <!-- Aggregator → Agent 3 (Literature) sub-task C -->
+  <line x1="270" y1="235" x2="284" y2="228" stroke="#f0883e" stroke-width="1.5" marker-end="url(#arr-orange)"/>
+  <text x="274" y="228" text-anchor="middle" font-size="8" fill="#f0883e" font-family="'JetBrains Mono', monospace">C</text>
+
+  <!-- Agent 3 → Aggregator result -->
+  <line x1="284" y1="248" x2="270" y2="244" stroke="#f0883e" stroke-width="1" stroke-dasharray="3,2" opacity="0.5" marker-end="url(#arr-orange)"/>
+
+  <!-- Aggregator → Agent 4 (Drug) sub-task D -->
+  <line x1="270" y1="356" x2="284" y2="340" stroke="#f0883e" stroke-width="1.5" marker-end="url(#arr-orange)"/>
+  <text x="274" y="336" text-anchor="middle" font-size="8" fill="#f0883e" font-family="'JetBrains Mono', monospace">D</text>
+
+  <!-- Agent 4 → Aggregator result -->
+  <line x1="284" y1="358" x2="270" y2="370" stroke="#f0883e" stroke-width="1" stroke-dasharray="3,2" opacity="0.5" marker-end="url(#arr-orange)"/>
+
+  <!-- Sub-A: Aggregator → Node 1 via SSH -->
+  <path d="M270,200 Q540,148 622,180" fill="none" stroke="#3fb950" stroke-width="2" stroke-dasharray="7,3" marker-end="url(#arr-green)"/>
+  <text x="460" y="148" text-anchor="middle" font-size="8.5" fill="#3fb950" font-family="'JetBrains Mono', monospace">sub-A (PHI)</text>
+
+  <!-- Node 1 → Aggregator return -->
+  <path d="M622,196" fill="none"/>
+  <path d="M622,200 Q540,162 270,216" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,2" opacity="0.5" marker-end="url(#arr-green)"/>
+
+  <!-- Sub-B: Aggregator → Node 2 via SSH -->
+  <path d="M270,460 Q540,490 622,480" fill="none" stroke="#ff7b72" stroke-width="2" stroke-dasharray="7,3" marker-end="url(#arr-red)"/>
+  <text x="456" y="508" text-anchor="middle" font-size="8.5" fill="#ff7b72" font-family="'JetBrains Mono', monospace">sub-B (PHI)</text>
+
+  <!-- Node 2 → Aggregator return -->
+  <path d="M622,498 Q540,504 270,480" fill="none" stroke="#ff7b72" stroke-width="1" stroke-dasharray="3,2" opacity="0.5" marker-end="url(#arr-red)"/>
+
+  <!-- Aggregator → Audit/GenModel -->
+  <line x1="196" y1="458" x2="196" y2="468" stroke="#2ea8a0" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+  <line x1="196" y1="544" x2="196" y2="558" stroke="#2ea8a0" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+
+  <!-- GenModel → Clinician Output -->
+  <path d="M122,610 Q100,640 94,680" fill="none" stroke="#2ea8a0" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+
+</svg>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#2ea8a0"></div> Node 0 — Medical Aggregator (full context + PHI)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f0883e"></div> Agent 3/4 — Cloud (de-identified sub-task only)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#3fb950"></div> Node 1 — Clinical RAG · vMLX :8000 · PHI on-premise</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ff7b72"></div> Node 2 — Diagnostic Reasoning · vMLX :8001 · PHI on-premise</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d29922"></div> SSH Tunnel (encrypted transport)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c0392b"></div> HIPAA Boundary (PHI never leaves Node 1/2)</div>
+</div>
+
+<footer>// medical-multi-agent-rag · 3-node · HIPAA-aware · PHI on-premise · timer-gated · de-id cloud · CJH 2026</footer>
+
+</body>
+</html>
