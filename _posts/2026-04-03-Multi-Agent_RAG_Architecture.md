@@ -59,7 +59,7 @@ This architecture emerged from the pivot away from oMLX distributed tensor-paral
 
 ## 3. Infrastructure: vMLX Engine
 
-vMLX is an open-source MLX inference engine for Apple Silicon, published on PyPI under the Apache 2.0 license at `github.com/jjang-ai/vmlx`.
+vMLX is an open-source MLX inference engine for Apple Silicon, published on PyPI under the Apache 2.0 license at `https://vmlx.net/`.
 
 **Installation:**
 
