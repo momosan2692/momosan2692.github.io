@@ -32,7 +32,7 @@ tags: [draft, AI, trading, CoT, RAG, compliance, architecture]
 10. [PKM Integration](#10-pkm-integration)
 11. [Comparison: Generic vs Medical](#11-comparison-generic-vs-medical)
 
- **Interactive version:** [Medical Multi-Agent RAG, medical App](/assets/html/RAG/RKLmedical_RAG_3nodes.html)
+ **Interactive version:** [Medical Multi-Agent RAG, medical App](/assets/html/RAG/medical_RAG_3nodes.html)
 ---
 
 ## 1. Architecture Overview
