@@ -146,7 +146,7 @@ Runs vMLX serving a coding-capable model (e.g., a Qwen-Coder or DeepSeek-Coder v
 **Aggregator Agent (Node 0)**  
 The sole holder of full user context. Decomposes the incoming query into sub-tasks A, B, C, D. Dispatches each sub-task independently. Collects results and synthesizes the final response via a generative synthesis step. Owns the full query, all intermediate results, and the response.
 
-**Agent 1 — Local Data RAG (Node 1, :8000)**  
+**Agent 1 — Local Data RAG (Node 1 — local:8000, Aggregator access: localhost:8001)**
 Receives sub-task A only. Performs embedding-based retrieval over local knowledge stores (documents, notes, code repositories). Returns retrieved passages to the Aggregator.
 
 **Agent 2 — Search (Node 0)**  
@@ -155,7 +155,7 @@ Receives sub-task B only. Issues web search queries to Brave or DuckDuckGo APIs.
 **Agent 3 — Cloud Model (Node 0)**  
 Receives sub-task C only. Issues requests to Anthropic or OpenAI APIs. Returns the cloud model response. The sub-task payload it receives contains no information from other agents' tasks. Runs on Node 0 as an API proxy — no local LLM required.
 
-**Agent 4 — Coding Agent (Node 2, :8001)**  
+**Agent 4 — Coding Agent (Node 2 — local:8000, Aggregator access: localhost:8002)**
 Receives sub-task D only. Uses the local coding model via vMLX for code generation, refactoring, test synthesis, and static analysis. Has access to MCP tools for file editing, shell commands, git operations, and code-aware vector retrieval.
 
 ### 5.3 Data Flow
@@ -233,10 +233,10 @@ Runs vMLX serving a reasoning-capable LLM. Agent 2 (Diagnostic Reasoning) operat
 **Medical Aggregator (Node 0)**  
 A full reasoning agent — not a passive router. Receives the full clinical query including PHI. Before dispatching to any cloud agent, it performs de-identification to produce Safe Harbor-compliant sub-tasks. Owns the timer-gated decision policy: each agent has a per-agent timeout threshold, and the Aggregator synthesizes a partial response if any agent exceeds its timeout. Maintains an audit trail. Appends an AI-generated disclaimer to all outputs.
 
-**Agent 1 — Clinical Data RAG (Node 1, :8000)**  
+**Agent 1 — Clinical Data RAG (Node 1 — local:8000, Aggregator access: localhost:8001)**
 Receives sub-task A including PHI. Performs retrieval over local clinical databases: EMR, lab panels, imaging reports, allergy records. PHI stays on Node 1. Returns retrieved clinical context to the Aggregator.
 
-**Agent 2 — Diagnostic Reasoning (Node 2, :8001)**  
+**Agent 2 — Diagnostic Reasoning (Node 2 — local:8000, Aggregator access: localhost:8002)**
 Receives sub-task B including PHI. Generates differential diagnosis lists, clinical reasoning chains, and structured clinical assessments using a reasoning-capable local model. PHI stays on Node 2. Returns structured diagnostic reasoning to the Aggregator.
 
 **Agent 3 — Medical Literature (Node 0)**  
