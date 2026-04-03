@@ -174,13 +174,13 @@ $150 億 = 2025 年全美創投總量的 **22%**，前所未有。
 
 | 你的項目 | 對應基金 | 論點吻合點(例證) |
 |---|---|---|
-| Project 1 | AI Infrastructure Fund | Apple Silicon 邊緣推理、endpoint-agnostic 架構 |
-| Project 2 | Fintech Fund | CoT-RAG pipeline |
+| Project 1 | AI Infrastructure Fund | Apple Silicon 邊緣推理架構 |
+| Project 2 | Fintech Fund | 純工具論的無須監管環境 |
 | Project 3 | American Dynamism Fund | 主權 AI、邊緣推理安全部署  政府/國防 AI 應用潛力|
 
 ### 最現實的三步路徑
 
-**Step 1（現在）**：把 技術架構寫成 blog post 或白皮書，發布至 HN、Twitter/X，引起 a16z Scout 注意。你的 Blog 是天然發布平台。
+**Step 1（現在）**：把 技術架構寫成 blog post 或白皮書，發布至 HN、Twitter/X，引起 a16z Scout 注意。發布平台。
 
 **Step 2（5 月 17 日前）**：申請 Speedrun SR007。公開你的投術架構，是可以清晰 pitch 的技術差異點。
 
