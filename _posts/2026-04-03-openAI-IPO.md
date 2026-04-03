@@ -174,7 +174,7 @@ $150 億 = 2025 年全美創投總量的 **22%**，前所未有。
 
 | 你的項目 | 對應基金 | 論點吻合點(例證) |
 |---|---|---|
-| Project 1 | AI Infrastructure Fund | Apple Silicon 邊緣推理架構 |
+| Project 1 | AI Infrastructure Fund | 邊緣推理架構 |
 | Project 2 | Fintech Fund | 純工具論的無須監管環境 |
 | Project 3 | American Dynamism Fund | 主權 AI、邊緣推理安全部署  政府/國防 AI 應用潛力|
 
