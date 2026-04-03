@@ -5,7 +5,7 @@ subtitle: A16Z 角色、散戶入場管道，與創業者接觸策略
 cover-img: /assets/img/header/2026-04-03/openai-a16z.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-03/openai-a16z.png
-published: false
+published: true
 pinned: false
 tags: [draft, AI, VC, OpenAI, a16z, investment, IPO]
 ---
@@ -172,11 +172,11 @@ $150 億 = 2025 年全美創投總量的 **22%**，前所未有。
 
 如果你正在建構的系統高度吻合 a16z 當前的核心投資論點：
 
-| 你的項目 | 對應基金 | 論點吻合點(例證) |
+| 項目 | 對應基金 | 論點吻合點(例) |
 |---|---|---|
-| Project 1 | AI Infrastructure Fund | 邊緣推理架構 |
-| Project 2 | Fintech Fund | 純工具論的無須監管環境 |
-| Project 3 | American Dynamism Fund | 主權 AI、邊緣推理安全部署  政府/國防 AI 應用潛力|
+| Prj X | AI Infrastructure Fund | 邊緣推理架構 |
+| Prj Y | Fintech Fund | 純工具論的無須監管環境 |
+| Prj Z | American Dynamism Fund | 主權 AI、邊緣推理安全部署 政府/國防AI應用 |
 
 ### 最現實的三步路徑
 
