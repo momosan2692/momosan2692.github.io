@@ -1,6 +1,6 @@
 ---
 layout: post
-title: OpenAI $122B 融資全解析
+title: OpenAI 122B 融資全解析
 subtitle: A16Z 角色、散戶入場管道，與創業者接觸策略
 cover-img: /assets/img/header/2026-04-03/openai-a16z.png
 thumbnail-img: /assets/img/thumb.png
