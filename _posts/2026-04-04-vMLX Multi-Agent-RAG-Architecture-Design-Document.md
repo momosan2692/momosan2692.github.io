@@ -2,9 +2,9 @@
 layout: post
 title: vMLX Multi-Agent RAG — Architecture Design Document
 subtitle: Phase:** P1 
-cover-img: /assets/img/header/2026-04-03/openai-a16z.png
+cover-img: /assets/img/header/2026-04-04/design-doc.png
 thumbnail-img: /assets/img/thumb.png
-share-img: /assets/img/header/2026-04-03/openai-a16z.png
+share-img: /assets/img/header/2026-04-04/design-doc.png
 published: true
 pinned: false
 tags: [draft, ArchDoc, Phase-P1]
