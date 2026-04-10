@@ -2,9 +2,9 @@
 layout: post
 title: vMLX + oMLX-Cluster
 subtitle: Local Inference Architecture for Apple Silicon — Technical Deep Dive
-cover-img: /assets/img/header/2026-04-10/vmlx-omlx.jpeg
+cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/thumb.png
-share-img: /assets/img/header/2026-04-10/vmlx-omlx.jpeg
+share-img: /assets/img/path.jpg
 published: true
 pinned: false
 tags: [draft, AI, MLX, AppleSilicon, inference, oMLX, AgentCore]
