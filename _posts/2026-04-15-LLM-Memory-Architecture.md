@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LLM Memory Architecture: Cloud vs Local
-subtitle: A Technical Deep-Dive into Inference Tiers, Memory Placement, and the Emerging Hybrid Model
+subtitle: A Technical Deep-Dive into Inference Tiers, Memory Placement
 cover-img: /assets/img/header/2026-03-04/DATACENTER.jpeg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-03-04/DATACENTER.jpeg
