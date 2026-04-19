@@ -155,6 +155,6 @@ Meta 買 Scale AI、World Labs 拉攏 Autodesk、NVIDIA 廣撒投資——這些
 ---
 
 > 📌 **九小龍系列其他文章**
-> - [杭州九小龍：中國 AI 新創浪潮的九張面孔](#)
-> - [醫療 AI 的三重壁壘：技術、法規與地緣政治](#)
-> - [記憶體即算力：Groq LPU 與存算一體的賽道分野](#)
+> - [杭州九小龍：中國 AI 新創浪潮的九張面孔](https://momosan2692.github.io/2026/04/19/hangzhou-nine-dragons.html)
+> - [醫療 AI 的三重壁壘：技術、法規與地緣政治](https://momosan2692.github.io/2026/04/19/medical-ai.html)
+> - [記憶體即算力：Groq LPU 與存算一體的賽道分野](https://momosan2692.github.io/2026/04/18/GroqLPU-and-IMC.html)
