@@ -2,9 +2,9 @@
 layout: post
 title: 群核科技：坐在數據金山上的「空間 AI 賣水人」
 subtitle: 從 World Labs、Scale AI 到 PLTR——釐清垂直數據護城河與跨行業 World Model 的本質差異
-cover-img: /assets/img/header/2026-04-20/SPATIAL-AI.jpeg
+cover-img: /assets/img/header/2026-04-20/SPATIAL-AI.png
 thumbnail-img: /assets/img/thumb.png
-share-img: /assets/img/header/2026-04-20/SPATIAL-AI.jpeg
+share-img: /assets/img/header/2026-04-20/SPATIAL-AI.png
 published: true
 pinned: false
 tags: [draft, AI, 群核科技, World Model, 空間智能, PLTR, Scale AI, 九小龍]
