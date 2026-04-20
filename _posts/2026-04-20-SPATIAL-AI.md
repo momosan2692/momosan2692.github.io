@@ -7,7 +7,7 @@ thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-20/SPATIAL-AI.png
 published: true
 pinned: false
-tags: [draft, AI, 群核科技, World Model, 空間智能, PLTR, Scale AI, 九小龍]
+tags: [draft, AI, 群核科技, World Model, 空間智能, PLTR, Scale AI, 杭州九小龍]
 ---
 
 # 群核科技：坐在數據金山上的「空間 AI 賣水人」

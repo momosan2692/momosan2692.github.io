@@ -7,7 +7,7 @@ thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-19/MEDICAL-AI.png
 published: true
 pinned: false
-tags: [draft, AI, 醫療AI, 法規, 劑泰醫藥, 零磁醫療, 九小龍]
+tags: [draft, AI, 醫療AI, 法規, 劑泰醫藥, 零磁醫療, 杭州九小龍]
 ---
 
 # 醫療 AI 的三重壁壘：技術、法規與地緣政治

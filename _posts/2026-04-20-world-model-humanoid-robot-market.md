@@ -7,7 +7,7 @@ thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-20/WORLD-MODEL-ROBOT.png
 published: true
 pinned: false
-tags: [draft, AI, 人形機器人, World Model, 具身智能, 宇樹科技, 群核科技, 九小龍]
+tags: [draft, AI, 人形機器人, World Model, 具身智能, 宇樹科技, 群核科技, 杭州九小龍]
 ---
 
 # World Model：人形機器人從「會動」到「能用」的最後一塊拼圖
