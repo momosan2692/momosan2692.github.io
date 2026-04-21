@@ -6,7 +6,7 @@ cover-img: /assets/img/header/2026-04-21/SOVEREIGN-AI.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-21/SOVEREIGN-AI.png
 published: true
-pinned: false
+pinned: true
 tags: [draft, DeepSeek, 地衛二, 主權AI, 大語言模型, 遙感衛星, 國家戰略, 杭州九小龍]
 ---
 
