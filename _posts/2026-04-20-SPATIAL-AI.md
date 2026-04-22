@@ -153,8 +153,13 @@ Meta 買 Scale AI、World Labs 拉攏 Autodesk、NVIDIA 廣撒投資——這些
 把它放在正確的坐標上，才能做出正確的判斷。
 
 ---
-
 > 📌 **九小龍系列其他文章**
 > - [杭州九小龍：中國 AI 新創浪潮的九張面孔](https://momosan2692.github.io/2026/04/19/hangzhou-nine-dragons.html)
 > - [醫療 AI 的三重壁壘：技術、法規與地緣政治](https://momosan2692.github.io/2026/04/19/medical-ai.html)
 > - [記憶體即算力：Groq LPU 與存算一體的賽道分野](https://momosan2692.github.io/2026/04/18/GroqLPU-and-IMC.html)
+> - **本篇：**[群核科技：坐在數據金山上的「空間 AI 賣水人」](https://momosan2692.github.io/2026/04/20/SPATIAL-AI.html)
+> - [World Model：人形機器人從「會動」到「能用」的最後一塊拼圖](https://momosan2692.github.io/2026/04/20/world-model-humanoid-robot-market.html)
+> - [讀腦與說故事——強腦科技與游科互動](https://momosan2692.github.io/2026/04/20/Brain-And-Virtual-World.html)
+> - [主權 AI——語言模型與地球觀測的兩場自主戰爭（DeepSeek × 地衛二）](https://momosan2692.github.io/2026/04/21/sovereign-ai-deepseek-starvision.html)
+---
+
