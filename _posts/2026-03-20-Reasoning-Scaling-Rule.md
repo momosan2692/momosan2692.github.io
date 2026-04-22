@@ -5,7 +5,7 @@ subtitle: A Deep Technical Analysis
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/header/thinkingtree.gif
 share-img: /assets/img/header/evidence.png
-published: true    # ← add this, post won't show on blog
+published: false    # ← add this, post won't show on blog
 pinned: false  # — pin a post to the top
 tags: []
 ---

@@ -5,7 +5,7 @@ subtitle: The Unified Space Story Investment Research Summary
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/header/semiconductor.webp
 share-img: /assets/img/header/evidence.png
-published: true    # ← add this, post won't show on blog
+published: false    # ← add this, post won't show on blog
 pinned: false  # — pin a post to the top
 tags: [draft]
 ---

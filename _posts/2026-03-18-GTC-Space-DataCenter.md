@@ -5,8 +5,8 @@ subtitle: From GTC 2026 to the Long Paradox
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/header/semiconductor.webp
 share-img: /assets/img/header/evidence.png
-published: true
-pinned: true
+published: false
+pinned: false
 tags: [report]
 ---
 

@@ -5,9 +5,10 @@ subtitle: from R2D2 to AGI
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/header/r2d2.png
 share-img: /assets/img/header/r2d2.png
-published: true    # ← add this, post won't show on blog
+published: false    # ← add this, post won't show on blog
 pinned: false  # — pin a post to the top
 tags: [report, draft]
+mathjax: true
 ---
 
 

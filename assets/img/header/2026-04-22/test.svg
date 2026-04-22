@@ -1,0 +1,78 @@
+<svg width="100%" viewBox="0 0 680 490" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<line x1="125" y1="12" x2="125" y2="460" stroke="#D3D1C7" stroke-width="0.5"/>
+<line x1="135" y1="108" x2="645" y2="108" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="135" y1="198" x2="645" y2="198" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="135" y1="278" x2="645" y2="278" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="135" y1="355" x2="645" y2="355" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="3 3"/>
+
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="65" y="50" text-anchor="middle">Problem</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="65" y="145" text-anchor="middle">① Select</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="65" y="233" text-anchor="middle">② Expand</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="65" y="313" text-anchor="middle">③ Simulate</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="65" y="395" text-anchor="middle">④ Backprop</text>
+
+<rect x="280" y="20" width="120" height="44" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#3C3489" x="340" y="37" text-anchor="middle" dominant-baseline="central">Root state</text>
+<text font-family="sans-serif" font-size="12" fill="#534AB7" x="340" y="55" text-anchor="middle" dominant-baseline="central">Evaluator</text>
+
+<line x1="340" y1="64" x2="245" y2="120" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="340" y1="64" x2="340" y2="120" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="340" y1="64" x2="485" y2="120" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="195" y="120" width="100" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#444441" x="245" y="137" text-anchor="middle" dominant-baseline="central">Node A</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="245" y="153" text-anchor="middle" dominant-baseline="central">UCB: 1.42</text>
+
+<rect x="290" y="120" width="100" height="44" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#633806" x="340" y="137" text-anchor="middle" dominant-baseline="central">Node B ★</text>
+<text font-family="sans-serif" font-size="12" fill="#854F0B" x="340" y="153" text-anchor="middle" dominant-baseline="central">UCB: 2.87</text>
+
+<rect x="435" y="120" width="100" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#444441" x="485" y="137" text-anchor="middle" dominant-baseline="central">Node C</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="485" y="153" text-anchor="middle" dominant-baseline="central">UCB: 1.08</text>
+
+<line x1="340" y1="164" x2="290" y2="210" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="340" y1="164" x2="415" y2="210" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="240" y="210" width="100" height="44" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#085041" x="290" y="227" text-anchor="middle" dominant-baseline="central">Node B1</text>
+<text font-family="sans-serif" font-size="12" fill="#0F6E56" x="290" y="243" text-anchor="middle" dominant-baseline="central">Expander</text>
+
+<rect x="365" y="210" width="100" height="44" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#085041" x="415" y="227" text-anchor="middle" dominant-baseline="central">Node B2</text>
+<text font-family="sans-serif" font-size="12" fill="#0F6E56" x="415" y="243" text-anchor="middle" dominant-baseline="central">Expander</text>
+
+<line x1="290" y1="254" x2="290" y2="290" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="240" y="290" width="100" height="44" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#712B13" x="290" y="307" text-anchor="middle" dominant-baseline="central">Rollout</text>
+<text font-family="sans-serif" font-size="12" fill="#993C1D" x="290" y="323" text-anchor="middle" dominant-baseline="central">Fast model</text>
+
+<path d="M290 334 L290 348 L135 348 L135 42 L280 42" fill="none" stroke="#B4B2A9" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="80" y="368" text-anchor="middle">+0.72</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="80" y="381" text-anchor="middle">propagated</text>
+
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="575" y="148" text-anchor="end">UCB = Q/N + c·√(ln Np / N)</text>
+
+<rect x="155" y="438" width="12" height="12" rx="3" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="172" y="448">Evaluator (strong)</text>
+
+<rect x="278" y="438" width="12" height="12" rx="3" fill="#FAEEDA" stroke="#854F0B" stroke-width="1"/>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="295" y="448">UCB-selected</text>
+
+<rect x="391" y="438" width="12" height="12" rx="3" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="408" y="448">Expander</text>
+
+<rect x="483" y="438" width="12" height="12" rx="3" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="500" y="448">Rollout (fast)</text>
+
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="155" y="468" text-anchor="start">① Selection: pure UCB math, no model call</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="155" y="482" text-anchor="start">② Expand → Expander  ·  ③ Simulate → Rollout  ·  ④ Backprop → update Q, N up path</text>
+</svg>
