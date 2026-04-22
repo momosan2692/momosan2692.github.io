@@ -5,6 +5,8 @@ subtitle: 重點國防科技股分析 PLTR RKLB AVAV
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/header/semiconductor.webp
 share-img: /assets/img/header/evidence.png
+published: false    # ← add this, post won't show on blog
+pinned: false
 tags: [report, test]
 ---
 

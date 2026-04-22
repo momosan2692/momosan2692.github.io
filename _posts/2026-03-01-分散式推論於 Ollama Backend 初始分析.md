@@ -5,6 +5,8 @@ subtitle: AI inference engine, Llama.cpp and Ollama
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/evidence.png
+published: false    # ← add this, post won't show on blog
+pinned: false
 tags: [spec, test]
 ---
 

@@ -5,6 +5,8 @@ subtitle: System Design Document
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/hello_world.jpeg
 share-img: /assets/img/path.jpg
+published: false    # ← add this, post won't show on blog
+pinned: false
 tags: [release]
 ---
 
