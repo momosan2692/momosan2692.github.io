@@ -2,9 +2,9 @@
 layout: post
 title: 「世界模型技術全景」系列第二篇：U-ViT vs DiT vs CogArch
 subtitle: 三條架構路線的數學底層，與物理引擎的設計哲學
-cover-img: /assets/img/header/2026-04-24/world-model-02.jpeg
+cover-img: /assets/img/header/2026-04-24/ROCE.png
 thumbnail-img: /assets/img/thumb.png
-share-img: /assets/img/header/2026-04-24/world-model-02.jpeg
+share-img: /assets/img/header/2026-04-24/ROCE.png
 published: true
 pinned: false
 mathjax: true

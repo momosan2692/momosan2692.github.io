@@ -2,9 +2,9 @@
 layout: post
 title: 「世界模型技術全景」系列第一篇：大陸國家隊六小龍的技術賭注
 subtitle: 視訊模型 ≈ 世界模型？與時空一致性的本質
-cover-img: /assets/img/header/2026-04-24/world-model-01.jpeg
+cover-img: /assets/img/header/2026-04-24/ROCE.png
 thumbnail-img: /assets/img/thumb.png
-share-img: /assets/img/header/2026-04-24/world-model-01.jpeg
+share-img: /assets/img/header/2026-04-24/ROCE.png
 published: true
 pinned: false
 mathjax: true
@@ -12,7 +12,7 @@ tags: [draft, AI, WorldModel, 生成式AI, 大陸AI]
 ---
 
 # 「世界模型技術全景」系列第一篇：大陸國家隊六小龍的技術賭注
-## 視訊模型 ≈ 世界模型？——大陸六小龍的技術賭注與時空一致性的本質
+## 大陸國家隊六小龍的技術賭注與時空一致性的本質
 
 > 世界模型系列 #1 · April 2026  
 > Covers: 世界模型定義、六小龍生態、時空一致性、持續正確性、商業化路徑

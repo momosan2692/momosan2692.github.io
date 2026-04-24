@@ -2,9 +2,9 @@
 layout: post
 title: 「世界模型技術全景」系列第三篇：戴著鐐銬跳舞
 subtitle: 禁令下的萬卡互連黑科技，與訓練推論成本的壓縮終局
-cover-img: /assets/img/header/2026-04-24/world-model-03.jpeg
+cover-img: /assets/img/header/2026-04-24/ROCE.png
 thumbnail-img: /assets/img/thumb.png
-share-img: /assets/img/header/2026-04-24/world-model-03.jpeg
+share-img: /assets/img/header/2026-04-24/ROCE.png
 published: true
 pinned: false
 mathjax: true
