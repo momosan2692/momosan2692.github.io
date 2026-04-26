@@ -28,7 +28,7 @@ tags: [draft, AI, WorldModel, GPU叢集, RoCE, InfiniBand, 推論成本]
 
 $$\text{通訊量} = 2 \times \frac{N-1}{N} \times M \approx 2M \quad (N \gg 1)$$
 
-其中 $M$ 是模型參數的總大小（以字節計）。對於一個 100B 參數的模型（BF16 精度），$M \approx 200$ GB。這意味著每一步訓練，每張卡都需要傳輸 **~400 GB 的梯度數據**。
+其中 $$M$$ 是模型參數的總大小（以字節計）。對於一個 100B 參數的模型（BF16 精度），$$M \approx 200$$ GB。這意味著每一步訓練，每張卡都需要傳輸 **~400 GB 的梯度數據**。
 
 如果叢集的跨節點頻寬是 400 Gb/s（典型的 InfiniBand HDR），那麼每步的梯度同步需要至少 **8 秒**。在 GPU 算力提升到每步計算只需要 **0.5 秒**的情況下，GPU 有 94% 的時間在等待網路——這就是「通訊牆（Communication Wall）」的直觀含義。
 
