@@ -8,7 +8,7 @@ share-img: /assets/img/header/2026-04-24/ROCE.png
 published: true
 pinned: false
 mathjax: true
-tags: [draft, AI, WorldModel, 生成式AI, 大陸AI]
+tags: [draft, AlgoTrade]
 ---
 
 # LEAN vs OpenAlgo - Alpaca Support Comparison
