@@ -51,7 +51,7 @@ This is why scaling the monolith doesn't solve the problem. A trillion-parameter
 Monte Carlo Tree Search applied to LLM reasoning operates over **partial reasoning chains** (not game states). Each node holds an accumulated chain of thought. The tree grows by having an LLM generate candidate next thoughts.
 
 
-![MCTS Tree Architecture](/assets/img/header/2026-04-29/MCTS-Tree-Architecture.svg)
+![MCTS Tree Architecture](/assets/img/header/2026-04-29/MCTSTreeArchitecture.svg)
 
 --- 
 
