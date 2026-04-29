@@ -1,5 +1,18 @@
+---
+layout: post
+title: MCTS + LLM Multi-Agent Architecture
+subtitle: A Reasoning system Choice
+cover-img: /assets/img/header/2026-04-24/ROCE.png
+thumbnail-img: /assets/img/thumb.png
+share-img: /assets/img/header/2026-04-24/ROCE.png
+published: true
+pinned: false
+mathjax: true
+tags: [draft, AGI]
+---
+
 # MCTS + LLM Multi-Agent Architecture
-## A Complete Technical Reference
+## A Reasoning system Choice
 
 **Date:** 2026-04-10  
 **Scope:** MCTS tree design · HRM analysis · ECO-world world model · Medical multi-agent system · Aggregation method comparison  
