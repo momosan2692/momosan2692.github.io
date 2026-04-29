@@ -1,0 +1,92 @@
+<svg width="100%" viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#3C3489" x="160" y="22" text-anchor="middle">HRM internals</text>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#3C3489" x="500" y="22" text-anchor="middle">MCTS tree (outer loop)</text>
+<line x1="320" y1="8" x2="320" y2="490" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4 3"/>
+
+<rect x="30" y="38" width="240" height="88" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#3C3489" x="150" y="58" text-anchor="middle" dominant-baseline="central">H — high-level (slow)</text>
+<text font-family="sans-serif" font-size="12" fill="#534AB7" x="150" y="76" text-anchor="middle" dominant-baseline="central">abstract planning · low freq</text>
+<text font-family="sans-serif" font-size="12" fill="#534AB7" x="150" y="94" text-anchor="middle" dominant-baseline="central">state stays fixed while L runs</text>
+<text font-family="sans-serif" font-size="12" fill="#534AB7" x="150" y="111" text-anchor="middle" dominant-baseline="central">System 2 · Kahneman slow think</text>
+
+<line x1="150" y1="126" x2="150" y2="158" stroke="#888780" stroke-width="1.5" marker-end="url(#a3)"/>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="198" y="146">guides context</text>
+
+<rect x="30" y="158" width="240" height="78" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#085041" x="150" y="177" text-anchor="middle" dominant-baseline="central">L — low-level (fast)</text>
+<text font-family="sans-serif" font-size="12" fill="#0F6E56" x="150" y="195" text-anchor="middle" dominant-baseline="central">T rapid computation steps</text>
+<text font-family="sans-serif" font-size="12" fill="#0F6E56" x="150" y="213" text-anchor="middle" dominant-baseline="central">converges to local solution</text>
+<text font-family="sans-serif" font-size="12" fill="#0F6E56" x="150" y="230" text-anchor="middle" dominant-baseline="central">System 1 · intuitive/detail</text>
+
+<line x1="150" y1="236" x2="150" y2="268" stroke="#888780" stroke-width="1.5" marker-end="url(#a3)"/>
+
+<rect x="60" y="268" width="180" height="40" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#633806" x="150" y="282" text-anchor="middle" dominant-baseline="central">Halt or continue?</text>
+<text font-family="sans-serif" font-size="12" fill="#854F0B" x="150" y="297" text-anchor="middle" dominant-baseline="central">adaptive compute</text>
+
+<path d="M60 288 L18 288 L18 82 L30 82" fill="none" stroke="#B4B2A9" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#a3)"/>
+
+<line x1="150" y1="308" x2="150" y2="338" stroke="#888780" stroke-width="1.5" marker-end="url(#a3)"/>
+<rect x="55" y="338" width="190" height="40" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#712B13" x="150" y="352" text-anchor="middle" dominant-baseline="central">Output: V(z),  π(z)</text>
+<text font-family="sans-serif" font-size="12" fill="#993C1D" x="150" y="367" text-anchor="middle" dominant-baseline="central">value + policy for MCTS</text>
+
+<rect x="20" y="398" width="270" height="82" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#444441" x="155" y="415" text-anchor="middle" dominant-baseline="central">Latent, not token-based</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="155" y="433" text-anchor="middle" dominant-baseline="central">CoT externalizes steps as tokens</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="155" y="449" text-anchor="middle" dominant-baseline="central">HRM reasons in hidden state z</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="155" y="465" text-anchor="middle" dominant-baseline="central">→ no language bottleneck</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="155" y="481" text-anchor="middle" dominant-baseline="central">→ gradient thru fixed point</text>
+
+<rect x="430" y="38" width="110" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#444441" x="485" y="55" text-anchor="middle" dominant-baseline="central">z₀  root</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="485" y="71" text-anchor="middle" dominant-baseline="central">Select (UCB)</text>
+
+<line x1="485" y1="82" x2="400" y2="138" stroke="#888780" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="485" y1="82" x2="485" y2="138" stroke="#888780" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="485" y1="82" x2="580" y2="138" stroke="#888780" stroke-width="1.5" marker-end="url(#a3)"/>
+
+<rect x="345" y="138" width="100" height="36" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#444441" x="395" y="162" text-anchor="middle" dominant-baseline="central">z₁</text>
+
+<rect x="438" y="138" width="105" height="36" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#633806" x="490" y="156" text-anchor="middle" dominant-baseline="central">z₂ ★ selected</text>
+
+<rect x="535" y="138" width="100" height="36" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#444441" x="585" y="162" text-anchor="middle" dominant-baseline="central">z₃</text>
+
+<line x1="490" y1="174" x2="440" y2="220" stroke="#888780" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="490" y1="174" x2="540" y2="220" stroke="#888780" stroke-width="1.5" marker-end="url(#a3)"/>
+
+<rect x="390" y="220" width="100" height="36" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#085041" x="440" y="244" text-anchor="middle" dominant-baseline="central">z₄ (new)</text>
+
+<rect x="490" y="220" width="100" height="36" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#085041" x="540" y="244" text-anchor="middle" dominant-baseline="central">z₅ (new)</text>
+
+<rect x="340" y="268" width="200" height="36" rx="6" fill="none" stroke="#B4B2A9" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="440" y="282" text-anchor="middle">H module: generate candidates</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="440" y="296" text-anchor="middle">π(z₂) → next action set</text>
+
+<line x1="440" y1="256" x2="440" y2="318" stroke="#888780" stroke-width="1.5" marker-end="url(#a3)"/>
+
+<rect x="365" y="318" width="150" height="50" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#712B13" x="440" y="337" text-anchor="middle" dominant-baseline="central">Simulate (rollout)</text>
+<text font-family="sans-serif" font-size="12" fill="#993C1D" x="440" y="353" text-anchor="middle" dominant-baseline="central">L module: T fast steps</text>
+<text font-family="sans-serif" font-size="12" fill="#993C1D" x="440" y="366" text-anchor="middle" dominant-baseline="central">V(z₄) evaluated</text>
+
+<path d="M365 343 L335 343 L335 60 L430 60" fill="none" stroke="#B4B2A9" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#a3)"/>
+
+<rect x="340" y="392" width="300" height="84" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text font-family="sans-serif" font-size="14" font-weight="500" fill="#444441" x="490" y="410" text-anchor="middle" dominant-baseline="central">HRM replaces two model roles</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="490" y="428" text-anchor="middle" dominant-baseline="central">H module → Evaluator (V) + Expander (π)</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="490" y="445" text-anchor="middle" dominant-baseline="central">L module → Rollout / simulation</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="490" y="462" text-anchor="middle" dominant-baseline="central">MCTS drives: which branch, how deep</text>
+<text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="490" y="478" text-anchor="middle" dominant-baseline="central">HRM drives: what each node computes</text>
+</svg>
