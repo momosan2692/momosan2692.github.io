@@ -1,0 +1,121 @@
+<svg viewBox="0 0 860 500" xmlns="http://www.w3.org/2000/svg" font-family="'Georgia', 'Times New Roman', serif">
+  <rect width="860" height="500" fill="#FAFAF8" rx="8"/>
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#1A1A18">Inference ASIC Vertical Integration — Full Game Board (2026)</text>
+  <text x="430" y="44" text-anchor="middle" font-size="10" fill="#8E8E88">Beyond the OpenAI–AVGO–MSFT triangle: every frontier model owner is converging on inference silicon</text>
+
+  <!-- ── ROW 1: Google · Amazon ── -->
+  <!-- Google card -->
+  <rect x="30" y="58" width="390" height="160" rx="7" fill="white" stroke="#AFA9EC" stroke-width="1.5"/>
+  <rect x="30" y="58" width="390" height="26" rx="7" fill="#EEEDFE"/>
+  <rect x="30" y="72" width="390" height="12" fill="#EEEDFE"/>
+  <rect x="30" y="58" width="5" height="26" rx="3" fill="#3C3489"/>
+  <text x="52" y="72" font-size="11" font-weight="700" fill="#3C3489">Google  —  Full Vertical Stack</text>
+  <rect x="358" y="62" width="56" height="16" rx="8" fill="#3C3489"/>
+  <text x="386" y="73" text-anchor="middle" font-size="8.5" font-weight="700" fill="white">Deepest moat</text>
+
+  <text x="42" y="100" font-size="9" fill="#5C5C58">Chip</text><text x="200" y="100" font-size="9" font-weight="600" fill="#1A1A18">v7 Ironwood (v8i/v8t roadmap) · TSMC N3</text>
+  <text x="42" y="114" font-size="9" fill="#5C5C58">Deployment</text><text x="200" y="114" font-size="9" font-weight="600" fill="#1A6B52">75%+ Gemini on TPU · 1M+ chips at Anthropic</text>
+  <text x="42" y="128" font-size="9" fill="#5C5C58">Partners</text><text x="200" y="128" font-size="9" font-weight="600" fill="#1A1A18">Broadcom + MediaTek + Marvell (multi-partner)</text>
+  <text x="42" y="142" font-size="9" fill="#5C5C58">IP ownership</text><text x="200" y="142" font-size="9" font-weight="600" fill="#3C3489">Full RTL · own compiler (XLA/JAX)</text>
+  <text x="42" y="156" font-size="9" fill="#5C5C58">External sales</text><text x="200" y="156" font-size="9" font-weight="600" fill="#1A6B52">Yes — GCP · Anthropic contract 3.5GW from 2027</text>
+  <text x="42" y="170" font-size="9" fill="#5C5C58">ASIC revenue</text><text x="200" y="170" font-size="9" font-weight="600" fill="#1A1A18">Broadcom AI rev $8.4B (Google anchor)</text>
+  <text x="42" y="184" font-size="9" fill="#5C5C58">Moat status</text><text x="200" y="184" font-size="9" font-weight="600" fill="#3C3489">★ Only hyperscaler with Model+Silicon+Cloud</text>
+  <text x="42" y="198" font-size="9" fill="#5C5C58">VI depth</text>
+  <rect x="100" y="189" width="300" height="8" rx="4" fill="#F1EFE8"/>
+  <rect x="100" y="189" width="285" height="8" rx="4" fill="#3C3489"/>
+  <text x="402" y="197" font-size="8" fill="#3C3489">95%</text>
+
+  <!-- Amazon card -->
+  <rect x="440" y="58" width="390" height="160" rx="7" fill="white" stroke="#8FCFBE" stroke-width="1.2"/>
+  <rect x="440" y="58" width="390" height="26" rx="7" fill="#E4F5EE"/>
+  <rect x="440" y="72" width="390" height="12" fill="#E4F5EE"/>
+  <rect x="440" y="58" width="5" height="26" rx="3" fill="#1A6B52"/>
+  <text x="462" y="72" font-size="11" font-weight="700" fill="#1A6B52">Amazon AWS  —  Dual-chip Strategy</text>
+  <rect x="766" y="62" width="56" height="16" rx="8" fill="#1A6B52"/>
+  <text x="794" y="73" text-anchor="middle" font-size="8.5" font-weight="700" fill="white">No own model</text>
+
+  <text x="452" y="100" font-size="9" fill="#5C5C58">Inference</text><text x="600" y="100" font-size="9" font-weight="600" fill="#1A1A18">Inferentia 3 (Marvell partner)</text>
+  <text x="452" y="114" font-size="9" fill="#5C5C58">Training</text><text x="600" y="114" font-size="9" font-weight="600" fill="#1A1A18">Trainium3 · 2.52 PFLOPS FP8 · 144GB HBM3e</text>
+  <text x="452" y="128" font-size="9" fill="#5C5C58">Anchor customer</text><text x="600" y="128" font-size="9" font-weight="600" fill="#1A6B52">Anthropic $25B · OpenAI also uses Trainium</text>
+  <text x="452" y="142" font-size="9" fill="#5C5C58">IP ownership</text><text x="600" y="142" font-size="9" font-weight="600" fill="#1A1A18">Neuron core RTL (via Annapurna acquisition)</text>
+  <text x="452" y="156" font-size="9" fill="#5C5C58">UltraServer</text><text x="600" y="156" font-size="9" font-weight="600" fill="#1A1A18">144 chips · liquid-cooled · rack-level Blackwell parity</text>
+  <text x="452" y="170" font-size="9" fill="#5C5C58">Price-perf claim</text><text x="600" y="170" font-size="9" font-weight="600" fill="#1A6B52">30–40% better vs GPU on inference</text>
+  <text x="452" y="184" font-size="9" fill="#5C5C58">External sales</text><text x="600" y="184" font-size="9" font-weight="600" fill="#1A6B52">Yes — AWS public instances (Bedrock/SageMaker)</text>
+  <text x="452" y="198" font-size="9" fill="#5C5C58">VI depth</text>
+  <rect x="510" y="189" width="300" height="8" rx="4" fill="#F1EFE8"/>
+  <rect x="510" y="189" width="216" height="8" rx="4" fill="#1A6B52"/>
+  <text x="812" y="197" font-size="8" fill="#1A6B52">72%</text>
+
+  <!-- ── ROW 2: Microsoft · Meta ── -->
+  <rect x="30" y="232" width="390" height="152" rx="7" fill="white" stroke="#B8D4F0" stroke-width="1.2"/>
+  <rect x="30" y="232" width="390" height="26" rx="7" fill="#EAF2FB"/>
+  <rect x="30" y="246" width="390" height="12" fill="#EAF2FB"/>
+  <rect x="30" y="232" width="5" height="26" rx="3" fill="#1E5FA3"/>
+  <text x="52" y="246" font-size="11" font-weight="700" fill="#1E5FA3">Microsoft  —  Inference-Only Focus</text>
+  <rect x="348" y="236" width="66" height="16" rx="8" fill="#1E5FA3"/>
+  <text x="381" y="247" text-anchor="middle" font-size="8.5" font-weight="700" fill="white">No own model</text>
+
+  <text x="42" y="274" font-size="9" fill="#5C5C58">Chip</text><text x="200" y="274" font-size="9" font-weight="600" fill="#1A1A18">Maia 200 · Marvell partner · TSMC 3nm · 140B+ transistors</text>
+  <text x="42" y="288" font-size="9" fill="#5C5C58">Claim</text><text x="200" y="288" font-size="9" font-weight="600" fill="#1E5FA3">3× FP4 perf vs Trainium3 · 10+ PFLOPS FP4</text>
+  <text x="42" y="302" font-size="9" fill="#5C5C58">Anchor workload</text><text x="200" y="302" font-size="9" font-weight="600" fill="#1A1A18">GPT-5.2 · Copilot · Microsoft Foundry</text>
+  <text x="42" y="316" font-size="9" fill="#5C5C58">IP ownership</text><text x="200" y="316" font-size="9" font-weight="600" fill="#854F0B">Partial — Marvell executes silicon</text>
+  <text x="42" y="330" font-size="9" fill="#5C5C58">Strategy</text><text x="200" y="330" font-size="9" font-weight="600" fill="#1A1A18">Inference-only; supplements Nvidia, not replaces</text>
+  <text x="42" y="344" font-size="9" fill="#5C5C58">External sales</text><text x="200" y="344" font-size="9" font-weight="600" fill="#854F0B">Internal 2026 · Azure public instances 2027</text>
+  <text x="42" y="362" font-size="9" fill="#5C5C58">VI depth</text>
+  <rect x="100" y="353" width="300" height="8" rx="4" fill="#F1EFE8"/>
+  <rect x="100" y="353" width="150" height="8" rx="4" fill="#1E5FA3"/>
+  <text x="402" y="361" font-size="8" fill="#1E5FA3">50%</text>
+
+  <!-- Meta card -->
+  <rect x="440" y="232" width="390" height="152" rx="7" fill="white" stroke="#F0D8A8" stroke-width="1.2"/>
+  <rect x="440" y="232" width="390" height="26" rx="7" fill="#FDF3E0"/>
+  <rect x="440" y="246" width="390" height="12" fill="#FDF3E0"/>
+  <rect x="440" y="232" width="5" height="26" rx="3" fill="#B87020"/>
+  <text x="462" y="246" font-size="11" font-weight="700" fill="#B87020">Meta  —  RISC-V Native, Most Aggressive</text>
+  <rect x="766" y="236" width="56" height="16" rx="8" fill="#B87020"/>
+  <text x="794" y="247" text-anchor="middle" font-size="8.5" font-weight="700" fill="white">Own model</text>
+
+  <text x="452" y="274" font-size="9" fill="#5C5C58">Chip</text><text x="600" y="274" font-size="9" font-weight="600" fill="#1A1A18">MTIA v2 Artemis · RISC-V · Broadcom partner</text>
+  <text x="452" y="288" font-size="9" fill="#5C5C58">Next gen</text><text x="600" y="288" font-size="9" font-weight="600" fill="#B87020">MTIA 300–500 (4 generations · 25× compute gain)</text>
+  <text x="452" y="302" font-size="9" fill="#5C5C58">Scope</text><text x="600" y="302" font-size="9" font-weight="600" fill="#1A1A18">Rec engine + Llama inference · training 2026</text>
+  <text x="452" y="316" font-size="9" fill="#5C5C58">Capex 2026</text><text x="600" y="316" font-size="9" font-weight="600" fill="#B87020">$135B — mostly MTIA, not Nvidia</text>
+  <text x="452" y="330" font-size="9" fill="#5C5C58">Differentiator</text><text x="600" y="330" font-size="9" font-weight="600" fill="#1A1A18">RISC-V ISA → no ARM licensing cost</text>
+  <text x="452" y="344" font-size="9" fill="#5C5C58">External sales</text><text x="600" y="344" font-size="9" font-weight="600" fill="#854F0B">Internal only — open-source model strategy</text>
+  <text x="452" y="362" font-size="9" fill="#5C5C58">VI depth</text>
+  <rect x="510" y="353" width="300" height="8" rx="4" fill="#F1EFE8"/>
+  <rect x="510" y="353" width="168" height="8" rx="4" fill="#B87020"/>
+  <text x="812" y="361" font-size="8" fill="#B87020">56%</text>
+
+  <!-- ── ROW 3: OpenAI · Anthropic · Pure-play ── -->
+  <rect x="30" y="398" width="244" height="82" rx="7" fill="white" stroke="#8FCFBE" stroke-width="1.2"/>
+  <rect x="30" y="398" width="244" height="22" rx="7" fill="#E4F5EE"/>
+  <rect x="30" y="410" width="244" height="10" fill="#E4F5EE"/>
+  <rect x="30" y="398" width="4" height="22" rx="3" fill="#1A6B52"/>
+  <text x="50" y="411" font-size="10" font-weight="700" fill="#1A6B52">OpenAI — Model C→B transition</text>
+  <text x="42" y="432" font-size="8.5" fill="#5C5C58">Chip: Jalapeño (Broadcom · TSMC 3nm)</text>
+  <text x="42" y="444" font-size="8.5" fill="#A32D2D">Status: Stalled — $18B MSFT financing snag</text>
+  <text x="42" y="456" font-size="8.5" fill="#5C5C58">IP: XPU RTL (40-person team · Richard Ho)</text>
+  <text x="42" y="468" font-size="8.5" fill="#5C5C58">Parallel: Nvidia + Cerebras ($20B+)</text>
+
+  <rect x="284" y="398" width="244" height="82" rx="7" fill="white" stroke="#D8D7D0" stroke-width="1"/>
+  <rect x="284" y="398" width="244" height="22" rx="7" fill="#F4F2EC"/>
+  <rect x="284" y="410" width="244" height="10" fill="#F4F2EC"/>
+  <rect x="284" y="398" width="4" height="22" rx="3" fill="#888780"/>
+  <text x="304" y="411" font-size="10" font-weight="700" fill="#5C5C58">Anthropic — No silicon path</text>
+  <text x="296" y="432" font-size="8.5" fill="#5C5C58">Inference: Google TPU (1M+ Ironwood chips)</text>
+  <text x="296" y="444" font-size="8.5" fill="#5C5C58">Training: AWS Trainium ($25B commitment)</text>
+  <text x="296" y="456" font-size="8.5" fill="#A32D2D">Risk: Dual dependency — Google + Amazon</text>
+  <text x="296" y="468" font-size="8.5" fill="#5C5C58">Silicon path: None announced</text>
+
+  <rect x="538" y="398" width="292" height="82" rx="7" fill="white" stroke="#EABCD4" stroke-width="1"/>
+  <rect x="538" y="398" width="292" height="22" rx="7" fill="#FAE8F2"/>
+  <rect x="538" y="410" width="292" height="10" fill="#FAE8F2"/>
+  <rect x="538" y="398" width="4" height="22" rx="3" fill="#882050"/>
+  <text x="558" y="411" font-size="10" font-weight="700" fill="#882050">Groq / Cerebras — Pure-play Inference</text>
+  <text x="550" y="432" font-size="8.5" fill="#5C5C58">Groq LPU: deterministic static sched · 300 tok/s Llama70B</text>
+  <text x="550" y="444" font-size="8.5" fill="#5C5C58">Cerebras WSE: wafer-scale · OpenAI $20B+ contract</text>
+  <text x="550" y="456" font-size="8.5" fill="#854F0B">Risk: no model ownership → customer-dependent</text>
+  <text x="550" y="468" font-size="8.5" fill="#5C5C58">Advantage: fastest inference latency in class</text>
+
+  <text x="430" y="492" text-anchor="middle" font-size="8.5" fill="#AAAAA4">Fig 3 · Inference ASIC Vertical Integration — Full Game Board 2026 | momosan2692.github.io</text>
+</svg>
