@@ -5,7 +5,7 @@ subtitle: how to enlarge your VRAM in a AI local inference system
 cover-img: /assets/img/header/2026-03-04/DATACENTER.jpeg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-03-04/DATACENTER.jpeg
-published: true    # ← add this, post won't show on blog
+published: false    # ← add this, post won't show on blog
 pinned: false # true — pin a post to the top
 tags: []
 mathjax: true
