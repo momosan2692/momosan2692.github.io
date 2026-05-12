@@ -1,0 +1,181 @@
+<svg viewBox="0 0 800 560" xmlns="http://www.w3.org/2000/svg" font-family="'DM Sans', -apple-system, sans-serif">
+  <defs>
+    <style>
+      text { font-family: 'DM Sans', -apple-system, sans-serif; }
+      .title { font-size: 15px; font-weight: 500; fill: #1a1a18; letter-spacing: -0.01em; }
+      .subtitle { font-size: 11px; fill: #73726c; }
+      .axis-label { font-size: 10px; fill: #73726c; }
+      .zone-label { font-size: 12px; font-weight: 500; }
+      .annotation { font-size: 10px; fill: #4a4a45; }
+      .mono { font-family: 'DM Mono', 'Courier New', monospace; font-size: 10px; }
+      .curve-label { font-size: 10px; font-weight: 500; }
+    </style>
+    <!-- Zone gradient backgrounds -->
+    <linearGradient id="sandiskZone" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFF5EC"/>
+      <stop offset="100%" stop-color="#FFF0E0"/>
+    </linearGradient>
+    <linearGradient id="everpureZone" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#EEF6EE"/>
+      <stop offset="100%" stop-color="#E4F2E4"/>
+    </linearGradient>
+    <linearGradient id="q4Zone" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E8F1FB" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#D6E8F8" stop-opacity="0.7"/>
+    </linearGradient>
+    <marker id="arrowBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#185FA5"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#2E7D32"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#00000015"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="560" fill="#FAFAF7"/>
+
+  <!-- Title block -->
+  <text x="80" y="32" class="title">三變量轉折點預測：Power × Memory × Token 產出</text>
+  <text x="80" y="50" class="subtitle">SanDisk 商品主場 → Everpure 企業主場的臨界轉換 · DataCenter KV Cache 需求結構分析</text>
+
+  <!-- ── Plot area: x 80–760, y 75–435 ── -->
+
+  <!-- Zone backgrounds -->
+  <!-- SanDisk zone: x 80 to 462 -->
+  <rect x="80" y="75" width="382" height="360" fill="url(#sandiskZone)" rx="4"/>
+  <!-- Everpure zone: x 462 to 760 -->
+  <rect x="462" y="75" width="298" height="360" fill="url(#everpureZone)" rx="4"/>
+  <!-- Q4 2026 highlight zone -->
+  <rect x="570" y="75" width="90" height="360" fill="url(#q4Zone)" rx="2"/>
+
+  <!-- Grid lines (horizontal) -->
+  <line x1="80" y1="147" x2="760" y2="147" stroke="#E0DDD8" stroke-width="0.5"/>
+  <line x1="80" y1="219" x2="760" y2="219" stroke="#E0DDD8" stroke-width="0.5"/>
+  <line x1="80" y1="291" x2="760" y2="291" stroke="#E0DDD8" stroke-width="0.5"/>
+  <line x1="80" y1="363" x2="760" y2="363" stroke="#E0DDD8" stroke-width="0.5"/>
+  <line x1="80" y1="435" x2="760" y2="435" stroke="#C8C5BE" stroke-width="0.8"/>
+
+  <!-- Grid lines (vertical) -->
+  <line x1="80"  y1="75" x2="80"  y2="435" stroke="#C8C5BE" stroke-width="0.8"/>
+  <line x1="156" y1="75" x2="156" y2="435" stroke="#E0DDD8" stroke-width="0.5"/>
+  <line x1="231" y1="75" x2="231" y2="435" stroke="#E0DDD8" stroke-width="0.5"/>
+  <line x1="306" y1="75" x2="306" y2="435" stroke="#E0DDD8" stroke-width="0.5"/>
+  <line x1="381" y1="75" x2="381" y2="435" stroke="#E0DDD8" stroke-width="0.5"/>
+  <line x1="456" y1="75" x2="456" y2="435" stroke="#E0DDD8" stroke-width="0.5"/>
+  <line x1="531" y1="75" x2="531" y2="435" stroke="#E0DDD8" stroke-width="0.5"/>
+  <line x1="606" y1="75" x2="606" y2="435" stroke="#E0DDD8" stroke-width="0.5"/>
+  <line x1="681" y1="75" x2="681" y2="435" stroke="#E0DDD8" stroke-width="0.5"/>
+  <line x1="756" y1="75" x2="756" y2="435" stroke="#E0DDD8" stroke-width="0.5"/>
+
+  <!-- HBM overflow threshold line -->
+  <line x1="462" y1="75" x2="462" y2="435" stroke="#C62828" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- ── CURVES ── -->
+
+  <!-- 1. Power curve (blue, linear) -->
+  <!-- y = 435 - (x-80)/680 * 330, from (80,435) to (760,105) -->
+  <line x1="80" y1="435" x2="760" y2="105"
+        stroke="#185FA5" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Power line label arrow region -->
+  <text x="110" y="390" class="curve-label" fill="#185FA5">Power ⚡️</text>
+  <text x="110" y="403" class="mono" fill="#185FA5">r ≈ 0.95</text>
+
+  <!-- 2. Commodity SSD demand (gray dashed, SanDisk territory) -->
+  <path d="M80,450 C200,445 350,430 462,412 C560,397 650,378 756,355"
+        stroke="#8B8B8B" stroke-width="2" stroke-dasharray="6,3" fill="none" stroke-linecap="round"/>
+  <text x="90" y="450" class="curve-label" fill="#6B6B6B">商品 SSD 需求</text>
+  <text x="90" y="463" class="mono" fill="#6B6B6B">SanDisk territory</text>
+
+  <!-- 3. Enterprise SSD / Everpure (green, threshold-activated) -->
+  <!-- Before threshold: nearly flat -->
+  <path d="M80,460 C200,459 350,458 462,456"
+        stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- After threshold: exponential -->
+  <path d="M462,456 C510,430 560,360 620,230 C660,155 710,120 756,95"
+        stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Fill area under enterprise SSD after threshold -->
+  <path d="M462,456 C510,430 560,360 620,230 C660,155 710,120 756,95 L756,435 L462,435 Z"
+        fill="#2E7D32" fill-opacity="0.06"/>
+
+  <!-- ── PIVOT POINT ── -->
+  <!-- Pivot circle at (462, 456) -->
+  <circle cx="462" cy="456" r="7" fill="#C62828" filter="url(#shadow)"/>
+  <circle cx="462" cy="456" r="4" fill="#FAFAF7"/>
+  <!-- Pulse ring -->
+  <circle cx="462" cy="456" r="12" fill="none" stroke="#C62828" stroke-width="1" stroke-opacity="0.4"/>
+
+  <!-- Pivot annotation callout -->
+  <path d="M474,448 L530,410" stroke="#C62828" stroke-width="1" fill="none"/>
+  <rect x="530" y="385" width="145" height="48" rx="5" fill="#FAFAF7"
+        stroke="#C62828" stroke-width="0.8" filter="url(#shadow)"/>
+  <text x="537" y="400" class="annotation" fill="#C62828" font-weight="500">轉折點（Pivot Point）</text>
+  <text x="537" y="413" class="mono" fill="#4a4a45">KV cache 溢出 HBM</text>
+  <text x="537" y="425" class="mono" fill="#4a4a45">Everpure 進入採購清單</text>
+
+  <!-- ── ZONE LABELS ── -->
+  <text x="100" y="100" class="zone-label" fill="#A0520B">SanDisk 主場</text>
+  <text x="100" y="116" style="font-size:10px; fill:#A0520B;">商品 NAND · 量價齊升</text>
+
+  <text x="478" y="100" class="zone-label" fill="#1B5E20">Everpure 主場</text>
+  <text x="478" y="116" style="font-size:10px; fill:#1B5E20;">企業陣列 · 延遲一致性</text>
+
+  <!-- Correlation badges in zones -->
+  <rect x="280" y="298" width="76" height="32" rx="4" fill="#FFF5EC" stroke="#D4770A" stroke-width="0.5"/>
+  <text x="318" y="311" text-anchor="middle" style="font-size:10px; fill:#A0520B; font-weight:500">SSD 需求</text>
+  <text x="318" y="323" text-anchor="middle" class="mono" fill="#A0520B">r ≈ 0.30</text>
+
+  <rect x="490" y="298" width="76" height="32" rx="4" fill="#EEF6EE" stroke="#2E7D32" stroke-width="0.5"/>
+  <text x="528" y="311" text-anchor="middle" style="font-size:10px; fill:#1B5E20; font-weight:500">SSD 需求</text>
+  <text x="528" y="323" text-anchor="middle" class="mono" fill="#1B5E20">r ≈ 0.88</text>
+
+  <!-- ── Q4 2026 ANNOTATION ── -->
+  <text x="615" y="92" text-anchor="middle" style="font-size:10px; fill:#185FA5; font-weight:500">Q4 2026</text>
+  <text x="615" y="104" text-anchor="middle" style="font-size:9px; fill:#185FA5;">預估區間</text>
+
+  <!-- ── HBM THRESHOLD ANNOTATION ── -->
+  <rect x="350" y="78" width="122" height="30" rx="4" fill="#FAFAF7" stroke="#C62828" stroke-width="0.7"/>
+  <text x="411" y="91" text-anchor="middle" style="font-size:10px; fill:#C62828; font-weight:500">← HBM 溢出臨界點</text>
+  <text x="411" y="103" text-anchor="middle" class="mono" fill="#C62828">Agentic ctx &gt; 128K tokens</text>
+
+  <!-- ── AXES ── -->
+  <!-- X-axis labels -->
+  <text x="80"  y="452" text-anchor="middle" class="axis-label">1T</text>
+  <text x="156" y="452" text-anchor="middle" class="axis-label">2T</text>
+  <text x="231" y="452" text-anchor="middle" class="axis-label">5T</text>
+  <text x="306" y="452" text-anchor="middle" class="axis-label">10T</text>
+  <text x="381" y="452" text-anchor="middle" class="axis-label">20T</text>
+  <text x="456" y="452" text-anchor="middle" class="axis-label">50T</text>
+  <text x="531" y="452" text-anchor="middle" class="axis-label">100T</text>
+  <text x="606" y="452" text-anchor="middle" class="axis-label">200T</text>
+  <text x="681" y="452" text-anchor="middle" class="axis-label">500T</text>
+  <text x="756" y="452" text-anchor="middle" class="axis-label">1QT</text>
+  <text x="420" y="470" text-anchor="middle" style="font-size:11px; fill:#73726c;">月 Token 產出規模 →</text>
+
+  <!-- Y-axis labels (left) -->
+  <text x="75" y="147" text-anchor="end" class="axis-label">100%</text>
+  <text x="75" y="219" text-anchor="end" class="axis-label">75%</text>
+  <text x="75" y="291" text-anchor="end" class="axis-label">50%</text>
+  <text x="75" y="363" text-anchor="end" class="axis-label">25%</text>
+  <text x="75" y="435" text-anchor="end" class="axis-label">0</text>
+  <text x="30" y="255" text-anchor="middle" transform="rotate(-90,30,255)"
+        style="font-size:11px; fill:#73726c;">標準化需求強度</text>
+
+  <!-- ── LEGEND ── -->
+  <rect x="80" y="490" width="680" height="55" rx="5" fill="#F5F4F0" stroke="#E0DDD8" stroke-width="0.5"/>
+  <!-- Power -->
+  <line x1="100" y1="512" x2="130" y2="512" stroke="#185FA5" stroke-width="2.5"/>
+  <text x="135" y="516" class="axis-label" fill="#185FA5">電力消耗 (Power) — 線性強相關，r ≈ 0.95</text>
+  <!-- Commodity SSD -->
+  <line x1="100" y1="533" x2="130" y2="533" stroke="#8B8B8B" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="135" y="537" class="axis-label" fill="#6B6B6B">商品 SSD 需求 (SanDisk) — 穩定成長，臨界點前主導</text>
+  <!-- Enterprise SSD -->
+  <line x1="400" y1="512" x2="430" y2="512" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="435" y="516" class="axis-label" fill="#2E7D32">企業級 SSD 需求 (Everpure) — 臨界點後指數加速</text>
+  <!-- Threshold -->
+  <line x1="400" y1="533" x2="430" y2="533" stroke="#C62828" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="435" y="537" class="axis-label" fill="#C62828">HBM 溢出臨界點 — Everpure 進入推論 critical path</text>
+
+</svg>
