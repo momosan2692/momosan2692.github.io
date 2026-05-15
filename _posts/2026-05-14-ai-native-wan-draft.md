@@ -1,12 +1,13 @@
 ---
 layout: post
-title: AI-Native WAN: Architecture, Problems, and Solutions
+title: AI-Native WAN Architecture, Problems, and Solutions
 subtitle: AI Token Traffic Stresses Traditional WAN
 cover-img: /assets/img/header/2026-05-14/AI-NATIVE-WAN.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/heaer/2026-05-14/AI-NATIVE-WAN.png
 published: true
 pinned: false
+mathjax: true
 tags: [draft, AI-NativeWAN, NaaS, CloudWAN, 美國企業AI]
 ---
 

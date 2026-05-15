@@ -7,6 +7,7 @@ thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-05-14/TOKEN-PRICING.jpeg
 published: true
 pinned: false
+mathjax: true
 tags: [draft, Token計價, SRAM, HBM, Flash, AI推論, 記憶體等級, Cerebras, Everpure, NvidiaGB200]
 ---
 

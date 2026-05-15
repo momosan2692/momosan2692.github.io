@@ -7,6 +7,7 @@ thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
 published: true
 pinned: false
+mathjax: true
 tags: [draft, Cerebras, WSE, SRAM, 快速推論, OpenAI, 晶圓級芯片, NeoCloud, 美國企業AI]
 ---
 
