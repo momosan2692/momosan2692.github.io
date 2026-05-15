@@ -2,9 +2,9 @@
 layout: post
 title: Token 計價革命：SRAM、HBM、Flash 決定了一切
 subtitle: 每一個 Token 的誕生都有硬體成本——三層記憶體等級的成本結構，才是 AI 推論定價的物理基礎
-cover-img: /assets/img/header/2026-05-14/TOKEN-PRICING.jpeg
+cover-img: /assets/img/header/2026-05-14/TOKEN-PRICING.png
 thumbnail-img: /assets/img/thumb.png
-share-img: /assets/img/header/2026-05-14/TOKEN-PRICING.jpeg
+share-img: /assets/img/header/2026-05-14/TOKEN-PRICING.png
 published: true
 pinned: false
 mathjax: true
