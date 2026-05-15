@@ -7,9 +7,8 @@ thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-05-14/AI-NATIVE-WAN.png
 published: true
 pinned: false
-tags: [draft, AI-NativeWAN, NaaS, CloudWAN, Equinix, Megaport, CoreWeave, 網路主權, TICC, 美國企業AI]
+tags: [draft, AI-NativeWAN, NaaS, CloudWAN, 美國企業AI]
 ---
-
 
 # AI-Native WAN: Architecture, Problems, and Solutions
 
