@@ -1,3 +1,16 @@
+---
+layout: post
+title: AI-Native WAN：網路層的主權爭奪戰
+subtitle: NaaS、Cloud WAN、Cloud Exchange——當 AI 訓練數據與推論流量開始主宰廣域網路，誰控制了光纖，誰就控制了算力的流動
+cover-img: /assets/img/header/2026-05-14/AI-NATIVE-WAN.png
+thumbnail-img: /assets/img/thumb.png
+share-img: /assets/img/header/2026-05-14/AI-NATIVE-WAN.png
+published: true
+pinned: false
+tags: [draft, AI-NativeWAN, NaaS, CloudWAN, Equinix, Megaport, CoreWeave, 網路主權, TICC, 美國企業AI]
+---
+
+
 # AI-Native WAN: Architecture, Problems, and Solutions
 
 > Technical research notes · May 2026  
