@@ -5,7 +5,7 @@ subtitle: NaaS、Cloud WAN、Cloud Exchange——當 AI 訓練數據與推論流
 cover-img: /assets/img/header/2026-05-14/AI-NATIVE-WAN.jpeg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-05-14/AI-NATIVE-WAN.jpeg
-published: true
+published: false
 pinned: false
 tags: [draft, AI-NativeWAN, NaaS, CloudWAN, Equinix, Megaport, CoreWeave, 網路主權, TICC, 美國企業AI]
 ---
