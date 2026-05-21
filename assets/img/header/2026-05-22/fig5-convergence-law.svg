@@ -1,0 +1,86 @@
+<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" font-family="'Georgia', 'Times New Roman', serif">
+  <rect width="860" height="340" fill="#FAFAF8" rx="8"/>
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#1A1A18">The Inference Vertical Integration Convergence Law</text>
+  <text x="430" y="44" text-anchor="middle" font-size="10" fill="#8E8E88">Every entity owning a frontier model at scale will eventually own inference silicon — the game rule beyond any triangle</text>
+
+  <!-- spectrum bar -->
+  <text x="40" y="72" font-size="9" fill="#8E8E88">Spec-level only</text>
+  <text x="820" y="72" text-anchor="end" font-size="9" fill="#3C3489">Full vertical (Model + Silicon + Cloud)</text>
+  <defs>
+    <linearGradient id="spectrumGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FAE8E8"/>
+      <stop offset="40%" stop-color="#EEEDFE"/>
+      <stop offset="100%" stop-color="#3C3489"/>
+    </linearGradient>
+  </defs>
+  <rect x="40" y="78" width="780" height="18" rx="9" fill="url(#spectrumGrad)"/>
+
+  <!-- player markers on spectrum -->
+  <!-- Anthropic: ~8% -->
+  <line x1="102" y1="75" x2="102" y2="100" stroke="#888780" stroke-width="1.5"/>
+  <circle cx="102" cy="100" r="5" fill="#888780"/>
+  <text x="102" y="114" text-anchor="middle" font-size="8.5" font-weight="600" fill="#5C5C58">Anthropic</text>
+  <text x="102" y="124" text-anchor="middle" font-size="7.5" fill="#8E8E88">Consumer only</text>
+
+  <!-- OpenAI: ~25% -->
+  <line x1="235" y1="75" x2="235" y2="100" stroke="#1A6B52" stroke-width="1.5"/>
+  <circle cx="235" cy="100" r="5" fill="#1A6B52"/>
+  <text x="235" y="114" text-anchor="middle" font-size="8.5" font-weight="600" fill="#1A6B52">OpenAI</text>
+  <text x="235" y="124" text-anchor="middle" font-size="7.5" fill="#8E8E88">C→B transition</text>
+
+  <!-- MSFT: ~42% -->
+  <line x1="368" y1="75" x2="368" y2="100" stroke="#1E5FA3" stroke-width="1.5"/>
+  <circle cx="368" cy="100" r="5" fill="#1E5FA3"/>
+  <text x="368" y="114" text-anchor="middle" font-size="8.5" font-weight="600" fill="#1E5FA3">Microsoft</text>
+  <text x="368" y="124" text-anchor="middle" font-size="7.5" fill="#8E8E88">Inference-only (Maia)</text>
+
+  <!-- Meta: ~52% -->
+  <line x1="445" y1="75" x2="445" y2="100" stroke="#B87020" stroke-width="1.5"/>
+  <circle cx="445" cy="100" r="5" fill="#B87020"/>
+  <text x="445" y="114" text-anchor="middle" font-size="8.5" font-weight="600" fill="#B87020">Meta</text>
+  <text x="445" y="124" text-anchor="middle" font-size="7.5" fill="#8E8E88">RISC-V MTIA</text>
+
+  <!-- Amazon: ~68% -->
+  <line x1="570" y1="75" x2="570" y2="100" stroke="#1A6B52" stroke-width="1.5"/>
+  <circle cx="570" cy="100" r="5" fill="#1A6B52"/>
+  <text x="570" y="114" text-anchor="middle" font-size="8.5" font-weight="600" fill="#1A6B52">Amazon</text>
+  <text x="570" y="124" text-anchor="middle" font-size="7.5" fill="#8E8E88">Trainium+Inferentia</text>
+
+  <!-- Google: ~96% -->
+  <line x1="785" y1="75" x2="785" y2="100" stroke="#3C3489" stroke-width="2"/>
+  <circle cx="785" cy="100" r="7" fill="#3C3489"/>
+  <text x="785" y="114" text-anchor="middle" font-size="8.5" font-weight="700" fill="#3C3489">Google ★</text>
+  <text x="785" y="124" text-anchor="middle" font-size="7.5" fill="#3C3489">Full vertical stack</text>
+
+  <!-- three stat boxes -->
+  <rect x="40" y="140" width="240" height="80" rx="6" fill="white" stroke="#D8D7D0" stroke-width="1"/>
+  <text x="160" y="164" text-anchor="middle" font-size="28" font-weight="700" fill="#3C3489">70%</text>
+  <text x="160" y="182" text-anchor="middle" font-size="9" fill="#5C5C58">of AI compute will be inference</text>
+  <text x="160" y="194" text-anchor="middle" font-size="9" fill="#5C5C58">workloads by 2026 — the primary</text>
+  <text x="160" y="206" text-anchor="middle" font-size="9" fill="#5C5C58">driver forcing model owners to ASIC</text>
+
+  <rect x="310" y="140" width="240" height="80" rx="6" fill="white" stroke="#D8D7D0" stroke-width="1"/>
+  <text x="430" y="164" text-anchor="middle" font-size="28" font-weight="700" fill="#1A6B52">44.6%</text>
+  <text x="430" y="182" text-anchor="middle" font-size="9" fill="#5C5C58">CAGR for custom ASIC shipments</text>
+  <text x="430" y="194" text-anchor="middle" font-size="9" fill="#5C5C58">in 2026 vs 16.1% for GPUs —</text>
+  <text x="430" y="206" text-anchor="middle" font-size="9" fill="#5C5C58">market validates the convergence law</text>
+
+  <rect x="580" y="140" width="240" height="80" rx="6" fill="white" stroke="#D8D7D0" stroke-width="1"/>
+  <text x="700" y="164" text-anchor="middle" font-size="28" font-weight="700" fill="#854F0B">$604B</text>
+  <text x="700" y="182" text-anchor="middle" font-size="9" fill="#5C5C58">projected AI accelerator market</text>
+  <text x="700" y="194" text-anchor="middle" font-size="9" fill="#5C5C58">by 2033 (Bloomberg Intelligence)</text>
+  <text x="700" y="206" text-anchor="middle" font-size="9" fill="#5C5C58">Custom ASIC claiming accelerating share</text>
+
+  <!-- game rule box -->
+  <rect x="40" y="236" width="780" height="74" rx="6" fill="white" stroke="#AFA9EC" stroke-width="1.5"/>
+  <rect x="40" y="236" width="6" height="74" rx="3" fill="#3C3489"/>
+  <text x="58" y="254" font-size="10" font-weight="700" fill="#3C3489">The Convergence Law — Not a triangle, a structural force</text>
+  <text x="58" y="270" font-size="9" fill="#444441">Every entity that owns a frontier model at scale will eventually own inference silicon. Google proved the endpoint in 10 years. Amazon proved</text>
+  <text x="58" y="282" font-size="9" fill="#444441">you don't need a model to build silicon (but you need anchor customers — Anthropic fills that). Microsoft proved inference-only ASICs justify the</text>
+  <text x="58" y="294" font-size="9" fill="#444441">capex even without training. Meta proved RISC-V native silicon is viable at $135B capex. The only model owner with no silicon path is Anthropic</text>
+  <text x="58" y="306" font-size="9" fill="#444441">— and they are the clearest proof that the law has exceptions only for those who can afford to rent at hyperscale. OpenAI's Jalapeño financing</text>
+  <text x="58" y="296" font-size="9" fill="#444441"/>
+  <text x="58" y="306" font-size="9" fill="#444441">impasse is a capital structure problem inside this structural convergence — not a refutation of the law itself.</text>
+
+  <text x="430" y="332" text-anchor="middle" font-size="8.5" fill="#AAAAA4">Fig 5 · Inference ASIC Convergence Law | momosan2692.github.io</text>
+</svg>

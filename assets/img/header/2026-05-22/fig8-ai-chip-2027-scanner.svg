@@ -1,0 +1,156 @@
+<svg viewBox="0 0 860 560" xmlns="http://www.w3.org/2000/svg" font-family="'Georgia','Times New Roman',serif">
+  <rect width="860" height="560" fill="#FAFAF8" rx="8"/>
+  <text x="430" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1A1A18">AI Chip 2027 Forecast — Top-Down Scanner</text>
+  <text x="430" y="42" text-anchor="middle" font-size="10" fill="#8E8E88">Six layers from model architecture (largest force) to new entrants (smallest). Each with stable "ready" signal and disruptive "change" signal.</text>
+
+  <!-- column headers -->
+  <rect x="40" y="54" width="32" height="480" rx="4" fill="#F1EFE8"/>
+  <text x="56" y="210" text-anchor="middle" font-size="9" font-weight="700" fill="#5C5C58" transform="rotate(-90,56,210)">MACRO → MICRO</text>
+  <rect x="82" y="54" width="130" height="18" rx="3" fill="#F4F2EC"/>
+  <text x="147" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#444441">Layer</text>
+  <rect x="220" y="54" width="190" height="18" rx="3" fill="#E4F5EE"/>
+  <text x="315" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#1A6B52">✓ Ready / stable</text>
+  <rect x="418" y="54" width="190" height="18" rx="3" fill="#FAEEDA"/>
+  <text x="513" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#633806">⚡ Change soon</text>
+  <rect x="616" y="54" width="204" height="18" rx="3" fill="#EEEDFE"/>
+  <text x="718" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#3C3489">→ 2027 implication</text>
+
+  <!-- row heights: 6 rows × 74px each, starting y=76 -->
+
+  <!-- ROW 1 -->
+  <rect x="82"  y="76" width="130" height="74" rx="0" fill="white" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="220" y="76" width="190" height="74" rx="0" fill="white" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="418" y="76" width="190" height="74" rx="0" fill="white" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="616" y="76" width="204" height="74" rx="0" fill="white" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="82" y="76" width="4" height="74" fill="#3C3489"/>
+  <text x="100" y="90" font-size="9" font-weight="700" fill="#3C3489">① Model</text>
+  <text x="100" y="102" font-size="9" fill="#5C5C58">architecture</text>
+  <text x="100" y="114" font-size="9" fill="#5C5C58">evolution</text>
+  <text x="100" y="128" font-size="8" fill="#8E8E88">Biggest force</text>
+  <text x="230" y="90" font-size="8.5" fill="#1A6B52" font-weight="600">Dense Transformer is solved</text>
+  <text x="230" y="102" font-size="8" fill="#5C5C58">Fixed batch, predictable KV cache</text>
+  <text x="230" y="114" font-size="8" fill="#5C5C58">Static memory access patterns</text>
+  <text x="230" y="126" font-size="8" fill="#5C5C58">ASIC advantage clear, measurable</text>
+  <text x="428" y="90" font-size="8.5" fill="#854F0B" font-weight="600">Agentic / reasoning models</text>
+  <text x="428" y="102" font-size="8" fill="#5C5C58">o3-class: iterative, tree-search</text>
+  <text x="428" y="114" font-size="8" fill="#5C5C58">Dynamic batch, non-deterministic</text>
+  <text x="428" y="126" font-size="8" fill="#5C5C58">Inference resembles training</text>
+  <text x="626" y="90" font-size="8.5" fill="#3C3489" font-weight="600">Fixed-function ASICs lose edge</text>
+  <text x="626" y="102" font-size="8" fill="#5C5C58">Programmable dataflow required</text>
+  <text x="626" y="114" font-size="8" fill="#5C5C58">not just raw throughput</text>
+  <text x="626" y="126" font-size="8" fill="#5C5C58">New design requirement for 2027</text>
+
+  <!-- ROW 2 -->
+  <rect x="82"  y="150" width="130" height="74" rx="0" fill="#FAFAF8" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="220" y="150" width="190" height="74" rx="0" fill="#FAFAF8" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="418" y="150" width="190" height="74" rx="0" fill="#FAFAF8" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="616" y="150" width="204" height="74" rx="0" fill="#FAFAF8" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="82" y="150" width="4" height="74" fill="#1A6B52"/>
+  <text x="100" y="164" font-size="9" font-weight="700" fill="#1A6B52">② Compute</text>
+  <text x="100" y="176" font-size="9" fill="#5C5C58">demand curve</text>
+  <text x="100" y="190" font-size="9" fill="#5C5C58">volume + shape</text>
+  <text x="230" y="164" font-size="8.5" fill="#1A6B52" font-weight="600">70% AI compute = inference</text>
+  <text x="230" y="176" font-size="8" fill="#5C5C58">Token volume exponential growth</text>
+  <text x="230" y="188" font-size="8" fill="#5C5C58">Billions of daily queries locked in</text>
+  <text x="230" y="200" font-size="8" fill="#5C5C58">Demand curve visible 2-3 yrs out</text>
+  <text x="428" y="164" font-size="8.5" fill="#854F0B" font-weight="600">Context length explosion</text>
+  <text x="428" y="176" font-size="8" fill="#5C5C58">1M+ token windows → BW wall</text>
+  <text x="428" y="188" font-size="8" fill="#5C5C58">Agentic: CPU+GPU+storage mix</text>
+  <text x="428" y="200" font-size="8" fill="#5C5C58">Heterogeneous, not GPU-only</text>
+  <text x="626" y="164" font-size="8.5" fill="#3C3489" font-weight="600">Memory BW is the constraint</text>
+  <text x="626" y="176" font-size="8" fill="#5C5C58">HBM4/4E beats raw FLOPS</text>
+  <text x="626" y="188" font-size="8" fill="#5C5C58">Context memory (CMX) platforms</text>
+  <text x="626" y="200" font-size="8" fill="#5C5C58">emerge as infrastructure layer</text>
+
+  <!-- ROW 3 -->
+  <rect x="82"  y="224" width="130" height="74" rx="0" fill="white" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="220" y="224" width="190" height="74" rx="0" fill="white" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="418" y="224" width="190" height="74" rx="0" fill="white" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="616" y="224" width="204" height="74" rx="0" fill="white" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="82" y="224" width="4" height="74" fill="#854F0B"/>
+  <text x="100" y="238" font-size="9" font-weight="700" fill="#854F0B">③ Capital</text>
+  <text x="100" y="250" font-size="9" fill="#5C5C58">allocation</text>
+  <text x="100" y="262" font-size="9" fill="#5C5C58">CapEx 2026–27</text>
+  <text x="230" y="238" font-size="8.5" fill="#1A6B52" font-weight="600">$505B hyperscaler CapEx locked</text>
+  <text x="230" y="250" font-size="8" fill="#5C5C58">MSFT $190B, Meta $135B</text>
+  <text x="230" y="262" font-size="8" fill="#5C5C58">Amazon $105B, Google $75B</text>
+  <text x="230" y="274" font-size="8" fill="#5C5C58">In earnings guidance — committed</text>
+  <text x="428" y="238" font-size="8.5" fill="#854F0B" font-weight="600">Mix shifting to custom ASIC</text>
+  <text x="428" y="250" font-size="8" fill="#5C5C58">Meta $135B mostly MTIA not H100</text>
+  <text x="428" y="262" font-size="8" fill="#5C5C58">Google mostly TPU, AWS Trainium</text>
+  <text x="428" y="274" font-size="8" fill="#5C5C58">Nvidia share of budget shrinking</text>
+  <text x="626" y="238" font-size="8.5" fill="#3C3489" font-weight="600">AVGO $100B AI rev 2027 credible</text>
+  <text x="626" y="250" font-size="8" fill="#5C5C58">Custom ASIC +44.6% vs GPU +16.1%</text>
+  <text x="626" y="262" font-size="8" fill="#5C5C58">Training: Nvidia stays dominant</text>
+  <text x="626" y="274" font-size="8" fill="#5C5C58">Inference: ASIC structural shift</text>
+
+  <!-- ROW 4 -->
+  <rect x="82"  y="298" width="130" height="74" rx="0" fill="#FAFAF8" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="220" y="298" width="190" height="74" rx="0" fill="#FAFAF8" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="418" y="298" width="190" height="74" rx="0" fill="#FAFAF8" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="616" y="298" width="204" height="74" rx="0" fill="#FAFAF8" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="82" y="298" width="4" height="74" fill="#1E5FA3"/>
+  <text x="100" y="312" font-size="9" font-weight="700" fill="#1E5FA3">④ Process</text>
+  <text x="100" y="324" font-size="9" fill="#5C5C58">node &amp; memory</text>
+  <text x="100" y="336" font-size="9" fill="#5C5C58">roadmap</text>
+  <text x="100" y="348" font-size="8" fill="#8E8E88">Physical constraints</text>
+  <text x="230" y="312" font-size="8.5" fill="#1A6B52" font-weight="600">TSMC N3 + HBM3E in production</text>
+  <text x="230" y="324" font-size="8" fill="#5C5C58">All frontier chips on N3 now</text>
+  <text x="230" y="336" font-size="8" fill="#5C5C58">HBM3E: 1.2 TB/s, 96GB/pkg</text>
+  <text x="230" y="348" font-size="8" fill="#5C5C58">CoWoS-S packaging established</text>
+  <text x="428" y="312" font-size="8.5" fill="#854F0B" font-weight="600">N2/A16 + HBM4 incoming</text>
+  <text x="428" y="324" font-size="8" fill="#5C5C58">TSMC N2 (GAA, 2026 ramp)</text>
+  <text x="428" y="336" font-size="8" fill="#5C5C58">A16 backside power (2027)</text>
+  <text x="428" y="348" font-size="8" fill="#5C5C58">HBM4: 2TB/s — 36GB/stack</text>
+  <text x="626" y="312" font-size="8.5" fill="#3C3489" font-weight="600">CoWoS capacity = geopolitical</text>
+  <text x="626" y="324" font-size="8" fill="#5C5C58">First movers on N2+HBM4:</text>
+  <text x="626" y="336" font-size="8" fill="#5C5C58">1.5–2× bandwidth advantage</text>
+  <text x="626" y="348" font-size="8" fill="#5C5C58">Packaging slot = chip priority</text>
+
+  <!-- ROW 5 -->
+  <rect x="82"  y="372" width="130" height="74" rx="0" fill="white" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="220" y="372" width="190" height="74" rx="0" fill="white" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="418" y="372" width="190" height="74" rx="0" fill="white" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="616" y="372" width="204" height="74" rx="0" fill="white" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="82" y="372" width="4" height="74" fill="#27500A"/>
+  <text x="100" y="386" font-size="9" font-weight="700" fill="#27500A">⑤ System &amp;</text>
+  <text x="100" y="398" font-size="9" fill="#5C5C58">interconnect</text>
+  <text x="100" y="410" font-size="9" fill="#5C5C58">rack architecture</text>
+  <text x="230" y="386" font-size="8.5" fill="#1A6B52" font-weight="600">NVLink + Ethernet established</text>
+  <text x="230" y="398" font-size="8" fill="#5C5C58">NVLink: training cluster standard</text>
+  <text x="230" y="410" font-size="8" fill="#5C5C58">Spectrum-X: east-west traffic</text>
+  <text x="230" y="422" font-size="8" fill="#5C5C58">InfiniBand: north-south</text>
+  <text x="428" y="386" font-size="8.5" fill="#854F0B" font-weight="600">Optical + disaggregated racks</text>
+  <text x="428" y="398" font-size="8" fill="#5C5C58">Co-packaged optics entering prod.</text>
+  <text x="428" y="410" font-size="8" fill="#5C5C58">Ethernet-native inference clusters</text>
+  <text x="428" y="422" font-size="8" fill="#5C5C58">BlueField-4 CMX storage racks</text>
+  <text x="626" y="386" font-size="8.5" fill="#3C3489" font-weight="600">Training ≠ Inference racks</text>
+  <text x="626" y="398" font-size="8" fill="#5C5C58">Inference: Ethernet-native, het.</text>
+  <text x="626" y="410" font-size="8" fill="#5C5C58">Training: NVLink homogeneous</text>
+  <text x="626" y="422" font-size="8" fill="#5C5C58">Two distinct markets, two winners</text>
+
+  <!-- ROW 6 -->
+  <rect x="82"  y="446" width="130" height="74" rx="0" fill="#FAFAF8" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="220" y="446" width="190" height="74" rx="0" fill="#FAFAF8" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="418" y="446" width="190" height="74" rx="0" fill="#FAFAF8" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="616" y="446" width="204" height="74" rx="0" fill="#FAFAF8" stroke="#E8E7E0" stroke-width="0.5"/>
+  <rect x="82" y="446" width="4" height="74" fill="#A32D2D"/>
+  <text x="100" y="460" font-size="9" font-weight="700" fill="#A32D2D">⑥ New</text>
+  <text x="100" y="472" font-size="9" fill="#5C5C58">entrants &amp; chip</text>
+  <text x="100" y="484" font-size="9" fill="#5C5C58">announcements</text>
+  <text x="100" y="496" font-size="8" fill="#8E8E88">Micro · most visible</text>
+  <text x="230" y="460" font-size="8.5" fill="#1A6B52" font-weight="600">Confirmed shipping 2026</text>
+  <text x="230" y="472" font-size="8" fill="#5C5C58">Nvidia Vera Rubin (Q3 2026)</text>
+  <text x="230" y="484" font-size="8" fill="#5C5C58">AMD MI450 Helios (Q3 2026)</text>
+  <text x="230" y="496" font-size="8" fill="#5C5C58">Google TPU v8i/v8t · ARM AGI CPU</text>
+  <text x="428" y="460" font-size="8.5" fill="#854F0B" font-weight="600">Structural new entrants</text>
+  <text x="428" y="472" font-size="8" fill="#5C5C58">ARM: ISA licensor → chip maker</text>
+  <text x="428" y="484" font-size="8" fill="#5C5C58">Etched: Transformer-baked ASIC</text>
+  <text x="428" y="496" font-size="8" fill="#5C5C58">Tenstorrent (Jim Keller, RISC-V)</text>
+  <text x="626" y="460" font-size="8.5" fill="#3C3489" font-weight="600">ARM is most significant</text>
+  <text x="626" y="472" font-size="8" fill="#5C5C58">$2B+ demand at launch for</text>
+  <text x="626" y="484" font-size="8" fill="#5C5C58">ARM AGI CPU (doubled projection)</text>
+  <text x="626" y="496" font-size="8" fill="#5C5C58">ISA layer being re-monetized</text>
+
+  <text x="430" y="551" text-anchor="middle" font-size="8.5" fill="#AAAAA4">Fig 8 · AI Chip 2027 Forecast — Top-Down Scanner | momosan2692.github.io</text>
+</svg>

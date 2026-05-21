@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>垂直整合的終局：Rocket Lab 的太空供應鏈帝國</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream:    #FAF7F2;
+    --ink:      #1A1714;
+    --ink-2:    #3D3830;
+    --ink-3:    #6B6259;
+    --amber:    #C8830A;
+    --amber-lt: #FDF3DC;
+    --amber-md: #F2C45A;
+    --rust:     #A03B1E;
+    --rust-lt:  #FAF0EB;
+    --teal:     #0F6E56;
+    --teal-lt:  #E1F5EE;
+    --rule:     #DDD5C8;
+    --serif:    'Playfair Display', Georgia, serif;
+    --sans:     'DM Sans', system-ui, sans-serif;
+    --mono:     'DM Mono', 'Courier New', monospace;
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ─────────────────────────────────────── */
+  .masthead {
+    background: var(--ink);
+    padding: 2.5rem 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .masthead::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 24px,
+      rgba(255,255,255,0.018) 24px,
+      rgba(255,255,255,0.018) 25px
+    );
+    pointer-events: none;
+  }
+  .masthead-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+    position: relative;
+  }
+  .tag-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.6rem;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .tag-sector { background: var(--amber); color: var(--ink); }
+  .tag-type   { background: transparent; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+  .tag-date   { color: rgba(255,255,255,0.35); font-size: 11px; font-family: var(--mono); margin-left: auto; }
+
+  h1.hero {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.18;
+    color: #fff;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.2rem;
+  }
+  h1.hero em {
+    font-style: italic;
+    color: var(--amber-md);
+  }
+  .deck {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.62);
+    max-width: 640px;
+    line-height: 1.65;
+    margin-bottom: 2.2rem;
+    font-weight: 300;
+  }
+
+  /* KPI strip */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .kpi {
+    padding: 1.1rem 1.2rem;
+    background: rgba(255,255,255,0.04);
+  }
+  .kpi-label {
+    font-size: 10.5px;
+    font-family: var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.38);
+    margin-bottom: 0.3rem;
+  }
+  .kpi-value {
+    font-family: var(--serif);
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+  }
+  .kpi-delta {
+    font-size: 11px;
+    font-family: var(--mono);
+    margin-top: 0.25rem;
+  }
+  .up   { color: #6FD4A8; }
+  .down { color: #F4917A; }
+  .neu  { color: rgba(255,255,255,0.38); }
+
+  /* ── BODY ────────────────────────────────────────── */
+  .body-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  article { padding: 3rem 0 4rem; }
+
+  h2.section-head {
+    font-family: var(--serif);
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 2.8rem 0 1rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1.5px solid var(--rule);
+    letter-spacing: -0.01em;
+  }
+  h2.section-head:first-child { margin-top: 0; }
+
+  h3.sub {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin: 2rem 0 0.5rem;
+  }
+
+  p { margin-bottom: 1.1rem; color: var(--ink-2); }
+  p:last-child { margin-bottom: 0; }
+
+  strong { font-weight: 500; color: var(--ink); }
+
+  .lede {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--ink-2);
+    line-height: 1.7;
+    border-left: 3px solid var(--amber);
+    padding-left: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  /* ── ACQUISITION MAP ─────────────────────────────── */
+  .acq-map {
+    margin: 1.5rem 0 2rem;
+  }
+  .acq-row {
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
+    gap: 0 1rem;
+    align-items: start;
+    padding: 0.85rem 0;
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .acq-row:last-child { border-bottom: none; }
+  .acq-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    padding-top: 2px;
+  }
+  .acq-company { font-weight: 500; color: var(--ink); font-size: 0.95rem; }
+  .acq-desc { font-size: 0.85rem; color: var(--ink-3); margin-top: 2px; }
+  .acq-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+    align-self: start;
+    margin-top: 2px;
+  }
+  .tag-optical  { background: var(--rust-lt);  color: var(--rust); }
+  .tag-comms    { background: var(--teal-lt);  color: var(--teal); }
+  .tag-mfg      { background: #EEF2FF;          color: #3B4BC8; }
+  .tag-robotics { background: var(--amber-lt);  color: var(--amber); }
+
+  /* ── CASH MODEL TABLE ──────────────────────────────── */
+  .model-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0 2rem;
+    font-size: 0.88rem;
+  }
+  .model-table th {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1.5px solid var(--rule);
+    padding: 0 1rem 0.6rem;
+    text-align: left;
+    font-weight: 400;
+  }
+  .model-table th:not(:first-child) { text-align: right; }
+  .model-table td {
+    padding: 0.7rem 1rem;
+    border-bottom: 0.5px solid var(--rule);
+    vertical-align: middle;
+  }
+  .model-table td:not(:first-child) { text-align: right; font-family: var(--mono); }
+  .model-table tr:last-child td { border-bottom: none; }
+  .scenario-label { font-weight: 500; }
+  .row-bull td { color: var(--teal); }
+  .row-base td { color: var(--ink); }
+  .row-bear td { color: var(--rust); }
+  .model-table .label-col { color: var(--ink) !important; font-family: var(--sans); }
+
+  /* ── CALLOUT BOXES ────────────────────────────────── */
+  .callout {
+    padding: 1.1rem 1.3rem;
+    border-radius: 3px;
+    margin: 1.5rem 0;
+    border-left: 3px solid;
+  }
+  .callout-amber {
+    background: var(--amber-lt);
+    border-color: var(--amber);
+  }
+  .callout-teal {
+    background: var(--teal-lt);
+    border-color: var(--teal);
+  }
+  .callout-rust {
+    background: var(--rust-lt);
+    border-color: var(--rust);
+  }
+  .callout-head {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .callout-amber .callout-head { color: var(--amber); }
+  .callout-teal  .callout-head { color: var(--teal); }
+  .callout-rust  .callout-head { color: var(--rust); }
+  .callout p { font-size: 0.9rem; margin: 0; }
+  .callout-amber p { color: #5A3800; }
+  .callout-teal  p { color: #084033; }
+  .callout-rust  p { color: #6B2010; }
+
+  /* ── GAP MATRIX ───────────────────────────────────── */
+  .gap-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 1.2rem 0 2rem;
+  }
+  .gap-card {
+    border: 0.5px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.9rem 1rem;
+    background: #fff;
+  }
+  .gap-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.35rem;
+  }
+  .gap-name { font-weight: 500; font-size: 0.88rem; }
+  .gap-status {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 20px;
+  }
+  .status-done { background: var(--teal-lt); color: var(--teal); }
+  .status-wip  { background: var(--amber-lt); color: var(--amber); }
+  .status-gap  { background: var(--rust-lt); color: var(--rust); }
+  .gap-note { font-size: 0.8rem; color: var(--ink-3); }
+
+  /* ── SIDEBAR ──────────────────────────────────────── */
+  aside { padding-top: 3rem; }
+  .sidebar-block {
+    border-top: 1.5px solid var(--rule);
+    padding: 1.3rem 0;
+  }
+  .sidebar-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.8rem;
+  }
+  .sidebar-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.3rem 0;
+    border-bottom: 0.5px solid var(--rule);
+    font-size: 0.85rem;
+  }
+  .sidebar-stat:last-child { border-bottom: none; }
+  .sidebar-stat-key { color: var(--ink-3); }
+  .sidebar-stat-val { font-family: var(--mono); font-weight: 500; color: var(--ink); }
+
+  .thesis-box {
+    background: var(--ink);
+    color: #fff;
+    padding: 1.3rem;
+    border-radius: 3px;
+    margin-top: 1.5rem;
+  }
+  .thesis-box .sidebar-label { color: rgba(255,255,255,0.4); }
+  .thesis-text {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* ── TIMELINE BAR ─────────────────────────────────── */
+  .timeline-wrap {
+    margin: 1.5rem 0 2rem;
+    position: relative;
+  }
+  .tl-rail {
+    height: 4px;
+    background: var(--rule);
+    border-radius: 2px;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+  .tl-fill {
+    position: absolute;
+    left: 0; top: 0; height: 100%;
+    background: linear-gradient(90deg, var(--amber) 0%, var(--teal) 100%);
+    border-radius: 2px;
+    width: 35%;
+  }
+  .tl-marker {
+    position: absolute;
+    top: -5px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
+  .tl-marker-now { left: 35%; background: var(--amber); transform: translateX(-50%); }
+  .tl-marker-fly { left: 68%; background: var(--ink-3); transform: translateX(-50%); }
+  .tl-marker-rev { left: 85%; background: var(--teal); transform: translateX(-50%); }
+  .tl-labels {
+    display: flex;
+    font-size: 10.5px;
+    font-family: var(--mono);
+    color: var(--ink-3);
+    position: relative;
+  }
+  .tl-l { position: absolute; transform: translateX(-50%); text-align: center; }
+  .tl-l span { display: block; }
+  .tl-l strong { color: var(--ink); font-weight: 500; }
+
+  /* ── FOOTER ───────────────────────────────────────── */
+  footer {
+    border-top: 1.5px solid var(--rule);
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-sig { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+  .footer-disc { font-size: 11px; color: var(--ink-3); max-width: 460px; }
+
+  @media (max-width: 720px) {
+    .body-wrap { grid-template-columns: 1fr; gap: 0; }
+    .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+    aside { padding-top: 0; border-top: 1.5px solid var(--rule); }
+    .gap-grid { grid-template-columns: 1fr; }
+    .acq-row { grid-template-columns: 80px 1fr; }
+    .acq-tag { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ MASTHEAD ═══════════════════════════════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="tag-row">
+      <span class="tag tag-sector">RKLB · 投資研究</span>
+      <span class="tag tag-type">深度分析</span>
+      <span class="tag-date">2026 年 5 月 21 日</span>
+    </div>
+
+    <h1 class="hero">
+      垂直整合的終局：<br>
+      <em>Rocket Lab</em> 的太空供應鏈帝國
+    </h1>
+
+    <p class="deck">
+      $3B ATM、Neutron 時程、SpaceX IPO 資金排擠——
+      三條時間軸交叉之下，RKLB 的真實投資論點並非「小 SpaceX」，
+      而是政府刻意扶植的<strong style="color:rgba(255,255,255,0.8)">第二供應鏈控制者</strong>。
+    </p>
+
+    <div class="kpi-strip">
+      <div class="kpi">
+        <div class="kpi-label">當前股價</div>
+        <div class="kpi-value">$134.28</div>
+        <div class="kpi-delta up">▲ +5.47% 收盤</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">市值</div>
+        <div class="kpi-value">$77.9B</div>
+        <div class="kpi-delta neu">P/S &gt; 100×</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Q1 營收</div>
+        <div class="kpi-value">$200M</div>
+        <div class="kpi-delta up">▲ YoY +63.5%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">合約 Backlog</div>
+        <div class="kpi-value">$2.2B</div>
+        <div class="kpi-delta up">▲ QoQ +20.2%</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══ BODY ═══════════════════════════════════════════ -->
+<div class="body-wrap">
+
+  <article>
+
+    <!-- § 1 -->
+    <h2 class="section-head">核心命題</h2>
+
+    <p class="lede">
+      市場用「小 SpaceX」定價 RKLB，這個框架根本錯了。
+      正確框架是：RKLB 是政府採購結構性需要存在的第二太空供應鏈，
+      而其估值錨點在於「政府願意為維持競爭格局支付多少溢價」。
+    </p>
+
+    <p>
+      太空產業的範式是政府與軍方應用先行。政府採購的底層邏輯從不是「買最好的」，
+      而是「確保供應鏈不被單點卡死」。ULA 壟斷後 Atlas V 每發成本飆至 $4–5 億、
+      RD-180 俄製引擎依賴暴露國家安全漏洞——這些教訓已固化為採購政策：
+      <strong>NSSL Phase 3 Lane 1 刻意設計為雙軌制，至少維持兩家認證供應商。</strong>
+    </p>
+
+    <p>
+      SpaceX 越強大，政府越需要 RKLB 活著。Golden Dome、HASTE、SDA $1.3B 合約，
+      這些不是 RKLB 意外贏得的項目，而是政府刻意設計讓第二供應商活下去的機制。
+    </p>
+
+    <!-- § 2 -->
+    <h2 class="section-head">收購版圖：垂直整合的拼圖</h2>
+
+    <p>
+      Beck 的收購邏輯一以貫之：找到太空供應鏈中無法自行規模化的最佳技術節點，
+      收購後內化為 RKLB 自有能力，再通過 SDA/DoD 合約規模化輸出。
+    </p>
+
+    <div class="acq-map">
+      <div class="acq-row">
+        <div class="acq-date">2024</div>
+        <div>
+          <div class="acq-company">Geost</div>
+          <div class="acq-desc">光電/紅外感測器 — 飛彈預警、偵察、情報任務</div>
+        </div>
+        <span class="acq-tag tag-optical">光學·感測</span>
+      </div>
+      <div class="acq-row">
+        <div class="acq-date">2025.02</div>
+        <div>
+          <div class="acq-company">Precision Components (NZ)</div>
+          <div class="acq-desc">精密製造 — Electron / Neutron / 太空船生產線</div>
+        </div>
+        <span class="acq-tag tag-mfg">製造</span>
+      </div>
+      <div class="acq-row">
+        <div class="acq-date">2025.02</div>
+        <div>
+          <div class="acq-company">Optical Support</div>
+          <div class="acq-desc">導彈追蹤、監視、太空態勢感知光學系統</div>
+        </div>
+        <span class="acq-tag tag-optical">光學·感測</span>
+      </div>
+      <div class="acq-row">
+        <div class="acq-date">2025.04</div>
+        <div>
+          <div class="acq-company">Mynaric AG　<small style="font-weight:400;color:var(--ink-3)">$155.3M</small></div>
+          <div class="acq-desc">雷射光通訊終端 — SDA $1.3B 合約的關鍵供應商，直接收購內化</div>
+        </div>
+        <span class="acq-tag tag-comms">通訊</span>
+      </div>
+      <div class="acq-row">
+        <div class="acq-date">2025.05</div>
+        <div>
+          <div class="acq-company">Motiv Space Systems</div>
+          <div class="acq-desc">太空機器人、運動控制 — NASA 毅力號火星探測車技術血統</div>
+        </div>
+        <span class="acq-tag tag-robotics">機器人</span>
+      </div>
+    </div>
+
+    <div class="callout callout-amber">
+      <div class="callout-head">關鍵洞察</div>
+      <p>Mynaric 是最典型案例：先有 $1.3B SDA 合約需要光通訊終端，Mynaric 是供應商，
+      直接收購變成自己人。這不是財務收購，是<strong>供應鏈垂直控制</strong>。</p>
+    </div>
+
+    <!-- § 3 -->
+    <h2 class="section-head">$3B ATM：時間窗口的戰略意義</h2>
+
+    <p>
+      這次融資的核心邏輯，不是「缺錢」，而是在 <strong>SpaceX IPO 重塑太空投資生態之前</strong>，
+      提前鎖定資本。
+    </p>
+
+    <h3 class="sub">SpaceX IPO 資金排擠效應</h3>
+    <p>
+      SpaceX 估值約 $1.75 兆，IPO 一旦啟動，機構投資人將從 RKLB / ASTS 等 proxy 股撤出，
+      ETF 重組將稀釋其他成分股權重。RKLB 現在是太空賽道最佳替代品，溢價處於歷史高位。
+      <strong>$3B ATM 本質上是在這個窗口消失前，先把未來兩年需要的資本鎖進來。</strong>
+    </p>
+
+    <h3 class="sub">現金燃燒情境模型</h3>
+
+    <p>$3B ATM 後總彈藥：既有 $1.48B + $3B = <strong>$4.48B</strong></p>
+
+    <table class="model-table">
+      <thead>
+        <tr>
+          <th>情境</th>
+          <th>Neutron 首飛</th>
+          <th>季均 FCF</th>
+          <th>M&amp;A 預算</th>
+          <th>兩年後剩餘</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-bull">
+          <td class="label-col">牛市</td>
+          <td>Q4 2026</td>
+          <td>-$60M</td>
+          <td>$500M</td>
+          <td>$3.50B</td>
+        </tr>
+        <tr class="row-base">
+          <td class="label-col">基準</td>
+          <td>Q2 2027</td>
+          <td>-$80M</td>
+          <td>$800M</td>
+          <td>$3.04B</td>
+        </tr>
+        <tr class="row-bear">
+          <td class="label-col">熊市</td>
+          <td>Q4 2027</td>
+          <td>-$100M</td>
+          <td>$1.2B</td>
+          <td>$2.48B</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-teal">
+      <div class="callout-head">結論</div>
+      <p>即使熊市情境下，Neutron 多次延誤 + 積極收購，兩年後仍剩 $2.48B 緩衝。
+      <strong>現金不是問題。</strong>真正的風險是：Neutron 延誤讓估值的故事性溢價承壓，
+      不是讓公司面臨流動性危機。</p>
+    </div>
+
+    <!-- § 4 -->
+    <h2 class="section-head">Neutron 時間軸</h2>
+
+    <div class="timeline-wrap">
+      <div class="tl-rail">
+        <div class="tl-fill"></div>
+        <div class="tl-marker tl-marker-now"></div>
+        <div class="tl-marker tl-marker-fly"></div>
+        <div class="tl-marker tl-marker-rev"></div>
+      </div>
+      <div class="tl-labels" style="height:48px;">
+        <div class="tl-l" style="left:35%">
+          <span style="color:var(--amber);font-weight:500">現在</span>
+          <span>$3B ATM</span>
+        </div>
+        <div class="tl-l" style="left:68%">
+          <strong>Q4 2026</strong>
+          <span>Neutron 首飛</span>
+        </div>
+        <div class="tl-l" style="left:85%">
+          <strong>2027 Q2+</strong>
+          <span style="color:var(--teal)">商業收入啟動</span>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      首飛為測試飛行，無商業客戶。目前最大合約為 5 次 Neutron 飛行延伸至 2029 年，
+      定價 $50–55M / 發。即使 Q4 2026 順利首飛，<strong>商業收入最快 2027 年中才能入帳</strong>。
+      Neutron 是整個估值敘事的時間軸錨——它的每一次延誤都會在短期壓制估值溢價。
+    </p>
+
+    <!-- § 5 -->
+    <h2 class="section-head">能力缺口：還需要併購什麼</h2>
+
+    <div class="gap-grid">
+      <div class="gap-card">
+        <div class="gap-card-head">
+          <span class="gap-name">發射能力</span>
+          <span class="gap-status status-done">✓ 完備</span>
+        </div>
+        <div class="gap-note">Electron（高頻次小火箭）、Neutron（進行中）、HASTE</div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-card-head">
+          <span class="gap-name">光學 / 感測</span>
+          <span class="gap-status status-done">✓ 完備</span>
+        </div>
+        <div class="gap-note">Geost + Optical Support 覆蓋光電紅外全譜</div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-card-head">
+          <span class="gap-name">地面站網路</span>
+          <span class="gap-status status-done">✓ 合作解決</span>
+        </div>
+        <div class="gap-note">KSAT 獨家合作：200+ 天線，無需自建</div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-card-head">
+          <span class="gap-name">星座管理軟體</span>
+          <span class="gap-status status-done">✓ 自研</span>
+        </div>
+        <div class="gap-note">InterMission + MAX Constellation，已有 Globalstar 部署</div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-card-head">
+          <span class="gap-name">雷射星間鏈路</span>
+          <span class="gap-status status-wip">整合中</span>
+        </div>
+        <div class="gap-note">Mynaric 已收購，硬體整合進行中</div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-card-head">
+          <span class="gap-name">在軌服務 / 補給</span>
+          <span class="gap-status status-gap">缺口</span>
+        </div>
+        <div class="gap-note">Golden Dome 需要持續在軌存在，目前完全空白</div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-card-head">
+          <span class="gap-name">輻射硬化處理器</span>
+          <span class="gap-status status-gap">缺口</span>
+        </div>
+        <div class="gap-note">國防任務關鍵，目前依賴外部供應商</div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-card-head">
+          <span class="gap-name">電推進系統</span>
+          <span class="gap-status status-gap">次要缺口</span>
+        </div>
+        <div class="gap-note">小衛星離子推進，可機會性補足</div>
+      </div>
+    </div>
+
+    <div class="callout callout-rust">
+      <div class="callout-head">必要併購預估</div>
+      <p>在軌服務平台 $200–500M + 輻射硬化電子 $150–400M =
+      <strong>核心缺口約 $350–900M</strong>。這才是追蹤 RKLB 下一筆收購最值得盯的方向，
+      而非地面站（已由 KSAT 合作解決）。</p>
+    </div>
+
+    <!-- § 6 -->
+    <h2 class="section-head">估值框架</h2>
+
+    <p>
+      當前 P/S > 100×，FCF 為負，Neutron 尚未商業飛行。
+      這是動量與故事驅動的估值，不是價值投資的框架。
+      <strong>但故事本身是否成立？</strong>
+    </p>
+
+    <p>
+      Space Systems 已佔 Q1 收入 68%，且毛利率結構優於純發射業務。
+      這個比例還會繼續提升。Neutron 是敘事錨點，但<strong>利潤引擎在 Systems</strong>。
+      隨著垂直整合持續深化，每一美元的發射合約將帶動更高比例的系統與服務收入——
+      這是 SpaceX 刻意不提供的開放平台價值。
+    </p>
+
+    <p>
+      Reverse DCF 隱含假設：市場定價了至少 $800M 年收入（約 2028 年）、
+      20%+ 調整後 EBITDA margin、Neutron 至少 5 次 / 年商業飛行。
+      每一個假設的延誤都是短期估值壓力，但不改變長期結構性論點。
+    </p>
+
+  </article>
+
+  <!-- ══ SIDEBAR ═══════════════════════════════════ -->
+  <aside>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">財務快覽 Q1 2026</div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">營收</span>
+        <span class="sidebar-stat-val">$200.3M</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">YoY 成長</span>
+        <span class="sidebar-stat-val">+63.5%</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">R&amp;D 支出</span>
+        <span class="sidebar-stat-val">$80.5M</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">Non-GAAP FCF</span>
+        <span class="sidebar-stat-val">-$77.4M</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">Adj. EBITDA loss</span>
+        <span class="sidebar-stat-val">-$11.8M</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">Capex</span>
+        <span class="sidebar-stat-val">$27.1M</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">現金（ATM 前）</span>
+        <span class="sidebar-stat-val">$1.48B</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">$3B ATM 稀釋分析</div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">假定發行價</span>
+        <span class="sidebar-stat-val">$131.16</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">稀釋後每股</span>
+        <span class="sidebar-stat-val">$122.47</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">稀釋幅度</span>
+        <span class="sidebar-stat-val">~6.6%</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">稀釋率 (vs 市值)</span>
+        <span class="sidebar-stat-val">~3.8%</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">盤後反應</span>
+        <span class="sidebar-stat-val" style="color:var(--rust)">-6.27%</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Neutron 關鍵數字</div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">首飛目標</span>
+        <span class="sidebar-stat-val">Q4 2026</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">載荷（LEO）</span>
+        <span class="sidebar-stat-val">13,000 kg</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">定價 / 發</span>
+        <span class="sidebar-stat-val">$50–55M</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">已簽訂商業飛行</span>
+        <span class="sidebar-stat-val">5 次</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">延誤季度成本</span>
+        <span class="sidebar-stat-val">~$15M</span>
+      </div>
+    </div>
+
+    <div class="thesis-box">
+      <div class="sidebar-label">投資論點一句話</div>
+      <p class="thesis-text">
+        $3B 不是為了活下去，是為了在 SpaceX IPO 重塑太空投資生態之前，
+        提前完成垂直整合版圖、鎖定供應鏈控制權，然後以一個完全不同物種的姿態
+        與 SpaceX 共存於市場。
+      </p>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- ══ FOOTER ════════════════════════════════════════ -->
+<footer>
+  <div class="footer-sig">momosan2692.github.io · CJH Research · 2026.05.21</div>
+  <div class="footer-disc">
+    本文為個人研究，不構成投資建議。所有數據來源於公開財報及新聞揭露。
+    投資涉及風險，請自行評估。
+  </div>
+</footer>
+
+</body>
+</html>

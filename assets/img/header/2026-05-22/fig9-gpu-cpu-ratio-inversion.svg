@@ -1,0 +1,112 @@
+<svg viewBox="0 0 860 480" xmlns="http://www.w3.org/2000/svg" font-family="'Georgia','Times New Roman',serif">
+  <rect width="860" height="480" fill="#FAFAF8" rx="8"/>
+  <text x="430" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1A1A18">GPU : CPU Ratio Inversion — The Agentic Signal</text>
+  <text x="430" y="42" text-anchor="middle" font-size="10" fill="#8E8E88">From 8 GPUs per CPU in training, to parity — and potential CPU majority — in agentic inference</text>
+
+  <!-- era columns -->
+  <!-- ERA 1: Training — x center 143 -->
+  <!-- ERA 2: Chatbot — x center 430 -->
+  <!-- ERA 3: Agentic — x center 717 -->
+
+  <!-- column headers -->
+  <rect x="40"  y="54" width="206" height="24" rx="5" fill="#EEEDFE"/>
+  <text x="143" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#3C3489">Era 1 · Training</text>
+  <rect x="327" y="54" width="206" height="24" rx="5" fill="#E4F5EE"/>
+  <text x="430" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#1A6B52">Era 2 · Chatbot Inference</text>
+  <rect x="614" y="54" width="206" height="24" rx="5" fill="#FAEEDA"/>
+  <text x="717" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#854F0B">Era 3 · Agentic Inference</text>
+
+  <!-- ratio badges -->
+  <rect x="78"  y="84" width="130" height="22" rx="11" fill="#3C3489"/>
+  <text x="143" y="98" text-anchor="middle" font-size="11" font-weight="700" fill="white">8 GPU : 1 CPU</text>
+  <rect x="365" y="84" width="130" height="22" rx="11" fill="#1A6B52"/>
+  <text x="430" y="98" text-anchor="middle" font-size="11" font-weight="700" fill="white">4 GPU : 1 CPU</text>
+  <rect x="645" y="84" width="144" height="22" rx="11" fill="#854F0B"/>
+  <text x="717" y="98" text-anchor="middle" font-size="11" font-weight="700" fill="white">1 GPU : 1 CPU → flip</text>
+
+  <!-- arrows between eras -->
+  <text x="285" y="97" text-anchor="middle" font-size="11" fill="#1A6B52">→</text>
+  <text x="572" y="97" text-anchor="middle" font-size="11" fill="#854F0B">→</text>
+  <text x="285" y="109" text-anchor="middle" font-size="8" fill="#1A6B52">8→4</text>
+  <text x="572" y="109" text-anchor="middle" font-size="8" fill="#854F0B">4→1</text>
+
+  <!-- GPU/CPU block visualizations -->
+  <!-- Era 1: 8 GPU blocks + 1 CPU -->
+  <rect x="52"  y="118" width="42" height="20" rx="3" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="100" y="118" width="42" height="20" rx="3" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="148" y="118" width="42" height="20" rx="3" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="196" y="118" width="42" height="20" rx="3" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="52"  y="144" width="42" height="20" rx="3" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="100" y="144" width="42" height="20" rx="3" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="148" y="144" width="42" height="20" rx="3" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="196" y="144" width="42" height="20" rx="3" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.8"/>
+  <text x="143" y="132" text-anchor="middle" font-size="8.5" fill="#3C3489">GPU ×8</text>
+  <text x="143" y="158" text-anchor="middle" font-size="8.5" fill="#3C3489">GPU ×8</text>
+  <rect x="98"  y="172" width="90" height="20" rx="3" fill="#F1EFE8" stroke="#C4C2BA" stroke-width="0.8"/>
+  <text x="143" y="185" text-anchor="middle" font-size="8.5" fill="#444441">CPU ×1</text>
+
+  <!-- Era 2: 4 GPU blocks + 1 CPU -->
+  <rect x="340" y="118" width="42" height="20" rx="3" fill="#E4F5EE" stroke="#8FCFBE" stroke-width="0.8"/>
+  <rect x="388" y="118" width="42" height="20" rx="3" fill="#E4F5EE" stroke="#8FCFBE" stroke-width="0.8"/>
+  <rect x="436" y="118" width="42" height="20" rx="3" fill="#E4F5EE" stroke="#8FCFBE" stroke-width="0.8"/>
+  <rect x="484" y="118" width="42" height="20" rx="3" fill="#E4F5EE" stroke="#8FCFBE" stroke-width="0.8"/>
+  <text x="430" y="132" text-anchor="middle" font-size="8.5" fill="#1A6B52">GPU ×4</text>
+  <rect x="385" y="144" width="90" height="20" rx="3" fill="#F1EFE8" stroke="#C4C2BA" stroke-width="0.8"/>
+  <text x="430" y="157" text-anchor="middle" font-size="8.5" fill="#444441">CPU ×1</text>
+
+  <!-- Era 3: 1 GPU + 1 CPU (or more) -->
+  <rect x="652" y="118" width="90" height="20" rx="3" fill="#FAEEDA" stroke="#E0BE82" stroke-width="0.8"/>
+  <text x="697" y="131" text-anchor="middle" font-size="8.5" fill="#854F0B">GPU ×1</text>
+  <rect x="652" y="144" width="90" height="20" rx="3" fill="#FAEEDA" stroke="#E0BE82" stroke-width="1.5"/>
+  <text x="697" y="157" text-anchor="middle" font-size="8.5" fill="#854F0B" font-weight="700">CPU ×1 (or more) ★</text>
+
+  <!-- workload decomposition -->
+  <!-- Era 1 -->
+  <rect x="40" y="208" width="206" height="108" rx="5" fill="white" stroke="#D8D7D0" stroke-width="0.5"/>
+  <text x="143" y="224" text-anchor="middle" font-size="9" font-weight="700" fill="#3C3489">CPU role in training</text>
+  <text x="143" y="240" text-anchor="middle" font-size="8.5" fill="#5C5C58">Memory routing to GPUs</text>
+  <text x="143" y="254" text-anchor="middle" font-size="8.5" fill="#5C5C58">Data loading, checkpointing</text>
+  <text x="143" y="268" text-anchor="middle" font-size="8.5" fill="#5C5C58">No sequential decision work</text>
+  <text x="143" y="286" text-anchor="middle" font-size="8" fill="#8E8E88">100% parallel → GPU dominates</text>
+  <text x="143" y="298" text-anchor="middle" font-size="8" fill="#3C3489">CPU is just a data janitor</text>
+
+  <!-- Era 2 -->
+  <rect x="327" y="208" width="206" height="108" rx="5" fill="white" stroke="#D8D7D0" stroke-width="0.5"/>
+  <text x="430" y="224" text-anchor="middle" font-size="9" font-weight="700" fill="#1A6B52">CPU role in chatbot</text>
+  <text x="430" y="240" text-anchor="middle" font-size="8.5" fill="#5C5C58">Tokenization, batching</text>
+  <text x="430" y="254" text-anchor="middle" font-size="8.5" fill="#5C5C58">KV cache management</text>
+  <text x="430" y="268" text-anchor="middle" font-size="8.5" fill="#5C5C58">Session routing</text>
+  <text x="430" y="286" text-anchor="middle" font-size="8" fill="#8E8E88">Decode is sequential → some CPU</text>
+  <text x="430" y="298" text-anchor="middle" font-size="8" fill="#1A6B52">GPU still owns all inference</text>
+
+  <!-- Era 3 -->
+  <rect x="614" y="208" width="206" height="108" rx="5" fill="#FAEEDA" stroke="#E0BE82" stroke-width="0.8"/>
+  <text x="717" y="224" text-anchor="middle" font-size="9" font-weight="700" fill="#854F0B">CPU role in agentic</text>
+  <text x="717" y="240" text-anchor="middle" font-size="8.5" fill="#5C5C58">Orchestration, planning</text>
+  <text x="717" y="254" text-anchor="middle" font-size="8.5" fill="#5C5C58">Tool calls, API dispatch</text>
+  <text x="717" y="268" text-anchor="middle" font-size="8.5" fill="#5C5C58">Sandbox / code execution</text>
+  <text x="717" y="282" text-anchor="middle" font-size="8.5" fill="#5C5C58">Policy checks, validation</text>
+  <text x="717" y="298" text-anchor="middle" font-size="8" fill="#854F0B" font-weight="600">CPU = inference orchestrator</text>
+
+  <!-- three-layer emerging stack -->
+  <rect x="40" y="332" width="780" height="16" rx="0" fill="var(--color-background-secondary)"/>
+  <text x="430" y="344" text-anchor="middle" font-size="9" font-weight="700" fill="#444441">Emerging three-layer agentic stack (SambaNova + Intel blueprint, Apr 2026)</text>
+  <rect x="40"  y="352" width="248" height="32" rx="4" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.8"/>
+  <text x="164" y="366" text-anchor="middle" font-size="9" font-weight="700" fill="#3C3489">GPU — Prefill layer</text>
+  <text x="164" y="378" text-anchor="middle" font-size="8.5" fill="#534AB7">Parallel attention compute</text>
+  <rect x="306" y="352" width="248" height="32" rx="4" fill="#E4F5EE" stroke="#8FCFBE" stroke-width="0.8"/>
+  <text x="430" y="366" text-anchor="middle" font-size="9" font-weight="700" fill="#1A6B52">RDU / LPU — Decode layer</text>
+  <text x="430" y="378" text-anchor="middle" font-size="8.5" fill="#2E8A6A">Sequential token generation</text>
+  <rect x="572" y="352" width="248" height="32" rx="4" fill="#FAEEDA" stroke="#E0BE82" stroke-width="0.8"/>
+  <text x="696" y="366" text-anchor="middle" font-size="9" font-weight="700" fill="#854F0B">CPU (Xeon/Vera) — Action layer</text>
+  <text x="696" y="378" text-anchor="middle" font-size="8.5" fill="#633806">Orchestrate, tool exec, sandbox</text>
+
+  <!-- ARM stat -->
+  <rect x="40" y="398" width="780" height="44" rx="5" fill="white" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="40" y="398" width="5" height="44" rx="3" fill="#3C3489"/>
+  <text x="56" y="414" font-size="9" font-weight="700" fill="#3C3489">ARM estimate: </text>
+  <text x="148" y="414" font-size="9" fill="#444441">Agentic AI data centers need 120M CPU cores per GW — 4× the 30M cores/GW in traditional AI data centers.</text>
+  <text x="56" y="430" font-size="9" fill="#444441">Server CPU TAM forecast: +35% annually → $120B by 2030. CPU server prices up 20% since March 2026. UBS: CPU workload 3–8× current levels by 2027.</text>
+
+  <text x="430" y="472" text-anchor="middle" font-size="8.5" fill="#AAAAA4">Fig 9 · GPU:CPU Ratio Inversion — The Agentic Signal | momosan2692.github.io</text>
+</svg>

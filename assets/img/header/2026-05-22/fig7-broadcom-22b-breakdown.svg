@@ -1,0 +1,78 @@
+<svg viewBox="0 0 860 310" xmlns="http://www.w3.org/2000/svg" font-family="'Georgia','Times New Roman',serif">
+  <rect width="860" height="310" fill="#FAFAF8" rx="8"/>
+  <text x="430" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1A1A18">Broadcom $22B Q2 FY2026 — What's Inside</text>
+  <text x="430" y="42" text-anchor="middle" font-size="10" fill="#8E8E88">Total company revenue guided at $22B (+47% YoY) — not a chip-only figure. Two engines, one number.</text>
+
+  <!-- Engine 1: AI Semiconductors $10.7B -->
+  <rect x="40" y="58" width="370" height="196" rx="7" fill="white" stroke="#AFA9EC" stroke-width="1.5"/>
+  <rect x="40" y="58" width="370" height="26" rx="7" fill="#EEEDFE"/>
+  <rect x="40" y="72" width="370" height="12" fill="#EEEDFE"/>
+  <rect x="40" y="58" width="5" height="26" rx="3" fill="#3C3489"/>
+  <text x="218" y="72" text-anchor="middle" font-size="11" font-weight="700" fill="#3C3489">Engine 1 — AI Semiconductors: $10.7B</text>
+  <text x="218" y="94" text-anchor="middle" font-size="9" fill="#8E8E88">49% of Q2 total · +140% YoY · annualizes ~$43B</text>
+
+  <!-- sub: Custom XPUs -->
+  <rect x="56" y="104" width="160" height="96" rx="5" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="136" y="120" text-anchor="middle" font-size="10" font-weight="700" fill="#3C3489">Custom AI Accelerators</text>
+  <text x="136" y="134" text-anchor="middle" font-size="9" fill="#534AB7">(XPU co-design)</text>
+  <text x="136" y="150" text-anchor="middle" font-size="8.5" fill="#5C5C58">Google TPU v7/v8</text>
+  <text x="136" y="162" text-anchor="middle" font-size="8.5" fill="#5C5C58">Meta MTIA Artemis</text>
+  <text x="136" y="174" text-anchor="middle" font-size="8.5" fill="#5C5C58">ByteDance XPU</text>
+  <text x="136" y="186" text-anchor="middle" font-size="8.5" fill="#8E8E88">(+3 undisclosed)</text>
+
+  <!-- sub: AI Networking -->
+  <rect x="234" y="104" width="160" height="96" rx="5" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="314" y="120" text-anchor="middle" font-size="10" font-weight="700" fill="#3C3489">AI Networking Silicon</text>
+  <text x="314" y="134" text-anchor="middle" font-size="9" fill="#534AB7">(switching fabric)</text>
+  <text x="314" y="150" text-anchor="middle" font-size="8.5" fill="#5C5C58">Tomahawk switching</text>
+  <text x="314" y="162" text-anchor="middle" font-size="8.5" fill="#5C5C58">Jericho routing</text>
+  <text x="314" y="174" text-anchor="middle" font-size="8.5" fill="#5C5C58">StrataXGS</text>
+  <text x="314" y="186" text-anchor="middle" font-size="8.5" fill="#5C5C58">Every H100 cluster uses this</text>
+
+  <text x="218" y="222" text-anchor="middle" font-size="8.5" fill="#A32D2D" font-weight="600">⚠ Jalapeño = $0 revenue here. OpenAI not yet a customer.</text>
+  <text x="218" y="236" text-anchor="middle" font-size="8.5" fill="#5C5C58">OpenAI appears only in the 2027 $100B projection — not in $22B.</text>
+
+  <!-- Engine 2: VMware $6.8B -->
+  <rect x="430" y="58" width="210" height="196" rx="7" fill="white" stroke="#8FCFBE" stroke-width="1.2"/>
+  <rect x="430" y="58" width="210" height="26" rx="7" fill="#E4F5EE"/>
+  <rect x="430" y="72" width="210" height="12" fill="#E4F5EE"/>
+  <rect x="430" y="58" width="5" height="26" rx="3" fill="#1A6B52"/>
+  <text x="535" y="72" text-anchor="middle" font-size="11" font-weight="700" fill="#1A6B52">Engine 2 — VMware: $6.8B</text>
+  <text x="535" y="94" text-anchor="middle" font-size="9" fill="#8E8E88">31% of Q2 · 93%+ gross margin · $9.2B bookings</text>
+  <text x="535" y="112" text-anchor="middle" font-size="9" fill="#5C5C58">Private cloud infra for</text>
+  <text x="535" y="124" text-anchor="middle" font-size="9" fill="#5C5C58">Fortune 500 enterprises</text>
+  <text x="535" y="140" text-anchor="middle" font-size="9" fill="#5C5C58">ARR growing 19% YoY</text>
+  <text x="535" y="156" text-anchor="middle" font-size="9" fill="#5C5C58">Recurring revenue base</text>
+  <text x="535" y="172" text-anchor="middle" font-size="9" fill="#5C5C58">provides stability while</text>
+  <text x="535" y="184" text-anchor="middle" font-size="9" fill="#5C5C58">AI semiconductor scales</text>
+  <text x="535" y="200" text-anchor="middle" font-size="9" fill="#1A6B52">Insulated from OpenAI risk</text>
+  <text x="535" y="218" text-anchor="middle" font-size="8.5" fill="#8E8E88">VMware + AI together: the</text>
+  <text x="535" y="230" text-anchor="middle" font-size="8.5" fill="#8E8E88">"two-engine" Hock Tan model</text>
+
+  <!-- Engine 3: Non-AI Semi ~$4.5B -->
+  <rect x="660" y="58" width="160" height="196" rx="7" fill="white" stroke="#D8D7D0" stroke-width="1"/>
+  <rect x="660" y="58" width="160" height="26" rx="7" fill="#F1EFE8"/>
+  <rect x="660" y="72" width="160" height="12" fill="#F1EFE8"/>
+  <rect x="660" y="58" width="5" height="26" rx="3" fill="#888780"/>
+  <text x="740" y="72" text-anchor="middle" font-size="11" font-weight="700" fill="#444441">Non-AI Semi: ~$4.5B</text>
+  <text x="740" y="94" text-anchor="middle" font-size="9" fill="#8E8E88">20% of Q2 · slowly declining</text>
+  <text x="740" y="112" text-anchor="middle" font-size="9" fill="#5C5C58">Legacy networking</text>
+  <text x="740" y="126" text-anchor="middle" font-size="9" fill="#5C5C58">Storage controllers</text>
+  <text x="740" y="140" text-anchor="middle" font-size="9" fill="#5C5C58">Broadband chips</text>
+  <text x="740" y="154" text-anchor="middle" font-size="9" fill="#5C5C58">(cable modems, DSL)</text>
+  <text x="740" y="170" text-anchor="middle" font-size="9" fill="#5C5C58">Industrial / enterprise</text>
+  <text x="740" y="186" text-anchor="middle" font-size="9" fill="#5C5C58">semiconductor products</text>
+  <text x="740" y="206" text-anchor="middle" font-size="8.5" fill="#8E8E88">AI CapEx cannibalizing</text>
+  <text x="740" y="218" text-anchor="middle" font-size="8.5" fill="#8E8E88">this budget slowly</text>
+
+  <!-- Total bar -->
+  <rect x="40" y="268" width="780" height="24" rx="4" fill="white" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="40" y="268" width="423" height="24" rx="4" fill="#EEEDFE"/>
+  <rect x="463" y="268" width="239" height="24" rx="0" fill="#E4F5EE"/>
+  <rect x="702" y="268" width="118" height="24" rx="4" fill="#F1EFE8"/>
+  <text x="252" y="284" text-anchor="middle" font-size="9" font-weight="700" fill="#3C3489">$10.7B AI Semi (49%)</text>
+  <text x="582" y="284" text-anchor="middle" font-size="9" font-weight="700" fill="#1A6B52">$6.8B VMware (31%)</text>
+  <text x="761" y="284" text-anchor="middle" font-size="9" font-weight="700" fill="#444441">$4.5B (20%)</text>
+
+  <text x="430" y="303" text-anchor="middle" font-size="8.5" fill="#AAAAA4">Fig 7 · Broadcom Q2 FY2026 $22B Revenue Breakdown | momosan2692.github.io</text>
+</svg>

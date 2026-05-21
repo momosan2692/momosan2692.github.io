@@ -1,0 +1,79 @@
+<svg viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" font-family="'Georgia','Times New Roman',serif">
+  <rect width="860" height="300" fill="#FAFAF8" rx="8"/>
+  <text x="430" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1A1A18">Project Nexus — May 2026 Status Timeline</text>
+  <text x="430" y="42" text-anchor="middle" font-size="10" fill="#8E8E88">Key events in the 30-day window that redefined the OpenAI–AVGO–MSFT financing structure</text>
+
+  <!-- spine -->
+  <line x1="60" y1="110" x2="810" y2="110" stroke="#D8D7D0" stroke-width="1.5"/>
+
+  <!-- Apr 27 -->
+  <circle cx="110" cy="110" r="8" fill="#1E5FA3" stroke="white" stroke-width="2"/>
+  <text x="110" y="130" text-anchor="middle" font-size="9" font-weight="700" fill="#1E5FA3">Apr 27</text>
+  <rect x="44" y="42" width="132" height="60" rx="5" fill="white" stroke="#B8D4F0" stroke-width="0.8"/>
+  <rect x="44" y="42" width="132" height="14" rx="5" fill="#EAF2FB"/>
+  <rect x="44" y="50" width="132" height="6" fill="#EAF2FB"/>
+  <text x="110" y="52" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1E5FA3">MSFT–OpenAI amended</text>
+  <text x="110" y="66" text-anchor="middle" font-size="8" fill="#5C5C58">License → non-exclusive</text>
+  <text x="110" y="77" text-anchor="middle" font-size="8" fill="#5C5C58">MSFT stops paying rev share</text>
+  <text x="110" y="88" text-anchor="middle" font-size="8" fill="#5C5C58">OpenAI capped at $38B through 2030</text>
+  <line x1="110" y1="102" x2="110" y2="110" stroke="#B8D4F0" stroke-width="0.8"/>
+
+  <!-- May 7 -->
+  <circle cx="260" cy="110" r="8" fill="#A32D2D" stroke="white" stroke-width="2"/>
+  <text x="260" y="130" text-anchor="middle" font-size="9" font-weight="700" fill="#A32D2D">May 7</text>
+  <rect x="193" y="140" width="134" height="72" rx="5" fill="white" stroke="#F09595" stroke-width="0.8"/>
+  <rect x="193" y="140" width="134" height="14" rx="5" fill="#FCEBEB"/>
+  <rect x="193" y="148" width="134" height="6" fill="#FCEBEB"/>
+  <text x="260" y="150" text-anchor="middle" font-size="8.5" font-weight="700" fill="#A32D2D">Impasse surfaces publicly</text>
+  <text x="260" y="164" text-anchor="middle" font-size="8" fill="#5C5C58">AVGO: MSFT must buy 40%</text>
+  <text x="260" y="175" text-anchor="middle" font-size="8" fill="#5C5C58">Katti: deal "financially</text>
+  <text x="260" y="186" text-anchor="middle" font-size="8" fill="#5C5C58">unattractive" + "unworkable"</text>
+  <text x="260" y="197" text-anchor="middle" font-size="8" fill="#A32D2D">AVGO stock −4%</text>
+  <line x1="260" y1="110" x2="260" y2="140" stroke="#F09595" stroke-width="0.8"/>
+
+  <!-- May 8 -->
+  <circle cx="400" cy="110" r="8" fill="#1A6B52" stroke="white" stroke-width="2"/>
+  <text x="400" y="130" text-anchor="middle" font-size="9" font-weight="700" fill="#1A6B52">May 8</text>
+  <rect x="334" y="42" width="132" height="60" rx="5" fill="white" stroke="#8FCFBE" stroke-width="0.8"/>
+  <rect x="334" y="42" width="132" height="14" rx="5" fill="#E4F5EE"/>
+  <rect x="334" y="50" width="132" height="6" fill="#E4F5EE"/>
+  <text x="400" y="52" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1A6B52">Conditional path opens</text>
+  <text x="400" y="66" text-anchor="middle" font-size="8" fill="#5C5C58">Draft: OpenAI can seek</text>
+  <text x="400" y="77" text-anchor="middle" font-size="8" fill="#5C5C58">alternative chip buyers</text>
+  <text x="400" y="88" text-anchor="middle" font-size="8" fill="#5C5C58">AVGO rebounds +4%</text>
+  <line x1="400" y1="102" x2="400" y2="110" stroke="#8FCFBE" stroke-width="0.8"/>
+
+  <!-- May 13 -->
+  <circle cx="570" cy="110" r="8" fill="#1A6B52" stroke="white" stroke-width="2"/>
+  <text x="570" y="130" text-anchor="middle" font-size="9" font-weight="700" fill="#1A6B52">May 13</text>
+  <rect x="504" y="140" width="132" height="72" rx="5" fill="white" stroke="#8FCFBE" stroke-width="0.8"/>
+  <rect x="504" y="140" width="132" height="14" rx="5" fill="#E4F5EE"/>
+  <rect x="504" y="148" width="132" height="6" fill="#E4F5EE"/>
+  <text x="570" y="150" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1A6B52">Revenue share capped</text>
+  <text x="570" y="164" text-anchor="middle" font-size="8" fill="#5C5C58">OpenAI total rev share</text>
+  <text x="570" y="175" text-anchor="middle" font-size="8" fill="#5C5C58">capped at $38B through 2030</text>
+  <text x="570" y="186" text-anchor="middle" font-size="8" fill="#5C5C58">Saves OpenAI ~$97B</text>
+  <text x="570" y="197" text-anchor="middle" font-size="8" fill="#1A6B52">→ partial self-financing path</text>
+  <line x1="570" y1="110" x2="570" y2="140" stroke="#8FCFBE" stroke-width="0.8"/>
+
+  <!-- May 20 -->
+  <circle cx="750" cy="110" r="9" fill="#3C3489" stroke="#7F77DD" stroke-width="2"/>
+  <text x="750" y="130" text-anchor="middle" font-size="9" font-weight="700" fill="#3C3489">May 20</text>
+  <rect x="682" y="42" width="136" height="60" rx="5" fill="white" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="682" y="42" width="136" height="14" rx="5" fill="#EEEDFE"/>
+  <rect x="682" y="50" width="136" height="6" fill="#EEEDFE"/>
+  <text x="750" y="52" text-anchor="middle" font-size="8.5" font-weight="700" fill="#3C3489">Nvidia counter-move</text>
+  <text x="750" y="66" text-anchor="middle" font-size="8" fill="#5C5C58">Vera CPU ships to OpenAI</text>
+  <text x="750" y="77" text-anchor="middle" font-size="8" fill="#5C5C58">Jalapeño stalls → Nvidia</text>
+  <text x="750" y="88" text-anchor="middle" font-size="8" fill="#A32D2D">dependency deepens</text>
+  <line x1="750" y1="102" x2="750" y2="110" stroke="#AFA9EC" stroke-width="0.8"/>
+
+  <!-- bottom summary -->
+  <rect x="40" y="230" width="780" height="36" rx="5" fill="white" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="40" y="230" width="5" height="36" rx="3" fill="#3C3489"/>
+  <text x="56" y="244" font-size="9" font-weight="700" fill="#3C3489">Net result: </text>
+  <text x="110" y="244" font-size="9" fill="#444441">MSFT anchor path is closed. Conditional structure active — OpenAI seeking alternative buyers. $97B cash savings create narrow self-financing path.</text>
+  <text x="56" y="258" font-size="9" fill="#444441">Nvidia is the structural winner of every month Jalapeño remains stalled — Vera CPU now shipping directly to OpenAI.</text>
+
+  <text x="430" y="292" text-anchor="middle" font-size="8.5" fill="#AAAAA4">Fig 6 · Project Nexus May 2026 Status Timeline | momosan2692.github.io</text>
+</svg>

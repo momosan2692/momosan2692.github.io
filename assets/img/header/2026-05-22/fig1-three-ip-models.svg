@@ -1,0 +1,165 @@
+<svg viewBox="0 0 860 520" xmlns="http://www.w3.org/2000/svg" font-family="'Georgia', 'Times New Roman', serif">
+  <defs>
+    <style>
+      .title { font-size:13px; font-weight:700; fill:#1A1A18; }
+      .sub   { font-size:10px; fill:#5C5C58; }
+      .label { font-size:10px; font-weight:600; }
+      .desc  { font-size:9px; fill:#5C5C58; }
+      .dim   { font-size:9px; fill:#8E8E88; }
+      .val   { font-size:9px; font-weight:600; fill:#1A1A18; }
+      .hdr   { font-size:11px; font-weight:700; fill:#1A1A18; }
+      .cap   { font-size:8.5px; fill:#8E8E88; font-style:italic; }
+    </style>
+  </defs>
+
+  <!-- background -->
+  <rect width="860" height="520" fill="#FAFAF8" rx="8"/>
+
+  <!-- header -->
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#1A1A18">OpenAI ASIC — Three IP Ownership Models</text>
+  <text x="430" y="44" text-anchor="middle" font-size="10" fill="#8E8E88">IP boundary analysis: compute die vs. PHY/SerDes vs. packaging</text>
+
+  <!-- legend -->
+  <rect x="30" y="55" width="10" height="10" rx="2" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.8"/>
+  <text x="44" y="64" font-size="9" fill="#3C3489" font-weight="600">OpenAI owns RTL</text>
+  <rect x="160" y="55" width="10" height="10" rx="2" fill="#E4F5EE" stroke="#8FCFBE" stroke-width="0.8"/>
+  <text x="174" y="64" font-size="9" fill="#1A6B52" font-weight="600">Co-designed / licensed in</text>
+  <rect x="320" y="55" width="10" height="10" rx="2" fill="#F1EFE8" stroke="#C4C2BA" stroke-width="0.8"/>
+  <text x="334" y="64" font-size="9" fill="#5C5C58" font-weight="600">Partner hard-IP (licensed)</text>
+  <rect x="480" y="55" width="10" height="10" rx="2" fill="#FAE8E8" stroke="#E8AAAA" stroke-width="0.8"/>
+  <text x="494" y="64" font-size="9" fill="#8C2020" font-weight="600">Partner owns entirely</text>
+
+  <!-- column guides -->
+  <!-- Model A: x=30..283  Model B: x=296..549  Model C: x=562..815 -->
+
+  <!-- ── MODEL A ── -->
+  <rect x="30" y="74" width="253" height="390" rx="6" fill="white" stroke="#D8D7D0" stroke-width="1"/>
+  <rect x="30" y="74" width="253" height="32" rx="6" fill="#F1EFE8"/>
+  <rect x="30" y="94" width="253" height="12" fill="#F1EFE8"/>
+  <text x="156" y="88" text-anchor="middle" font-size="11" font-weight="700" fill="#444441">Model A — Hard-IP Assembly</text>
+  <text x="156" y="101" text-anchor="middle" font-size="9" fill="#7A7A74">OpenAI = system integrator only</text>
+
+  <!-- layers A -->
+  <rect x="40" y="116" width="233" height="40" rx="4" fill="#FAE8E8" stroke="#E8AAAA" stroke-width="0.7"/>
+  <text x="157" y="130" text-anchor="middle" font-size="10" font-weight="600" fill="#8C2020">Inference Engine Core (MXU)</text>
+  <text x="157" y="143" text-anchor="middle" font-size="9" fill="#A83030">ARM / Synopsys licensed blocks</text>
+  <text x="157" y="153" text-anchor="middle" font-size="8.5" fill="#C45050">OpenAI owns zero RTL</text>
+
+  <rect x="40" y="162" width="233" height="36" rx="4" fill="#FAE8E8" stroke="#E8AAAA" stroke-width="0.7"/>
+  <text x="157" y="176" text-anchor="middle" font-size="10" font-weight="600" fill="#8C2020">KV Cache Controller</text>
+  <text x="157" y="190" text-anchor="middle" font-size="9" fill="#A83030">Generic memory ctrl IP — no customisation</text>
+
+  <rect x="40" y="204" width="233" height="36" rx="4" fill="#FAE8E8" stroke="#E8AAAA" stroke-width="0.7"/>
+  <text x="157" y="218" text-anchor="middle" font-size="10" font-weight="600" fill="#8C2020">ISA / Compiler Interface</text>
+  <text x="157" y="232" text-anchor="middle" font-size="9" fill="#A83030">Vendor-defined ISA — no co-design</text>
+
+  <rect x="40" y="246" width="233" height="36" rx="4" fill="#F1EFE8" stroke="#C4C2BA" stroke-width="0.7"/>
+  <text x="157" y="260" text-anchor="middle" font-size="10" font-weight="600" fill="#444441">HBM4 PHY / SerDes</text>
+  <text x="157" y="274" text-anchor="middle" font-size="9" fill="#5C5C58">Broadcom / Synopsys hard-IP</text>
+
+  <rect x="40" y="288" width="233" height="36" rx="4" fill="#F1EFE8" stroke="#C4C2BA" stroke-width="0.7"/>
+  <text x="157" y="302" text-anchor="middle" font-size="10" font-weight="600" fill="#444441">PCIe · Ethernet MAC</text>
+  <text x="157" y="316" text-anchor="middle" font-size="9" fill="#5C5C58">Standard hard-IP blocks</text>
+
+  <rect x="40" y="330" width="233" height="36" rx="4" fill="#F1EFE8" stroke="#C4C2BA" stroke-width="0.7"/>
+  <text x="157" y="344" text-anchor="middle" font-size="10" font-weight="600" fill="#444441">Packaging (3.5D XDSiP)</text>
+  <text x="157" y="358" text-anchor="middle" font-size="9" fill="#5C5C58">Broadcom owns entirely</text>
+
+  <!-- Score box A -->
+  <rect x="40" y="378" width="233" height="76" rx="4" fill="#FAFAF8" stroke="#D8D7D0" stroke-width="0.7"/>
+  <text x="156" y="392" text-anchor="middle" font-size="9" font-weight="700" fill="#444441">Assessment</text>
+  <line x1="40" y1="396" x2="273" y2="396" stroke="#D8D7D0" stroke-width="0.5"/>
+  <text x="48" y="408" font-size="8.5" fill="#8E8E88">IP ownership</text><text x="266" y="408" text-anchor="end" font-size="8.5" font-weight="600" fill="#A32D2D">None</text>
+  <text x="48" y="420" font-size="8.5" fill="#8E8E88">Model–silicon co-design</text><text x="266" y="420" text-anchor="end" font-size="8.5" font-weight="600" fill="#A32D2D">None</text>
+  <text x="48" y="432" font-size="8.5" fill="#8E8E88">Broadcom price risk</text><text x="266" y="432" text-anchor="end" font-size="8.5" font-weight="600" fill="#A32D2D">Extreme</text>
+  <text x="48" y="444" font-size="8.5" fill="#8E8E88">Time to first silicon</text><text x="266" y="444" text-anchor="end" font-size="8.5" font-weight="600" fill="#1A6B52">Fastest</text>
+  <text x="48" y="456" font-size="8.5" fill="#8E8E88">Competitive moat</text><text x="266" y="456" text-anchor="end" font-size="8.5" font-weight="600" fill="#A32D2D">None</text>
+
+  <!-- ── MODEL B ── -->
+  <rect x="296" y="74" width="253" height="390" rx="6" fill="white" stroke="#AFA9EC" stroke-width="2"/>
+  <rect x="296" y="74" width="253" height="32" rx="6" fill="#EEEDFE"/>
+  <rect x="296" y="94" width="253" height="12" fill="#EEEDFE"/>
+  <!-- star badge -->
+  <rect x="490" y="78" width="50" height="16" rx="8" fill="#3C3489"/>
+  <text x="515" y="89" text-anchor="middle" font-size="8.5" font-weight="700" fill="white">Current ★</text>
+  <text x="422" y="88" text-anchor="middle" font-size="11" font-weight="700" fill="#3C3489">Model B — Self-defined Core</text>
+  <text x="422" y="101" text-anchor="middle" font-size="9" fill="#534AB7">OpenAI designs the XPU compute die</text>
+
+  <rect x="306" y="116" width="233" height="52" rx="4" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="422" y="130" text-anchor="middle" font-size="10" font-weight="600" fill="#3C3489">Inference Engine Core (XPU die)</text>
+  <text x="422" y="143" text-anchor="middle" font-size="9" fill="#534AB7">OpenAI RTL: systolic array + attention kernel</text>
+  <text x="422" y="153" text-anchor="middle" font-size="9" fill="#534AB7">+ MoE router — model-specific tiling</text>
+  <text x="422" y="163" text-anchor="middle" font-size="8.5" fill="#7F77DD">★ GPT-class inference patterns embedded in RTL</text>
+
+  <rect x="306" y="174" width="233" height="36" rx="4" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="422" y="188" text-anchor="middle" font-size="10" font-weight="600" fill="#3C3489">KV Cache Manager + Datapath</text>
+  <text x="422" y="202" text-anchor="middle" font-size="9" fill="#534AB7">Custom memory subsystem — LLM inference patterns</text>
+
+  <rect x="306" y="216" width="233" height="36" rx="4" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="422" y="230" text-anchor="middle" font-size="10" font-weight="600" fill="#3C3489">ISA / Compiler Interface</text>
+  <text x="422" y="244" text-anchor="middle" font-size="9" fill="#534AB7">Co-designed with model team (OpenAI internal)</text>
+
+  <rect x="306" y="258" width="233" height="36" rx="4" fill="#E4F5EE" stroke="#8FCFBE" stroke-width="0.7"/>
+  <text x="422" y="272" text-anchor="middle" font-size="10" font-weight="600" fill="#1A6B52">HBM4 PHY / SerDes</text>
+  <text x="422" y="286" text-anchor="middle" font-size="9" fill="#2E8A6A">Broadcom hard-IP, co-integrated — licensed in</text>
+
+  <rect x="306" y="300" width="233" height="36" rx="4" fill="#E4F5EE" stroke="#8FCFBE" stroke-width="0.7"/>
+  <text x="422" y="314" text-anchor="middle" font-size="10" font-weight="600" fill="#1A6B52">PCIe · Ethernet MAC</text>
+  <text x="422" y="328" text-anchor="middle" font-size="9" fill="#2E8A6A">Licensed IP, Broadcom-integrated</text>
+
+  <rect x="306" y="342" width="233" height="36" rx="4" fill="#F1EFE8" stroke="#C4C2BA" stroke-width="0.7"/>
+  <text x="422" y="356" text-anchor="middle" font-size="10" font-weight="600" fill="#444441">Packaging (3.5D XDSiP)</text>
+  <text x="422" y="370" text-anchor="middle" font-size="9" fill="#5C5C58">Broadcom owns — necessary, not differentiating</text>
+
+  <!-- Score box B -->
+  <rect x="306" y="390" width="233" height="64" rx="4" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="422" y="404" text-anchor="middle" font-size="9" font-weight="700" fill="#3C3489">Assessment</text>
+  <line x1="306" y1="408" x2="539" y2="408" stroke="#AFA9EC" stroke-width="0.5"/>
+  <text x="314" y="420" font-size="8.5" fill="#534AB7">IP ownership</text><text x="532" y="420" text-anchor="end" font-size="8.5" font-weight="600" fill="#1A6B52">Core compute die</text>
+  <text x="314" y="432" font-size="8.5" fill="#534AB7">Model–silicon co-design</text><text x="532" y="432" text-anchor="end" font-size="8.5" font-weight="600" fill="#1A6B52">Deep</text>
+  <text x="314" y="444" font-size="8.5" fill="#534AB7">Broadcom price risk</text><text x="532" y="444" text-anchor="end" font-size="8.5" font-weight="600" fill="#854F0B">PHY/SerDes only</text>
+
+  <!-- ── MODEL C ── -->
+  <rect x="562" y="74" width="253" height="390" rx="6" fill="white" stroke="#D8D7D0" stroke-width="1"/>
+  <rect x="562" y="74" width="253" height="32" rx="6" fill="#F1EFE8"/>
+  <rect x="562" y="94" width="253" height="12" fill="#F1EFE8"/>
+  <text x="688" y="88" text-anchor="middle" font-size="11" font-weight="700" fill="#444441">Model C — Spec-level Only</text>
+  <text x="688" y="101" text-anchor="middle" font-size="9" fill="#7A7A74">OpenAI = requirements writer only</text>
+
+  <rect x="572" y="116" width="233" height="52" rx="4" fill="#FAE8E8" stroke="#E8AAAA" stroke-width="0.7"/>
+  <text x="688" y="130" text-anchor="middle" font-size="10" font-weight="600" fill="#8C2020">Inference Engine Core</text>
+  <text x="688" y="143" text-anchor="middle" font-size="9" fill="#A83030">Broadcom micro-architecture + RTL</text>
+  <text x="688" y="153" text-anchor="middle" font-size="9" fill="#A83030">OpenAI provides TOPS / latency / power spec only</text>
+  <text x="688" y="163" text-anchor="middle" font-size="8.5" fill="#C45050">⚠ Broadcom can resell similar design to competitors</text>
+
+  <rect x="572" y="174" width="233" height="36" rx="4" fill="#FAE8E8" stroke="#E8AAAA" stroke-width="0.7"/>
+  <text x="688" y="188" text-anchor="middle" font-size="10" font-weight="600" fill="#8C2020">KV Cache Controller</text>
+  <text x="688" y="202" text-anchor="middle" font-size="9" fill="#A83030">Broadcom generic LLM design — not GPT-specific</text>
+
+  <rect x="572" y="216" width="233" height="36" rx="4" fill="#FAE8E8" stroke="#E8AAAA" stroke-width="0.7"/>
+  <text x="688" y="230" text-anchor="middle" font-size="10" font-weight="600" fill="#8C2020">ISA / Compiler Interface</text>
+  <text x="688" y="244" text-anchor="middle" font-size="9" fill="#A83030">Broadcom-defined — OpenAI adapts to it</text>
+
+  <rect x="572" y="258" width="233" height="36" rx="4" fill="#F1EFE8" stroke="#C4C2BA" stroke-width="0.7"/>
+  <text x="688" y="272" text-anchor="middle" font-size="10" font-weight="600" fill="#444441">HBM4 PHY / SerDes</text>
+  <text x="688" y="286" text-anchor="middle" font-size="9" fill="#5C5C58">Broadcom hard-IP</text>
+
+  <rect x="572" y="300" width="233" height="36" rx="4" fill="#F1EFE8" stroke="#C4C2BA" stroke-width="0.7"/>
+  <text x="688" y="314" text-anchor="middle" font-size="10" font-weight="600" fill="#444441">PCIe · Ethernet MAC</text>
+  <text x="688" y="328" text-anchor="middle" font-size="9" fill="#5C5C58">Broadcom hard-IP</text>
+
+  <rect x="572" y="342" width="233" height="36" rx="4" fill="#F1EFE8" stroke="#C4C2BA" stroke-width="0.7"/>
+  <text x="688" y="356" text-anchor="middle" font-size="10" font-weight="600" fill="#444441">Packaging (3.5D XDSiP)</text>
+  <text x="688" y="370" text-anchor="middle" font-size="9" fill="#5C5C58">Broadcom owns entirely</text>
+
+  <!-- Score box C -->
+  <rect x="572" y="390" width="233" height="64" rx="4" fill="#FAFAF8" stroke="#D8D7D0" stroke-width="0.7"/>
+  <text x="688" y="404" text-anchor="middle" font-size="9" font-weight="700" fill="#444441">Assessment</text>
+  <line x1="572" y1="408" x2="805" y2="408" stroke="#D8D7D0" stroke-width="0.5"/>
+  <text x="580" y="420" font-size="8.5" fill="#8E8E88">IP ownership</text><text x="798" y="420" text-anchor="end" font-size="8.5" font-weight="600" fill="#A32D2D">Spec only</text>
+  <text x="580" y="432" font-size="8.5" fill="#8E8E88">Model–silicon co-design</text><text x="798" y="432" text-anchor="end" font-size="8.5" font-weight="600" fill="#A32D2D">None</text>
+  <text x="580" y="444" font-size="8.5" fill="#8E8E88">Broadcom price risk</text><text x="798" y="444" text-anchor="end" font-size="8.5" font-weight="600" fill="#A32D2D">Extreme — total dep.</text>
+
+  <!-- caption -->
+  <text x="430" y="510" text-anchor="middle" font-size="8.5" fill="#AAAAA4">Fig 1 · OpenAI ASIC IP Ownership Model Comparison | momosan2692.github.io</text>
+</svg>

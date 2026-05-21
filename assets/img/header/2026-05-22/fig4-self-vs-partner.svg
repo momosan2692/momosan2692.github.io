@@ -1,0 +1,64 @@
+<svg viewBox="0 0 860 440" xmlns="http://www.w3.org/2000/svg" font-family="'Georgia', 'Times New Roman', serif">
+  <rect width="860" height="440" fill="#FAFAF8" rx="8"/>
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#1A1A18">Self-Project Team vs Strategic ASIC Partner</text>
+  <text x="430" y="44" text-anchor="middle" font-size="10" fill="#8E8E88">3 decisive reasons each — and why the answer is a phased hybrid</text>
+  <rect x="30" y="56" width="390" height="28" rx="6" fill="#EEEDFE"/>
+  <text x="225" y="74" text-anchor="middle" font-size="12" font-weight="700" fill="#3C3489">Self-Project Team — MUST</text>
+  <rect x="440" y="56" width="390" height="28" rx="6" fill="#E4F5EE"/>
+  <text x="635" y="74" text-anchor="middle" font-size="12" font-weight="700" fill="#1A6B52">Strategic ASIC Partner — MUST</text>
+  <line x1="430" y1="56" x2="430" y2="398" stroke="#D8D7D0" stroke-width="1" stroke-dasharray="5,3"/>
+  <rect x="30" y="94" width="390" height="88" rx="5" fill="white" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="30" y="94" width="5" height="88" rx="3" fill="#3C3489"/>
+  <text x="44" y="110" font-size="10" font-weight="700" fill="#3C3489">1. Model-silicon co-design requires internal IP</text>
+  <text x="44" y="126" font-size="9" fill="#5C5C58">Attention patterns, KV cache pressure, MoE routing, speculative</text>
+  <text x="44" y="138" font-size="9" fill="#5C5C58">decoding are OpenAI crown jewels. Embedding them into silicon</text>
+  <text x="44" y="150" font-size="9" fill="#5C5C58">requires tight iteration between model researchers and chip architects.</text>
+  <text x="44" y="162" font-size="9" fill="#5C5C58">Broadcom never sees these internals by definition.</text>
+  <text x="44" y="175" font-size="8.5" fill="#7F77DD" font-style="italic">Evidence: Brockman — "We embed what frontier research teaches directly into silicon."</text>
+  <rect x="440" y="94" width="390" height="88" rx="5" fill="white" stroke="#8FCFBE" stroke-width="1"/>
+  <rect x="440" y="94" width="5" height="88" rx="3" fill="#1A6B52"/>
+  <text x="454" y="110" font-size="10" font-weight="700" fill="#1A6B52">1. Partner IP cannot be replicated in time</text>
+  <text x="454" y="126" font-size="9" fill="#5C5C58">Broadcom's 3.5D XDSiP, SerDes, HBM PHY took 5+ years to build.</text>
+  <text x="454" y="138" font-size="9" fill="#5C5C58">A 40-person team cannot replicate before 2026 window closes.</text>
+  <text x="454" y="150" font-size="9" fill="#5C5C58">Google, after a decade of TPU work, still licenses Broadcom SerDes</text>
+  <text x="454" y="162" font-size="9" fill="#5C5C58">for LLM training — even with full RTL ownership of compute die.</text>
+  <text x="454" y="175" font-size="8.5" fill="#2E8A6A" font-style="italic">Evidence: Broadcom's 3.5D XDSiP validated in silicon; one XPU ships H2 2026.</text>
+  <rect x="30" y="192" width="390" height="88" rx="5" fill="white" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="30" y="192" width="5" height="88" rx="3" fill="#3C3489"/>
+  <text x="44" y="208" font-size="10" font-weight="700" fill="#3C3489">2. IP ownership breaks partner rent-extraction</text>
+  <text x="44" y="224" font-size="9" fill="#5C5C58">Google TPU is the warning: deep dependency let Broadcom raise</text>
+  <text x="44" y="236" font-size="9" fill="#5C5C58">TPU design prices ~30% and capture ~70% margins. OpenAI</text>
+  <text x="44" y="248" font-size="9" fill="#5C5C58">recreating Nvidia dependency under Broadcom's logo defeats the</text>
+  <text x="44" y="260" font-size="9" fill="#5C5C58">vertical integration thesis entirely. RTL must be OpenAI-owned.</text>
+  <text x="44" y="273" font-size="8.5" fill="#7F77DD" font-style="italic">Evidence: Google planned to cut Broadcom from TPU post-2027 after 30% price hike.</text>
+  <rect x="440" y="192" width="390" height="88" rx="5" fill="white" stroke="#8FCFBE" stroke-width="1"/>
+  <rect x="440" y="192" width="5" height="88" rx="3" fill="#1A6B52"/>
+  <text x="454" y="208" font-size="10" font-weight="700" fill="#1A6B52">2. Full-stack design needs 1000s, not 40 engineers</text>
+  <text x="454" y="224" font-size="9" fill="#5C5C58">PHY, SerDes, HBM interface, DFT, physical implementation,</text>
+  <text x="454" y="236" font-size="9" fill="#5C5C58">EDA flows, packaging — each is a separate discipline requiring</text>
+  <text x="454" y="248" font-size="9" fill="#5C5C58">specialist teams. Google TPU team = hundreds of engineers plus</text>
+  <text x="454" y="260" font-size="9" fill="#5C5C58">Broadcom's thousands, and still doesn't go it alone.</text>
+  <text x="454" y="273" font-size="8.5" fill="#2E8A6A" font-style="italic">Evidence: Omdia — "Only a handful of enterprises can design AI hardware with internal SW support."</text>
+  <rect x="30" y="290" width="390" height="88" rx="5" fill="white" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="30" y="290" width="5" height="88" rx="3" fill="#3C3489"/>
+  <text x="44" y="306" font-size="10" font-weight="700" fill="#3C3489">3. Roadmap autonomy: pre-build next-gen primitives</text>
+  <text x="44" y="322" font-size="9" fill="#5C5C58">Chip cycles are 18-24 months. OpenAI's next model architecture</text>
+  <text x="44" y="334" font-size="9" fill="#5C5C58">change must be pre-embedded in Jalapeño's successor now. Only</text>
+  <text x="44" y="346" font-size="9" fill="#5C5C58">an internal team with model roadmap access can do this. If</text>
+  <text x="44" y="358" font-size="9" fill="#5C5C58">Broadcom sets the cadence, OpenAI is always one gen behind.</text>
+  <text x="44" y="371" font-size="8.5" fill="#7F77DD" font-style="italic">Evidence: Titan 2 (A16) in planning concurrently with Titan 1 (N3) production.</text>
+  <rect x="440" y="290" width="390" height="88" rx="5" fill="white" stroke="#8FCFBE" stroke-width="1"/>
+  <rect x="440" y="290" width="5" height="88" rx="3" fill="#1A6B52"/>
+  <text x="454" y="306" font-size="10" font-weight="700" fill="#1A6B52">3. Packaging and foundry remain partner-dependent</text>
+  <text x="454" y="322" font-size="9" fill="#5C5C58">TSMC fabricates ~92% of AI chips at 7nm and below — non-</text>
+  <text x="454" y="334" font-size="9" fill="#5C5C58">substitutable. 3.5D XDSiP is Broadcom's proprietary stack. Even</text>
+  <text x="454" y="346" font-size="9" fill="#5C5C58">with full RTL ownership, OpenAI still needs Broadcom-class</text>
+  <text x="454" y="358" font-size="9" fill="#5C5C58">packaging. True independence at current headcount is an illusion.</text>
+  <text x="454" y="371" font-size="8.5" fill="#2E8A6A" font-style="italic">Evidence: TSMC manufactures Google TPU, Trainium, Maia, MTIA, Jalapeño — all of them.</text>
+  <rect x="30" y="393" width="800" height="32" rx="5" fill="white" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="30" y="393" width="5" height="32" rx="3" fill="#534AB7"/>
+  <text x="46" y="407" font-size="9" font-weight="700" fill="#3C3489">Synthesis: </text>
+  <text x="108" y="407" font-size="9" fill="#444441">In-house team owns compute die RTL and compiler co-design. Broadcom executes PHY, SerDes, packaging. The boundary matches exactly where Google</text>
+  <text x="46" y="419" font-size="9" fill="#444441">draws the line after a decade of TPU development. Inflection toward greater internalization comes when OpenAI's team scales to ~200-300 engineers.</text>
+  <text x="430" y="436" text-anchor="middle" font-size="8.5" fill="#AAAAA4">Fig 4 · Self-Project Team vs Strategic ASIC Partner | momosan2692.github.io</text>
+</svg>
