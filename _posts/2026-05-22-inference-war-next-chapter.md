@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "推理晶片的下一場戰爭"
-subtitle: "Jalapeño 最新進展、Broadcom $22B 解構、2027 前瞻掃描框架，與 GPU:CPU 比例反轉的結構性信號"
+title: 推理晶片的下一場戰爭
+subtitle: Jalapeño 最新進展 解構2027 前瞻掃描框架
 cover-img: /assets/img/header/2026-05-14/AI-NATIVE-WAN.jpeg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-05-14/AI-NATIVE-WAN.jpeg
 published: true
-pinned: false
+pinned: true
 tags: [draft, AI, 半導體, ASIC, 推理晶片, 垂直整合, OpenAI, Broadcom, Agentic]
 ---
 
