@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 四埠 WAN 備援路由架構：IP 規劃、VLAN 分段與遠端工作站設計
-subtitle: BFD + IP SLA 切換、OOB 管理平面、vMLX 推理叢集 Port Forwarding
+title: 四埠 WAN 備援路由架構 IP 規劃 VLAN 分段與遠端工作站設計
+subtitle: BFD and IP SLA 切換 OOB 管理平面 vMLX 推理叢集 Port Forwarding
 cover-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
