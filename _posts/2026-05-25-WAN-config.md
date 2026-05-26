@@ -5,7 +5,7 @@ subtitle: BFD and IP SLA 切換 OOB 管理平面 vMLX 推理叢集 Port Forwardi
 cover-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
-published: true
+published: false
 pinned: false
 mathjax: true
 tags: [draft, WAN]

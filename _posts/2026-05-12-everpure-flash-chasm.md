@@ -466,5 +466,5 @@ Flash was only the beginning. KV cache is the next one.
 > 📌 **美國企業 AI 系列索引**
 > 1. **本篇：Everpure——為 Flash 重新設計一切的工程師公司**
 > 2. [AI-Native WAN：NaaS、Cloud WAN 與 Cloud Exchange 的網路主權爭奪戰](/2026-05-14-ai-native-wan) *(即將發布)*
-> 3. [Cerebras——把整片晶圓變成一顆晶片的工程師賭注](/2026-05-14-cerebras-wafer-scale)
+> 3. [Cerebras——把整片晶圓變成一顆晶片的工程師賭注](https://momosan2692.github.io/2026/05/14/cerebras-wafer-scale.html)
 > 4. [Token 計價革命——SRAM、HBM、Flash 決定了一切](/2026-05-14-token-pricing-revolution)
