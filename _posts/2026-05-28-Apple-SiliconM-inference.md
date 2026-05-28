@@ -1079,6 +1079,8 @@ Next-gen chip requirements:
   → Power proportionality (W follows actual work, not peak TDP)
 ```
 
+```
 The next-generation inference chip is essentially **Apple's unified memory architecture + Groq's deterministic execution + AMD's HBM depth + open chiplet interconnect + hardware MoE native support** — unified into a single coherent design. No current vendor is within two years of shipping all six properties simultaneously. This is the open territory in the inference silicon race.
----
+```
+
 *本文涵蓋範圍：Apple M5 統一記憶體架構、記憶體帶寬 M1→M5 演進、ANE/GPU/CPU 三單元帶寬分配、ANE Prefill 理想架構與現實阻礙、M5 每核心 Neural Accelerator、TTFT 在多智能體管線中的累積效應、多模型記憶體預算規劃、MoE 架構的帶寬經濟學、開源社群能力邊界，以及針對 vMLX 多節點架構的實踐建議。*
