@@ -1543,7 +1543,7 @@ Our production deployment serves 200+ users with 99.8% uptime and zero API rate 
 
 ---
 
-**Availability**: Source code, deployment scripts, and benchmarks available at https://github.com/cute-project/cute
+**Availability**: Source code, deployment scripts, and benchmarks available at https://github.com/momosan2692/_cute_tvdatafeed 
 
 **Contact**: For questions or collaboration: cute-dev@example.com
 
