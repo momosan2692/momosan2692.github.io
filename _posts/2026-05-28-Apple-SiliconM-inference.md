@@ -649,7 +649,7 @@ Apple 給開發者社群的訊息：
 **Mac Studio M5 Ultra（192 GB）** 是多智能體重度推理的正確硬體目標。
 
 它滿足以下條件：
-- 同時運行 Medical RAG 棧 + AlpacaTradingAgent（總預算 ~93 GB，餘 99 GB 升級空間）
+- 同時運行 Medical RAG 棧 （總預算 ~93 GB，餘 99 GB 升級空間）
 - 70B 模型（Q4 ~40 GB）可加載並保留充裕 KV Cache 空間
 - ~1.2 TB/s 帶寬（Ultra = 兩顆 M5 Max die）支撐高並發 Decode
 - M5 per-core Neural Accelerator 大幅提升 Prefill 速度（AlpacaTradingAgent 的關鍵瓶頸）
