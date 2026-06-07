@@ -5,7 +5,7 @@ subtitle: Complete Technical Guide
 cover-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
-published: true
+published: false
 pinned: true
 mathjax: true
 tags: [draft, SDD]
