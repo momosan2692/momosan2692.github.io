@@ -7,7 +7,7 @@ tags: [LLM, Ollama, vMLX, Qwen3, Gemma4, 厄運循環, 系統設計, Pi-Agent]
 cover-img: /assets/img/charts/anti_loop_cover.svg
 thumbnail-img: /assets/img/charts/anti_loop_thumb.svg
 published: true
-pinned: false
+pinned: true
 ---
 
 > 截斷只解決「不要無限跑下去」，不解決「給我一個有意義的答案」。這兩件事必須用不同的機制分開處理。
