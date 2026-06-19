@@ -4,8 +4,8 @@ title: "小模型厄運循環架構筆記（上）：從 repetition_penalty 到 
 subtitle: "本地 LLM 基礎設施系列｜Anti-Loop 設計 Part I"
 date: 2026-06-19
 tags: [LLM, Ollama, vMLX, Qwen3, Gemma4, 厄運循環, 系統設計, Pi-Agent]
-cover-img: /assets/img/charts/anti_loop_cover.svg
-thumbnail-img: /assets/img/charts/anti_loop_thumb.svg
+cover-img: /assets/img/header/2026-06-19/liquid_ai.png
+thumbnail-img: /assets/img/header/2026-06-19/liquid_ai.png
 published: true
 pinned: true
 ---
