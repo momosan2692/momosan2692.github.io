@@ -6,7 +6,7 @@ date: 2026-06-19
 tags: [LLM, Ollama, vMLX, Qwen3, Gemma4, 厄運循環, 系統設計, Pi-Agent]
 cover-img: /assets/img/header/2026-06-19/liquid_ai.png
 thumbnail-img: /assets/img/header/2026-06-19/liquid_ai.png
-published: true
+published: false
 pinned: true
 ---
 
