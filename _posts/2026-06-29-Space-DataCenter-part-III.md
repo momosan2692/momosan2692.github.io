@@ -2,11 +2,12 @@
 layout: post
 title: 太空數據中心 Part III — 軌道 AI 的生死工程
 subtitle: 從 RKLB 六月股災到 Jetson Orin 在太空的容錯設計全解析
-cover-img: /assets/img/path.jpg
-thumbnail-img: /assets/img/header/semiconductor.webp
-share-img: /assets/img/header/evidence.png
+cover-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
+thumbnail-img: /assets/img/thumb.png
+share-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
 published: true
 pinned: true
+mathjax: true
 tags: [draft, RKLB, 太空AI, Jetson Orin, 容錯工程, 散熱, 輻射, 投資分析]
 ---
 
