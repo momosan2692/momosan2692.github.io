@@ -8,7 +8,7 @@ share-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
 published: true
 pinned: true
 mathjax: true
-tags: [draft, RKLB, Iridium, L-band, 衛星通訊, Alternative-PNT, 投資分析, 頻譜, 北斗, GPS]
+tags: [draft, RKLB, Iridium, L-band, 衛星通訊, 投資分析, 頻譜, 北斗, GPS]
 ---
 
 # L-band、銥計劃與 Rocket Lab 的終局想像
