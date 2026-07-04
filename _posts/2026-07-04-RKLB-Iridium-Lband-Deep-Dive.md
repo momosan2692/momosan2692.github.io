@@ -2,10 +2,9 @@
 layout: post
 title: L-band、銥計劃與 Rocket Lab 的終局想像
 subtitle: 從頻譜物理學到 $80 億收購的完整投資邏輯鏈
-cover-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
+cover-img: /assets/img/header/2026-04-24/ROCE.png
 thumbnail-img: /assets/img/thumb.png
-share-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
-published: true
+share-img: /assets/img/header/2026-04-24/ROCE.png
 pinned: true
 mathjax: true
 tags: [draft, RKLB, Iridium, L-band, 衛星通訊, 投資分析, 頻譜, 北斗, GPS]
