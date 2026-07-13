@@ -5,6 +5,7 @@ subtitle: 從頻譜物理學到 $80 億收購的完整投資邏輯鏈
 cover-img: /assets/img/header/2026-04-24/ROCE.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-24/ROCE.png
+published: true
 pinned: true
 mathjax: true
 tags: [draft, RKLB, Iridium, L-band, 衛星通訊, 投資分析, 頻譜, 北斗, GPS]

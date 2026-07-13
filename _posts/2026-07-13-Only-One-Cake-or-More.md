@@ -5,6 +5,7 @@ subtitle: 從模型層到應用層,一場多線同時開打的資本與護城河
 cover-img: /assets/img/header/2026-04-24/ROCE.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-24/ROCE.png
+published: true
 pinned: true
 mathjax: true
 tags: [draft, RKLB, Iridium, L-band, 衛星通訊, 投資分析, 頻譜, 北斗, GPS]
