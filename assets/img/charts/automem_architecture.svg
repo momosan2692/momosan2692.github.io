@@ -1,0 +1,63 @@
+<svg width="680" height="600" viewBox="0 0 680 600" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>AutoMem architecture</title>
+<desc>AutoMem 兩迴圈架構：agent trajectories 進入 structure optimization loop 反覆修訂 memory scaffold（v0 到 v5），再進入 proficiency training loop，最終部署為 frozen task model 與 trained memory specialist，透過檔案系統讀寫記憶與環境互動。</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+<marker id="arrow-p" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+
+<rect x="200" y="40" width="280" height="56" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="340" y="58" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A" font-family="sans-serif">Agent trajectories</text>
+<text x="340" y="76" text-anchor="middle" font-size="12" fill="#444441" font-family="sans-serif">Crafter, MiniHack, NetHack</text>
+
+<line x1="340" y1="96" x2="340" y2="126" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="200" y="126" width="280" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="340" y="144" text-anchor="middle" font-size="14" font-weight="500" fill="#26215C" font-family="sans-serif">Structure optimization loop</text>
+<text x="340" y="162" text-anchor="middle" font-size="12" fill="#3C3489" font-family="sans-serif">Revises scaffold, v0 to v5</text>
+
+<line x1="340" y1="182" x2="340" y2="212" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arrow-p)"/>
+
+<rect x="200" y="212" width="280" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="230" text-anchor="middle" font-size="14" font-weight="500" fill="#04342C" font-family="sans-serif">Optimized memory scaffold</text>
+<text x="340" y="248" text-anchor="middle" font-size="12" fill="#085041" font-family="sans-serif">File-system memory actions</text>
+
+<line x1="340" y1="268" x2="340" y2="298" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="200" y="298" width="280" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="340" y="316" text-anchor="middle" font-size="14" font-weight="500" fill="#26215C" font-family="sans-serif">Proficiency training loop</text>
+<text x="340" y="334" text-anchor="middle" font-size="12" fill="#3C3489" font-family="sans-serif">Trains memory skill on scaffold</text>
+
+<line x1="340" y1="354" x2="340" y2="369" stroke="#5F5E5A" stroke-width="1"/>
+<path d="M340 369 L235 369 L235 384" fill="none" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M340 369 L445 369 L445 384" fill="none" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="140" y="384" width="190" height="56" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="235" y="402" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A" font-family="sans-serif">Frozen task model</text>
+<text x="235" y="420" text-anchor="middle" font-size="12" fill="#444441" font-family="sans-serif">Base weights fixed</text>
+
+<rect x="350" y="384" width="190" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="445" y="402" text-anchor="middle" font-size="14" font-weight="500" fill="#04342C" font-family="sans-serif">Memory specialist</text>
+<text x="445" y="420" text-anchor="middle" font-size="12" fill="#085041" font-family="sans-serif">Learns memory policy</text>
+
+<path d="M235 440 L235 455 L280 455 L280 470" fill="none" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M445 440 L445 455 L400 455 L400 470" fill="none" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="200" y="470" width="280" height="56" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="340" y="488" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A" font-family="sans-serif">Environment / task</text>
+<text x="340" y="506" text-anchor="middle" font-size="12" fill="#444441" font-family="sans-serif">Reads and writes memory files</text>
+
+<rect x="150" y="550" width="12" height="12" rx="2" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="168" y="560" dominant-baseline="central" font-size="12" fill="#444441" font-family="sans-serif">Environment / data</text>
+
+<rect x="321" y="550" width="12" height="12" rx="2" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="339" y="560" dominant-baseline="central" font-size="12" fill="#444441" font-family="sans-serif">Training loop</text>
+
+<rect x="450" y="550" width="12" height="12" rx="2" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="468" y="560" dominant-baseline="central" font-size="12" fill="#444441" font-family="sans-serif">Memory artifact</text>
+
+</svg>
