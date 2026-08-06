@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Situational Awareness 一夕爆倉：一場槓桿與供應鏈物理限制的教科書案例
-subtitle: 從 439% 獲利到強制清算，24歲基金經理人如何在三週內被華爾街「帶血接盤」
+title: Situational Awareness 一夕爆倉 一場槓桿與供應鏈物理限制的教科書案例
+subtitle: 從 439% 獲利到強制清算 24歲基金經理人如何在三週內被華爾街帶血接盤
 cover-img: /assets/img/header/2026-05-14/AI-NATIVE-WAN.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/heaer/2026-05-14/AI-NATIVE-WAN.png

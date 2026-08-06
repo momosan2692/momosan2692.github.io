@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Multi-Environment Spec-Driven Development (SDD) System Prompt
-subtitle: for Python, C/C++, React, Verilog users
+title: Multi-Environment Spec-Driven Development SDD System Prompt
+subtitle: for Python C/C++ React Verilog users
 cover-img: /assets/img/header/2026-05-14/AI-NATIVE-WAN.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/heaer/2026-05-14/AI-NATIVE-WAN.png
