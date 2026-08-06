@@ -2,9 +2,9 @@
 layout: post
 title: Multi Environment Spec-Driven Development SDD System Prompt
 subtitle: for Python C React Verilog users
-cover-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
+cover-img: /assets/img/header/2026-04-24/ROCE.png
 thumbnail-img: /assets/img/thumb.png
-share-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
+share-img: /assets/img/header/2026-04-24/ROCE.png
 published: true
 pinned: true
 mathjax: true

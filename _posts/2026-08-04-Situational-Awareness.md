@@ -2,9 +2,9 @@
 layout: post
 title: Situational Awareness 一夕爆倉 一場槓桿與供應鏈物理限制的教科書案例
 subtitle: 從 439% 獲利到強制清算 24歲基金經理人如何在三週內被華爾街帶血接盤
-cover-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
+cover-img: /assets/img/header/2026-04-24/ROCE.png
 thumbnail-img: /assets/img/thumb.png
-share-img: /assets/img/header/2026-05-14/CEREBRAS.jpeg
+share-img: /assets/img/header/2026-04-24/ROCE.png
 published: true
 pinned: true
 mathjax: true
