@@ -2,13 +2,12 @@
 layout: post
 title: Situational Awareness 一夕爆倉：一場槓桿與供應鏈物理限制的教科書案例
 subtitle: 從 439% 獲利到強制清算，24歲基金經理人如何在三週內被華爾街「帶血接盤」
-date: 2026-08-04
-tags: [AI基礎設施, 投資研究, 半導體供應鏈, 風險管理]
 cover-img: /assets/img/header/2026-05-14/AI-NATIVE-WAN.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/heaer/2026-05-14/AI-NATIVE-WAN.png
 published: true
 pinned: false
+tags: [AI基礎設施, 投資研究, 半導體供應鏈, 風險管理]
 ---
 
 七月底，華爾街最熱門的話題不是哪家科技巨頭又打敗財報預期，而是一支基金的崩潰速度——快到連做空的人都措手不及。
