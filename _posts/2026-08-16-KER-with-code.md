@@ -6,7 +6,7 @@ cover-img: /assets/img/header/2026-04-18/QUANTUM.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-18/QUANTUM.png
 published: true
-pinned: false
+pinned: true
 tags: [draft, NVIDIA, IONQ, investing]
 ---
 
