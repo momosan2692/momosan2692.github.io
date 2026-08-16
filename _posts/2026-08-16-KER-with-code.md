@@ -149,7 +149,7 @@ fully in or fully out" override, not another reversion signal.
 This is a real case pulled from a live backtest run (`bb_length=14`,
 default config), not a hypothetical.
 
-![RKLB chart, 2026-04-21 premature sell / buy-back](/assets/img/header/2026-08-15/rklb-2026-04-21-chart.png){: width="85%" height="50%" .mx-auto.d-block}
+![RKLB chart, 2026-04-21 premature sell / buy-back](/assets/img/header/2026-08-16/rklb-2026-04-21-chart.png){: width="85%" height="50%" .mx-auto.d-block}
 
 
 Source OHLCV for the window this example uses (`RKLB`, 1D, TradingView
