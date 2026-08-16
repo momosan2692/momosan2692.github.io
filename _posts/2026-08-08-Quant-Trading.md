@@ -7,7 +7,7 @@ thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-03-04/DATACENTER.jpeg
 published: true    # ← add this, post won't show on blog
 pinned: true # true — pin a post to the top
-tags: [draft, trading]
+tags: [draft, Quant Trading]
 mathjax: true
 ---
 
