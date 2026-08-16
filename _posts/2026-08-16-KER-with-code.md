@@ -7,7 +7,7 @@ thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-18/QUANTUM.png
 published: true
 pinned: true
-tags: [draft, NVIDIA, IONQ, investing]
+tags: [draft, Kaufman, ER]
 ---
 
 
