@@ -7,7 +7,7 @@ thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-18/QUANTUM.png
 published: true
 pinned: true
-tags: [draft, Trading, ChannelEffect]
+tags: [draft, ChannelEffect]
 ---
 
 # 通道效應（Channel Effect）在金融領域的應用 — 整理版
