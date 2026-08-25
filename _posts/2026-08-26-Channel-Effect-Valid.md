@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 量通道效應（Channel Effect）在金融領域的應用
+title: 量通道效應 Channel Effect 在金融領域的應用
 subtitle: 整理驗證版
 cover-img: /assets/img/header/2026-04-18/QUANTUM.png
 thumbnail-img: /assets/img/thumb.png
