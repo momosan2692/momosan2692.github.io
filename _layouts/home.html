@@ -5,8 +5,9 @@ layout: page
 {{ content }}
 
 {% assign all_posts = paginator.posts | default: site.posts %}
-{% assign pinned_posts = all_posts | where: "pinned", true %}
-{% assign regular_posts = all_posts | where_exp: "post", "post.pinned != true" %}
+{% assign listed_posts = all_posts | where_exp: "post", "post.nolist != true" %}
+{% assign pinned_posts = listed_posts | where: "pinned", true %}
+{% assign regular_posts = listed_posts | where_exp: "post", "post.pinned != true" %}
 {% assign posts = pinned_posts | concat: regular_posts %}
 
 <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->

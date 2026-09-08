@@ -4,14 +4,17 @@ layout: page
 
 {% assign tags = site.tags | sort %}
 {% for tag in tags %}
-  <h2 id="{{ tag[0] | slugify }}">{{ tag[0] }}</h2>
-  <ul>
-    {% assign sorted_posts = tag[1] | sort: 'date' | reverse %}
-    {% for post in sorted_posts %}
-      <li>
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        <small>{{ post.date | date: "%B %d, %Y" }}</small>
-      </li>
-    {% endfor %}
-  </ul>
+  {% assign sorted_posts = tag[1] | sort: 'date' | reverse %}
+  {% assign listed_posts = sorted_posts | where_exp: "post", "post.nolist != true" %}
+  {% if listed_posts.size > 0 %}
+    <h2 id="{{ tag[0] | slugify }}">{{ tag[0] }}</h2>
+    <ul>
+      {% for post in listed_posts %}
+        <li>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          <small>{{ post.date | date: "%B %d, %Y" }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 {% endfor %}
