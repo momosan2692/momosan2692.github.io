@@ -6,7 +6,8 @@ cover-img: /assets/img/header/2026-04-18/QUANTUM.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-18/QUANTUM.png
 published: true
-pinned: false
+pinned: true
+mathjax: true
 tags: [draft, AI, 私有雲, 推論, 半導體, 市場分析]
 ---
 

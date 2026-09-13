@@ -6,8 +6,9 @@ cover-img: /assets/img/header/2026-04-18/QUANTUM.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-18/QUANTUM.png
 published: true
-pinned: false
-tags: [draft, AI, 私有雲, 推論, 軟體架構, 市場分析]
+pinned: true
+mathjax: true
+tags: [draft, AI, 私有雲, 推論, 半導體, 市場分析]
 ---
 
 # 彈性私有雲推論軟體：從企業K8s到個人叢集，中間那塊空白由誰來填
