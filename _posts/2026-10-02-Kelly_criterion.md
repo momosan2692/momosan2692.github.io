@@ -8,7 +8,7 @@ share-img: /assets/img/header/2026-04-18/QUANTUM.png
 published: true
 pinned: true
 mathjax: true
-tags: [draft, CPO]
+tags: [draft, KellyLaw]
 ---
 
 # 凱利公式:正期望值的遊戲,為什麼還是會讓你破產
