@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 下一代推論引擎的重點與晶片對應
-subtitle: 不要只看toks 
+subtitle: 不要只看tokens
 cover-img: /assets/img/header/2026-04-18/QUANTUM.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-18/QUANTUM.png
