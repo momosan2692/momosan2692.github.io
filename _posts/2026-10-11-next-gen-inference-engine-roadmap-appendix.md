@@ -14,7 +14,7 @@ tags: [draft, 推論引擎]
 
 # 下一代推論引擎 Roadmap 附錄
 
-更新日期：2026-10-11。本文補充[〈下一代推論引擎的重點與晶片對應〉](/2026/10/10/next-gen-inference-engine.html)，聚焦各專案公開的 roadmap、RFC、版本計畫與近期方向。
+更新日期：2026-10-11。本文補充[〈下一代推論引擎的重點與晶片對應〉](https://momosan2692.github.io/2026/10/10/next-gen-inference-engine.html)，聚焦各專案公開的 roadmap、RFC、版本計畫與近期方向。
 
 以下把「路線圖／計畫」和「已發布功能」分開描述。Roadmap issue 中的 target 通常不是供貨或 GA 承諾；版本說明則只能證明功能已發布，不能直接當成未來承諾。性能數字若來自專案或廠商自己的測試，也不等同獨立驗證。
 
