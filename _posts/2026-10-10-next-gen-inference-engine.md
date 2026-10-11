@@ -92,8 +92,8 @@ GPU 推論變快之後，tokenization、JSON 處理與 streaming 成為瓶頸，
 | Disaggregated prefill/decode、attention-FFN 分離 | Rubin CPX（128GB GDDR7）針對百萬 token context，2026 年底。Groq 3 LPX 負責 decode 的 FFN/MoE，Rubin GPU 負責 prefill 與 attention，Dynamo 負責路由與協調。LPX 已全面量產。 |
 | Agent-aware 排程、CPU fast path | Vera CPU：88 核心、1.5 TB 記憶體，用於 orchestration、記憶體 offload 與 agentic 推論周邊的 CPU 工作。 |
 | KV 壓縮與量化 | BlueField-4 STX 的 Vera CPU 對 context 資料壓縮吞吐最高 3.29 倍；GPU 的 NVFP4 支援（對應為推論）。 |
-| 長 context 高並行（KV 容量） | MI455X：432GB HBM4、23.3 TB/s，對比 Rubin 288GB。Hugging Face 初步測試顯示並行請求數超過 192GB MI300 的 3 倍。 |
-| Decode context parallelism、expert parallelism | Scale-up 網路：NVLink 6（NVL72）；MI455X 的 UALink 3.6 TB/s。（推論） |
+| 長 context 高並行（KV 容量） | MI455X：432GB HBM4、23.3 TB/s，對比 Rubin 288GB。Hugging Face 初步測試顯示並行請求數超過 192GB MI300 的 3 倍（原稿未附測試來源）。 |
+| Decode context parallelism、expert parallelism | Scale-up 網路：NVLink 6（NVL72）；MI455X 的 UALoE scale-up 雙向頻寬為 3.6 TB/s，UALink scale-out 雙向頻寬為 600 GB/s。（推論；[AMD 規格](https://www.amd.com/en/products/accelerators/instinct/mi400/mi455x.html)） |
 | Hybrid attention 的 state cache | 未找到專用硬體；推論偏好大容量加快速溢出層。（推論） |
 | Apple：prefix cache、M5 prefill | vllm-metal 在 M5 上用 NAX tensor kernel 做 prefill，decode 仍受記憶體頻寬限制。 |
 
@@ -112,14 +112,14 @@ GPU 推論變快之後，tokenization、JSON 處理與 streaming 成為瓶頸，
 
 ## 相關檔案
 
-試算表 software_to_chip_mapping.xlsx 包含第 3 節的完整對應、各晶片規格與比值、來源連結。
+原稿提及的試算表 software_to_chip_mapping.xlsx 不在目前 repository 中；第 3 節的部分數字與對應因此尚無法由該試算表追溯，請勿把它視為隨文提供的來源。
 
 ## 5. Token 計費與會計規則的缺口
 
 在計費計數、引擎指標、goodput 三層，都沒有共同的「工作單位」，所以跨供應商與跨引擎的比較容易失真。
 
-- **計費計數**：OpenTelemetry 已有 input、output、cache read、cache write、reasoning 的標準屬性（cache 於 v1.40、reasoning 於 v1.41 加入），但這只是遙測詞彙，不是計費規則。供應商定義仍不同：Anthropic 的 `input_tokens` 不含快取與 cache creation，OpenAI 的 `prompt_tokens` 為總數、快取是其子集。閘道工具曾因此發生重複計費。OpenAI GPT-5.6 以後另列 cache write 計數。依 OTel，reasoning tokens 計入 output，使用者看不到卻要付費。
-- **引擎指標**：TTFT 大致一致，但 TPOT 與 ITL 的公式不同。vLLM 的平均 TPOT 是每請求平均、各請求等權，平均 ITL 則逐 token 加權。GenAI-Perf 計算 ITL 時不含 TTFT，LLMPerf 則含；guidellm 的 TPOT 含 TTFT 且除以 n 而非 n−1，無法與 vLLM 或 SGLang 的數字直接對照。吞吐量的基準線也不一致。
+- **計費計數**：OpenTelemetry 曾在 v1.40 加入 cache token 屬性、v1.41 加入 reasoning token 屬性；2026-06 的 v1.42 將 GenAI conventions 移至[獨立 repository](https://github.com/open-telemetry/semantic-conventions-genai)，並在原 repository 將舊定義標為 deprecated。新 repository 中 cache 與 reasoning 欄位仍標示為 Development；這些是遙測語意，不是計費規則或穩定的計費標準。供應商定義仍不同：Anthropic 的 `input_tokens` 不含快取與 cache creation，OpenAI 的 `prompt_tokens` 為總數、快取是其子集。閘道工具曾因此發生重複計費。OpenAI GPT-5.6 以後另列 cache write 計數。依 OTel，reasoning tokens 應計入 output。([v1.42 變更](https://github.com/open-telemetry/semantic-conventions/releases/tag/v1.42.0)、[GenAI 欄位定義](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/gen-ai-events.md))
+- **引擎指標**：TTFT 大致一致，但 TPOT 與 ITL 的公式不同。vLLM 的 TPOT 是每請求記錄，公式為 `(E2E latency - TTFT) / (output tokens - 1)`；ITL 則是一筆一筆記錄串流輸出事件之間的時間差，若一次輸出包含多個 token（例如 speculative decoding），就不等同嚴格的逐 token 加權平均。GenAI-Perf、LLMPerf 與 guidellm 的計算方式也需逐一核對工具文件，不能只比較同名指標。([vLLM 指標定義](https://docs.vllm.ai/en/stable/design/metrics))
 - **Goodput**：一種定義是達標請求的比例，另一種是單位時間內的達標請求數（被拒絕的請求計為未達標）。同一次測試會得到不同數字。
 - **關鍵缺口**：token 價格把 TTFT、排隊、cache 命中率與引擎效率全壓進同一個價格。把 GPU 時間換算成計費 token 的方式沒有公開標準，我也沒有找到任何供應商公開其內部換算。
 
@@ -135,9 +135,9 @@ Token 在請求無狀態時是合理的代理單位。Agent session 有狀態且
 
 | token 未涵蓋的資源 | 目前已在販售的形式 |
 |---|---|
-| 延遲 / SLO | Fast mode（2026-07-30 由 Priority 改名）為標準價 2 倍，Batch 與 Flex 為 50%。GPT-5.6 Sol 的 output 價格為 Fast $40、Standard $20、Flex/Batch $10（每百萬 token），同一模型價差 4 倍。 |
-| Cache 駐留（記憶體 × 時間） | Cache write 為 input 的 1.25 倍（5 分鐘）或 2 倍（1 小時）。Google 對 Gemini 3.7 Flash 的快取收每百萬 token 每小時 $0.50 儲存費。 |
-| 長 context（KV 大小） | GPT-6 Astra 超過 272K input 時，整個請求的 input 與 cache 費率為 2 倍、output 為 1.5 倍。 |
+| 延遲 / SLO | Fast mode（2026-07-30 由 Priority 改名）為標準價 2 倍，Batch 與 Flex 為 50%。GPT-5.6 Sol 的 output 價格為 Fast $40、Standard $20、Flex/Batch $10（每百萬 token），同一模型價差 4 倍；此處為短 context 價格，長 context 價格不同。([OpenAI API 定價](https://developers.openai.com/api/docs/pricing)) |
+| Cache 駐留（記憶體 × 時間） | Cache write 為 input 的 1.25 倍（5 分鐘）或 2 倍（1 小時）。Google 對 Gemini 3.7 Flash 的快取收每百萬 token 每小時 $0.50 儲存費（截至 2026-12-31；2027-01-01 起為 $1.00）。([Gemini API 定價](https://ai.google.dev/gemini-api/docs/pricing)) |
+| 長 context（KV 大小） | GPT-6 Astra 超過 272K input 時，整個請求的 input 與 cache 費率為 2 倍、output 為 1.5 倍。([OpenAI API 定價](https://developers.openai.com/api/docs/pricing)) |
 | Agent 執行時間（等待、工具呼叫） | 有第三方詞條指出 Anthropic 在 token 之外加收每 session 小時 $0.08；我沒有在 Anthropic 官方頁面查證這個數字。 |
 | 商業結果 | 應用層：Intercom Fin 每筆解決的對話 $0.99，Zendesk 每筆自動解決 $1.50–$2.00。 |
 
