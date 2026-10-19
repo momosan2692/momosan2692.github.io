@@ -1,7 +1,7 @@
 ---
 layout: post
 title: A Stock Reinforcement-Learning Sandbox with PPO and Stable-Baselines3
-subtitle: SB3 early builds
+subtitle: A Spec Driven Design Sample
 cover-img: /assets/img/header/2026-04-18/QUANTUM.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-18/QUANTUM.png
