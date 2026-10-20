@@ -1,0 +1,435 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>星鏈與台灣四條路</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;900&display=swap">
+<style>
+/* Layout: single reading column (~780px) with full-width figures; sections are the stages of the signal path, then Taiwan. */
+:root {
+  --bg: #EDF0F1;
+  --surface: #F8FAFA;
+  --ink: #0F2230;
+  --muted: #4E6271;
+  --rule: #C6D1D7;
+  --sig: #0B7A86;       /* Starlink / signal teal */
+  --sig-soft: #CFE7EA;
+  --tw: #A85A14;        /* Taiwan amber */
+  --tw-soft: #F2DEC8;
+  --ok: #2F7D4F;
+  --serif: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #09131B; --surface: #0F1D28; --ink: #E3ECF0; --muted: #94A9B5; --rule: #25384A;
+    --sig: #55C6D2; --sig-soft: #12363D; --tw: #EBA55F; --tw-soft: #3A2815; --ok: #6FCB94;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #09131B; --surface: #0F1D28; --ink: #E3ECF0; --muted: #94A9B5; --rule: #25384A;
+  --sig: #55C6D2; --sig-soft: #12363D; --tw: #EBA55F; --tw-soft: #3A2815; --ok: #6FCB94;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--sans); font-size: 16px; line-height: 1.85;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 72px;
+}
+.wrap { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+header { display: flex; flex-direction: column; gap: 18px; }
+.kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; color: var(--sig); text-transform: uppercase; }
+h1 { font-family: var(--serif); font-weight: 900; font-size: clamp(30px, 6.4vw, 52px); line-height: 1.2; margin: 0; text-wrap: balance; letter-spacing: .01em; }
+.lede { font-size: 18px; margin: 0; color: var(--ink); max-width: 38em; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--rule); }
+.stat { padding: 14px 14px 14px 0; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.stat + .stat { padding-left: 14px; border-left: 1px solid var(--rule); }
+.stat b { font-family: var(--mono); font-weight: 500; font-size: 26px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; color: var(--muted); line-height: 1.5; }
+section { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.part { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; color: var(--tw); }
+h2 { font-family: var(--serif); font-weight: 900; font-size: clamp(24px, 4.4vw, 32px); line-height: 1.3; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--serif); font-weight: 600; font-size: 19px; margin: 10px 0 0; }
+p { margin: 0; max-width: 40em; }
+a { color: var(--sig); text-underline-offset: 3px; }
+figure { margin: 6px 0 0; background: var(--surface); border: 1px solid var(--rule); padding: 18px 16px 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+figure .scroll { overflow-x: auto; }
+figure svg { display: block; width: 100%; height: auto; min-width: 520px; }
+figcaption { font-size: 13px; line-height: 1.6; color: var(--muted); }
+figcaption b { font-family: var(--mono); font-weight: 500; color: var(--ink); margin-right: .6em; }
+/* svg tokens */
+svg text { fill: var(--ink); font-family: var(--sans); font-size: 13px; }
+svg .m { fill: var(--muted); }
+svg .mono { font-family: var(--mono); font-size: 12px; }
+svg .b { font-weight: 700; }
+svg .st-ink { stroke: var(--ink); fill: none; stroke-width: 1.5; }
+svg .st-mut { stroke: var(--muted); fill: none; stroke-width: 1; }
+svg .st-sig { stroke: var(--sig); fill: none; stroke-width: 2; }
+svg .st-sigd { stroke: var(--sig); fill: none; stroke-width: 2.5; stroke-dasharray: 7 5; }
+svg .st-tw { stroke: var(--tw); fill: none; stroke-width: 2; }
+svg .f-sig { fill: var(--sig); }
+svg .f-sigs { fill: var(--sig-soft); }
+svg .f-tw { fill: var(--tw); }
+svg .f-tws { fill: var(--tw-soft); }
+svg .f-ink { fill: var(--ink); }
+svg .f-sur { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+svg .f-rule { fill: var(--rule); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--muted); }
+.legend i { display: inline-block; width: 22px; height: 0; border-top: 3px solid var(--sig); vertical-align: middle; margin-right: 6px; }
+.legend i.d { border-top-style: dashed; }
+/* timeline */
+ol.tl { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border-left: 2px solid var(--rule); }
+ol.tl li { display: grid; grid-template-columns: 88px 1fr; gap: 14px; padding: 8px 0 8px 16px; position: relative; min-width: 0; }
+ol.tl li::before { content: ""; position: absolute; left: -6px; top: 17px; width: 10px; height: 10px; background: var(--bg); border: 2px solid var(--sig); border-radius: 50%; }
+ol.tl li.tw::before { border-color: var(--tw); }
+ol.tl time { font-family: var(--mono); font-size: 13px; color: var(--muted); padding-top: 2px; font-variant-numeric: tabular-nums; }
+ol.tl span { line-height: 1.7; }
+/* table */
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 14px; line-height: 1.65; }
+th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--rule); }
+th { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .04em; color: var(--muted); background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 700; min-width: 150px; }
+.chip { display: inline-block; font-size: 12px; line-height: 1.4; padding: 2px 8px; border: 1px solid currentColor; margin-bottom: 4px; white-space: nowrap; }
+.chip.on { color: var(--ok); }
+.chip.ap { color: var(--tw); }
+.chip.mo { color: var(--sig); }
+.note { background: var(--surface); border-left: 4px solid var(--tw); padding: 14px 16px; font-size: 15px; line-height: 1.75; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.cols > div { background: var(--surface); border: 1px solid var(--rule); padding: 14px 16px; min-width: 0; }
+.cols h4 { margin: 0 0 6px; font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .06em; }
+.cols ul { margin: 0; padding-left: 1.1em; font-size: 14px; line-height: 1.7; }
+.cols li + li { margin-top: 4px; }
+.src { font-size: 14px; line-height: 1.7; }
+.src ul { margin: 0; padding-left: 1.2em; }
+.src li + li { margin-top: 3px; }
+.src h3 { margin-top: 14px; font-size: 16px; }
+.ask { font-family: var(--serif); font-weight: 600; font-size: 20px; line-height: 1.6; border-top: 2px solid var(--ink); padding-top: 20px; max-width: 28em; }
+:focus-visible { outline: 2px solid var(--sig); outline-offset: 3px; }
+@media (max-width: 520px) {
+  ol.tl li { grid-template-columns: 1fr; gap: 0; }
+  .stat + .stat { border-left: 0; padding-left: 0; }
+}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="kicker">太空科技 · 2026 年 10 月 20 日整理</div>
+  <h1>星鏈怎麼運作,台灣手上有哪四條衛星路</h1>
+  <p class="lede">2019 年 5 月,SpaceX 一次送上 60 顆星鏈衛星。七年後,在軌數量超過一萬一千顆。台灣今年 7 月修了《電信管理法》第 36 條,替外國衛星業者開了門,星鏈本身還沒進來,國內已先排出四條衛星備援路線。</p>
+  <div class="stats">
+    <div class="stat"><b>11,133</b><span>星鏈在軌數量(9 月 29 日,KeepTrack)</span></div>
+    <div class="stat"><b>26</b><span>星艦第 14 次飛行送上軌道的 V3 衛星</span></div>
+    <div class="stat"><b>1 Tbps</b><span>單顆 V3 設計下行容量</span></div>
+    <div class="stat"><b>4</b><span>台灣目前並行準備的商用路線</span></div>
+  </div>
+</header>
+
+<section id="antenna">
+  <div class="part">零件 1 / 3 · 用戶天線</div>
+  <h2>一片平板為什麼不用轉</h2>
+  <p>舊式衛星電視碟是彎的,像一個大碗,把天上來的微弱電波集中到中間的接收頭,所以碟面一定要對準某一顆衛星。星鏈的天線是一片平板,裝好就不再動。</p>
+  <p>靠的是相位陣列。板子裡排了上千個小天線,每一個發出同一個訊號,只是電波起伏的節拍彼此錯開一點點。這些電波在空中疊在一起,某個方向互相加強,其他方向互相抵銷,結果像一道看不見的手電筒光束。調整小天線之間的節拍差,光束就偏向不同方向,板子不必轉,光束自己會轉。</p>
+  <p>這項能力不能少,因為星鏈衛星離地面只有四五百公里,約一個半小時繞地球一圈,從頭頂天空一側飛到另一側只要幾分鐘。天線要一路追著它,前一顆快飛出視野,就把光束交給下一顆。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 680 270" role="img" aria-label="兩塊相位陣列平板的示意圖:左邊所有小天線同步,光束朝正上方;右邊小天線節拍依序錯開,光束偏向右上方">
+      <!-- left panel: beam straight up -->
+      <text class="b" x="160" y="20" text-anchor="middle">節拍一致:光束朝正上方</text>
+      <polygon class="f-sigs" points="132,222 188,222 206,52 114,52"/>
+      <g class="st-sig">
+        <path d="M104,176 L216,176"/><path d="M110,132 L210,132"/><path d="M114,88 L206,88"/>
+      </g>
+      <g class="f-sig">
+        <circle cx="90" cy="232" r="5"/><circle cx="110" cy="232" r="5"/><circle cx="130" cy="232" r="5"/><circle cx="150" cy="232" r="5"/><circle cx="170" cy="232" r="5"/><circle cx="190" cy="232" r="5"/><circle cx="210" cy="232" r="5"/><circle cx="230" cy="232" r="5"/>
+      </g>
+      <line class="st-ink" x1="76" y1="243" x2="244" y2="243"/>
+      <text class="m mono" x="160" y="262" text-anchor="middle">8 個小天線,節拍相同</text>
+      <!-- right panel: beam tilted 30deg -->
+      <text class="b" x="520" y="20" text-anchor="middle">節拍依序錯開:光束偏向右上</text>
+      <polygon class="f-sigs" points="482.7,210 563.3,54.5 611.7,82.5 517.3,230"/>
+      <g class="st-sig">
+        <path d="M481.7,151.7 L568.3,201.7"/><path d="M506.7,108.4 L593.3,158.4"/><path d="M531.7,65.1 L618.3,115.1"/>
+      </g>
+      <g class="f-sig">
+        <circle cx="430" cy="232" r="5" opacity="1"/><circle cx="450" cy="232" r="5" opacity=".88"/><circle cx="470" cy="232" r="5" opacity=".76"/><circle cx="490" cy="232" r="5" opacity=".64"/><circle cx="510" cy="232" r="5" opacity=".52"/><circle cx="530" cy="232" r="5" opacity=".4"/><circle cx="550" cy="232" r="5" opacity=".3"/><circle cx="570" cy="232" r="5" opacity=".2"/>
+      </g>
+      <line class="st-ink" x1="416" y1="243" x2="584" y2="243"/>
+      <text class="m mono" x="500" y="262" text-anchor="middle">深淺代表節拍差,逐顆加大</text>
+      <line class="st-mut" x1="340" y1="40" x2="340" y2="250" stroke-dasharray="3 4"/>
+    </svg>
+    </div>
+    <figcaption><b>圖 1</b>相位陣列的原理示意。圖為自繪的概念圖,元件數與角度不代表星鏈實際規格。</figcaption>
+  </figure>
+</section>
+
+<section id="satellite">
+  <div class="part">零件 2 / 3 · 衛星與軌道</div>
+  <h2>飛得低,延遲小,代價是要放很多顆</h2>
+  <p>傳統通訊衛星多放在地球靜止軌道。在那個高度,衛星繞一圈剛好一天,與地球自轉同步,從地面看像掛在天上不動,三顆左右就能蓋住地球上大部分有人住的地方。代價是距離:你點開一個網頁,訊號上去再回來要跑將近 15 萬公里,光也要近半秒。</p>
+  <p>星鏈把衛星放在 450 至 490 公里,距離縮短七十多倍,延遲跟著大幅下降。但每顆衛星只看得到地面一小塊,而且很快飛走。要讓某個地方隨時頭頂有衛星,就得放上幾千顆,所以 SpaceX 得先把火箭做成能回收重複使用,單次發射成本降下來才發得起。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 680 330" role="img" aria-label="左側為三層軌道示意,右側為依高度估算的訊號往返傳播時間長條圖">
+      <!-- orbit bands -->
+      <text class="m mono" x="10" y="14">軌道(高度為示意,不等比)</text>
+      <rect class="f-tws" x="10" y="26" width="360" height="54"/>
+      <text class="b" x="22" y="48">靜止軌道 GEO · 約 36,000 km</text>
+      <text class="m" x="22" y="68">中華電信 ST-2、與 Astranis 合作的小型衛星</text>
+      <rect class="f-tws" x="10" y="96" width="360" height="54"/>
+      <text class="b" x="22" y="118">中軌 MEO · 約 8,000 km</text>
+      <text class="m" x="22" y="138">SES O3b mPOWER(中華電信代理)</text>
+      <rect class="f-sigs" x="10" y="166" width="360" height="86"/>
+      <text class="b" x="22" y="188">低軌 LEO · 300 多至 1,200 km</text>
+      <text class="m" x="22" y="208">Starlink(450 至 490 km)</text>
+      <text class="m" x="22" y="226">Amazon Leo、OneWeb</text>
+      <rect class="f-ink" x="10" y="268" width="360" height="44"/>
+      <text x="22" y="295" style="fill:var(--bg)" class="b">地球</text>
+      <!-- bars -->
+      <text class="m mono" x="400" y="14">訊號往返傳播時間下限(依高度估算)</text>
+      <text class="m" x="400" y="46">GEO 約 36,000 km</text>
+      <rect class="f-tw" x="400" y="52" width="215" height="16"/>
+      <text class="mono b" x="622" y="65">477 ms</text>
+      <text class="m" x="400" y="112">MEO 約 8,000 km</text>
+      <rect class="f-tw" x="400" y="118" width="48" height="16"/>
+      <text class="mono b" x="456" y="131">107 ms</text>
+      <text class="m" x="400" y="178">LEO 上限 1,200 km</text>
+      <rect class="f-sig" x="400" y="184" width="7" height="16"/>
+      <text class="mono b" x="415" y="197">16 ms</text>
+      <text class="m" x="400" y="244">Starlink 490 km</text>
+      <rect class="f-sig" x="400" y="250" width="3" height="16"/>
+      <text class="mono b" x="411" y="263">6.5 ms</text>
+      <text class="m" x="400" y="300">算法:4 × 高度 ÷ 光速,</text>
+      <text class="m" x="400" y="316">不含設備處理與路由。</text>
+    </svg>
+    </div>
+    <figcaption><b>圖 2</b>三層軌道與傳播時間下限。數值由高度以光速估算,只反映距離造成的下限,實際延遲還要加上處理與繞路。越往上需要的衛星越少,延遲也越高,每家業者選的是不同的平衡點。</figcaption>
+  </figure>
+</section>
+
+<section id="ground">
+  <div class="part">零件 3 / 3 · 地面站與雷射</div>
+  <h2>資料要落地,才真正進入網際網路</h2>
+  <p>衛星收到用戶天線的訊號後,要再丟到地面站(Gateway),一座接著光纖的大型天線。資料從那裡才進入網際網路。星鏈的地面站通常是一排白色圓球罩,裡面是會轉動的碟形天線,各自盯著天上不同方向的衛星。</p>
+  <p>麻煩在於地球是圓的,衛星又飛得低,同時能看到的地面範圍有限。大海中央的船,頭頂那顆衛星往下看,可能找不到任何地面站。星鏈的解法是讓衛星之間用雷射傳資料,一顆接一顆往下傳,直到某一顆看得到地面站。</p>
+  <p>衛星之間用雷射,往地面卻仍用無線電。雷射一道光束能搬的資料多得多,但從太空打到地面,容易被雲、霧和大氣擾動中斷。光在真空裡也比在光纖玻璃中快,理論上同樣距離,太空雷射的延遲可比海底光纜少三成左右,實際要看繞的路有多遠。</p>
+  <p>這條雷射正是台灣最在意的零件。數位發展部長林宜敬 7 月在立法院說明:平常台灣用戶連上衛星,訊號可落到台灣的地面站再接光纖出海;海纜被切斷時,就得靠衛星透過星間雷射,把資料直接送到海外地面站。他也說這在技術上還有問題要解決。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 680 320" role="img" aria-label="兩種資料路徑:平常經台灣地面站接海纜出海,海纜中斷時經三顆衛星的星間雷射送到海外地面站">
+      <defs>
+        <symbol id="sat" viewBox="-22 -12 44 24"><rect class="f-sur" x="-6" y="-6" width="12" height="12"/><rect class="f-sigs st-ink" x="-21" y="-4" width="13" height="8"/><rect class="f-sigs st-ink" x="8" y="-4" width="13" height="8"/></symbol>
+        <symbol id="home" viewBox="-14 -14 28 28"><polygon class="f-sur" points="-12,2 0,-10 12,2 8,2 8,12 -8,12 -8,2"/></symbol>
+        <symbol id="gw" viewBox="-14 -16 28 32"><path class="f-sur" d="M-11,2 A11,11 0 0 1 11,2 Z"/><rect class="f-sur" x="-4" y="2" width="8" height="12"/></symbol>
+      </defs>
+      <!-- scenario A -->
+      <text class="b" x="10" y="20">平常</text>
+      <text class="m" x="50" y="20">落地台灣,再接海纜</text>
+      <use href="#home" x="30" y="108" width="40" height="40"/>
+      <use href="#sat" x="190" y="40" width="64" height="36"/>
+      <use href="#gw" x="340" y="108" width="40" height="44"/>
+      <path class="st-ink" d="M62,112 L206,66"/>
+      <path class="st-ink" d="M240,66 L350,112"/>
+      <path class="st-mut" d="M384,140 C430,120 470,160 520,140 S600,120 660,140"/>
+      <text class="m" x="520" y="170" text-anchor="middle">海底光纜 → 海外網路</text>
+      <text class="m" x="50" y="170" text-anchor="middle">用戶</text>
+      <text class="m" x="360" y="170" text-anchor="middle">台灣地面站</text>
+      <!-- divider -->
+      <line class="st-mut" x1="10" y1="188" x2="670" y2="188" stroke-dasharray="3 4"/>
+      <!-- scenario B -->
+      <text class="b" x="10" y="212">海纜中斷</text>
+      <text class="m" x="80" y="212">星間雷射接力,送到海外地面站</text>
+      <use href="#home" x="30" y="268" width="40" height="40"/>
+      <use href="#sat" x="150" y="238" width="64" height="36"/>
+      <use href="#sat" x="300" y="238" width="64" height="36"/>
+      <use href="#sat" x="450" y="238" width="64" height="36"/>
+      <use href="#gw" x="620" y="274" width="40" height="44"/>
+      <path class="st-ink" d="M62,274 L166,262"/>
+      <path class="st-sigd" d="M214,256 L300,256"/>
+      <path class="st-sigd" d="M364,256 L450,256"/>
+      <path class="st-ink" d="M510,262 L630,290"/>
+      <text class="m" x="50" y="312" text-anchor="middle">用戶</text>
+      <text class="m" x="640" y="316" text-anchor="middle">海外地面站</text>
+      <text class="mono m" x="257" y="248" text-anchor="middle">雷射</text>
+      <text class="mono m" x="407" y="248" text-anchor="middle">雷射</text>
+    </svg>
+    </div>
+    <div class="legend"><span><i></i>無線電(用戶與衛星、衛星與地面站)</span><span><i class="d"></i>衛星之間的雷射</span></div>
+    <figcaption><b>圖 3</b>資料路徑示意。圖為自繪概念圖,衛星數量與位置僅作說明。稿中引用 SpaceX 上市文件,稱整體網路已裝超過 23,000 組雷射終端,這個數字我沒有獨立查證到。</figcaption>
+  </figure>
+</section>
+
+<section id="v3">
+  <div class="part">下一步 · 第三代衛星與星艦</div>
+  <h2>V3 太大,現役火箭載不動</h2>
+  <p>星鏈下一步換上的是第三代衛星 V3。依公開的規格,單顆下行容量設計約 1 Tbps、上行約 160 Gbps,約為現在主力 V2 mini 的十倍,每顆還帶六組 400 Gbps 的光學星間連結。質量約 2,000 公斤,是 V2 mini(約 575 公斤)的三倍以上,因此現役的 Falcon 9 載不動,只有星艦能發射。</p>
+  <p>星艦分兩節,下面起飛的超重型推進器,上面繼續飛上軌道的新艦,設計上兩節都要回收再用。SpaceX 的說法是,滿載一次最多放 60 顆 V3,能為網路增加約 60 Tbps 下行容量,是一次 Falcon 9 發射 V2 mini 的 20 倍以上。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 680 300" role="img" aria-label="三組長條圖比較 V2 mini 與 V3:單顆下行容量、單顆質量、每次發射增加的下行容量">
+      <text class="m mono" x="10" y="16">各列自成比例,只比較同一列內的兩根長條</text>
+      <!-- row 1 -->
+      <text class="b" x="10" y="52">單顆下行容量</text>
+      <text class="m" x="10" y="72">V2 mini → V3</text>
+      <rect class="f-rule" x="170" y="34" width="29" height="18"/>
+      <text class="mono" x="206" y="48">約 96 Gbps</text>
+      <rect class="f-sig" x="170" y="58" width="300" height="18"/>
+      <text class="mono b" x="478" y="72">約 1,000 Gbps</text>
+      <!-- row 2 -->
+      <text class="b" x="10" y="142">單顆質量</text>
+      <text class="m" x="10" y="162">V2 mini → V3</text>
+      <rect class="f-rule" x="170" y="124" width="86" height="18"/>
+      <text class="mono" x="264" y="138">約 575 kg</text>
+      <rect class="f-sig" x="170" y="148" width="300" height="18"/>
+      <text class="mono b" x="478" y="162">約 2,000 kg</text>
+      <!-- row 3 -->
+      <text class="b" x="10" y="232">每次發射增加的下行容量</text>
+      <text class="m" x="10" y="252">Falcon 9 載 V2 mini → 星艦滿載 V3</text>
+      <rect class="f-rule" x="250" y="214" width="15" height="18"/>
+      <text class="mono" x="272" y="228">約 3 Tbps</text>
+      <rect class="f-sig" x="250" y="238" width="300" height="18"/>
+      <text class="mono b" x="556" y="252">約 60 Tbps</text>
+    </svg>
+    </div>
+    <figcaption><b>圖 4</b>V2 mini 與 V3 的規格比較。V2 的單顆下行容量各來源有 80 與 96 Gbps 兩種說法,此處採公司年度報告的 96 Gbps;每次發射約 3 Tbps 是依 SpaceX「20 倍以上」反推。1 Tbps 是整顆衛星的總容量,不是每戶家庭的速度。</figcaption>
+  </figure>
+  <h3>9 月 28 日:星艦第 14 次飛行</h3>
+  <p>前 13 次飛行都是沿弧線上太空再落回海上的次軌道飛行,速度不足以繞地球。第 14 次從德州 Starbase 起飛,新艦首次進入環繞地球的軌道,並放出 26 顆 V3,SpaceX 表示 26 顆都與地面保持通訊。7 月的第 13 次飛行也放過 20 顆 V3,但屬次軌道,預期放出約 20 分鐘後再入大氣層燒毀,所以這次才稱得上第一次真正把 V3 送進軌道。</p>
+  <p>飛行並不完美。上升途中新艦有一具引擎提早熄火,任務從原定約 10 小時縮短到約 3 小時就返回濺落。</p>
+  <ol class="tl" aria-label="2026 年與星鏈、台灣衛星有關的事件">
+    <li><time>03/02</time><span>台灣大哥大與 AST SpaceMobile 簽署低軌衛星通訊服務策略合作備忘錄。</span></li>
+    <li><time>03/17</time><span>星鏈同時在軌數量首次突破一萬顆。</span></li>
+    <li><time>05/11</time><span>AST 公布 Block 1 BlueBird 衛星在國際水域直連未改裝手機,尖峰 98.9 Mbps。</span></li>
+    <li class="tw"><time>05/19</time><span>遠傳宣布成為 Amazon Leo 台灣授權經銷商。</span></li>
+    <li class="tw"><time>07/13</time><span>立法院交通委員會初審通過《電信管理法》第 36 條修正草案。</span></li>
+    <li class="tw"><time>07/21</time><span>立法院三讀通過,通稱「星鏈條款」。</span></li>
+    <li><time>09/28</time><span>星艦第 14 次飛行首度入軌,部署 26 顆 V3。</span></li>
+    <li class="tw"><time>09/29</time><span>中華電信表示,與 Astranis 合作的台灣首顆自主衛星預計 2027 年開始提供服務。</span></li>
+  </ol>
+</section>
+
+<section id="phone">
+  <div class="part">衛星變大的另一個原因</div>
+  <h2>手機直連:讓一般手機不加天線直接連衛星</h2>
+  <p>難處在於手機發出的訊號非常微弱,衛星要有更大的天線才聽得到,回傳時光束也要夠集中,才能打中地面上一隻移動中的手機。稿中說明,星鏈目前天上約有 650 顆手機直連衛星,在約 30 個國家上線,依各地合作電信業者開放的功能,可傳簡訊、用少量資料,也能透過 WhatsApp、FaceTime 這類軟體通話,但還不適合看串流影片。第二代要等 2027 年起用星艦發射,SpaceX 財務長的目標是 2028 年上半年做到 5G 等級服務。公開報導中,德國電信也把歐洲 10 國的星鏈手機服務時間訂在 2028 年。</p>
+  <p>稿中還引述了 SpaceX 上市文件與公開說法:向 EchoStar 買下行動通訊頻譜,總價約 196 億美元;消費端訂閱戶超過 1,300 萬;馬斯克稱最終會有超過 10 萬顆 V3、V4、V5 衛星;7 月向美國聯邦通訊委員會申請第三代網路最多 10 萬顆,9 月被受理但尚未核准;另有 1 月申請的上限 100 萬顆「軌道資料中心」,品牌後來叫 StarMind。這兩份仍只是申請,和已在天上的一萬一千多顆是兩回事。這一段的數字我沒有逐項查證,請當成稿中引述。</p>
+</section>
+
+<section id="taiwan">
+  <div class="part">回到台灣</div>
+  <h2>星鏈把零件整合成一套,台灣是把不同業者串起來</h2>
+  <p>星鏈把天線、衛星、地面站、雷射,連同發射用的火箭,關鍵系統大多由 SpaceX 自己設計與整合。台灣的做法是不押單一家,低軌寬頻、手機直連、中軌與靜止軌道同時準備。</p>
+  <h3>修法:門開了,鎖還沒開</h3>
+  <p>原本第 36 條規定,設置使用電信資源的公眾電信網路業者,董事長須具中華民國國籍,外國人直接持股不得超過 49%,直接加間接不得超過 60%。星鏈全球都採百分之百獨資,這成了登台的主要障礙。7 月 21 日三讀的新增條文,讓以衛星通信技術設置網路的業者,經主管機關審酌國家安全、公眾電信網路安全、電信資源使用情形、整體規劃、產業發展、市場發展與其他公共利益後核准,可不受這兩項限制;申請程序與審查基準另由主管機關訂定辦法。附帶決議要求同時落實資安與國安審查、地面接收站建置與資料留在境內。</p>
+  <p>星鏈的態度並不積極。數發部長林宜敬在初審時說,星鏈認為台灣 4G、5G 人口覆蓋率已超過 99.9%,商業市場有限,對台灣興趣不高;政府推動低軌衛星,重點是重大災害或戰時維持通訊韌性。稿中指出,條文已公布,但開放給外國衛星業者的那兩項規定何時生效,要等行政院公告,到稿件完成時還沒有消息,也查不到 SpaceX 提出申請的公開紀錄。</p>
+
+  <h3>四條路現在走到哪</h3>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>路線</th><th>軌道</th><th>現況</th><th>限制與缺口</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>1 · 中華電信 × OneWeb</td>
+        <td>低軌</td>
+        <td><span class="chip on">已商轉</span><br>2025 年 6 月取得台灣第一張 OneWeb 低軌商用許可,主要服務政府、企業與防災;全台布建 770 多個站點。</td>
+        <td>用戶端要裝專用天線。台灣境內沒有地面站,訊號落在日本、泰國、關島(2024 年中央社報導)。第一代衛星沒有星間雷射。</td>
+      </tr>
+      <tr>
+        <td>2 · 遠傳 × Amazon Leo</td>
+        <td>低軌</td>
+        <td><span class="chip ap">申請中</span><br>2026 年 5 月 19 日簽約成為台灣授權經銷商;已向數發部提出頻率指配申請,總經理井琪稱還有數發部、NCC、刑事警察局、調查局等六關,預估 9 至 12 個月,2027 年有機會商轉。</td>
+        <td>尚未開通。稿中說亞馬遜測過衛星對衛星每秒 100 Gbps 的雷射傳輸,這是衛星間的速度,不是用戶下載速度;這項數字我沒有查證到。</td>
+      </tr>
+      <tr>
+        <td>3 · 台灣大 × AST SpaceMobile</td>
+        <td>低軌,手機直連</td>
+        <td><span class="chip mo">合作備忘錄</span><br>2026 年 3 月 2 日簽約;AST 在 5 月公布 98.9 Mbps 尖峰速度,預計新一代衛星接近 200 Mbps。</td>
+        <td>AST 在軌衛星目前只有十幾顆;台灣大的備忘錄是初步合作,尚非商轉。</td>
+      </tr>
+      <tr>
+        <td>4 · 中華電信 中高軌備援</td>
+        <td>中軌、靜止軌道</td>
+        <td><span class="chip on">中軌已商用</span> <span class="chip ap">靜止軌道將上線</span><br>SES O3b mPOWER 中軌(約 8,000 km)2025 年 10 月 30 日取得商用許可;中華電信與新加坡電信合資的 ST-2 運作多年;與 Astranis 合作的小型靜止軌道衛星,預計 2027 年開始服務。</td>
+        <td>高、中軌適合備援,低軌聚焦個人通訊(中華電信的說法);延遲高於低軌(見圖 2)。</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note"><b>OneWeb 的兩難。</b>立法院修法時附帶要求,審查要把地面站與資料留在台灣列為重要考量。但海纜斷掉時,能落在國外地面站的衛星反而是優點。政府也把 OneWeb 納入自己的備援計畫:數發部 2023 至 2024 年在全台與離島布建約 770 個衛星通訊點位,用的是 OneWeb 低軌與 SES 中軌;稿中說今年的接續計畫改為維運 196 個政府關鍵站點。</div>
+  <p>四條商用合作之外,稿中提到國家太空中心的第一顆低軌通訊實驗衛星,通訊設備交由美國公司製作,預計 2027 年發射,下一顆改國內自製,預計 2030 年驗證。這段我沒有查證。</p>
+  <p class="ask">如果海纜真的斷了,你最希望台灣優先把哪一條路準備好?已經上線的中華電信 OneWeb、還在申請的遠傳 Amazon Leo、台灣大與 AST 的手機直連,還是中軌與靜止軌道的衛星?</p>
+</section>
+
+<section id="check" class="src">
+  <div class="part">查證附註</div>
+  <h2>哪些對過,哪些要小心</h2>
+  <div class="cols">
+    <div>
+      <h4 style="color:var(--ok)">已對照公開來源</h4>
+      <ul>
+        <li>星鏈在軌約 11,100 顆(9 月 29 日:在軌 11,133、運作 11,119、累計發射 12,962)</li>
+        <li>9 月 28 日星艦首度入軌、26 顆 V3、一具引擎提早熄火、任務縮短至約 3 小時</li>
+        <li>V3 約 1 Tbps 下行、160 Gbps 上行、六組 400 Gbps 雷射</li>
+        <li>第 36 條 7 月 13 日初審、7 月 21 日三讀與條文內容</li>
+        <li>遠傳、台灣大、AST、中華電信的日期與現況</li>
+        <li>OneWeb 地面站落在日本、泰國、關島</li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="color:var(--tw)">稿中字詞疑為語音辨識錯誤</h4>
+      <ul>
+        <li>「林一進」應為數位發展部長林宜敬</li>
+        <li>「景琦」應為遠傳總經理井琪</li>
+        <li>「第三代衛星 B3」應為 V3</li>
+        <li>「中芯 2 號」應為 ST-2</li>
+        <li>「行鏈條款」應為星鏈條款</li>
+        <li>稿中 OneWeb「1600 公里」與前面低軌上限「1200 公里」不一致,我印象中 OneWeb 約在 1,200 公里,圖中採 1,200,建議再核對</li>
+      </ul>
+    </div>
+    <div>
+      <h4>未能獨立查證</h4>
+      <ul>
+        <li>23,000 組雷射、196 億美元頻譜、單次入軌 100 公噸</li>
+        <li>1,300 萬訂閱戶、10 萬顆申請 9 月被受理、100 萬顆申請、StarMind</li>
+        <li>手機直連約 650 顆、約 30 國</li>
+        <li>條文 8 月 5 日公布,以及行政院尚未公告施行日(三讀條文確實規定施行日由行政院定)</li>
+        <li>遠傳「六關已過四關」、196 個關鍵站點、國家太空中心衛星時程</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>來源</h3>
+  <ul>
+    <li><a href="https://keeptrack.space/x-report/spacex-brief-2026-09-29">KeepTrack:Starship 入軌與星鏈在軌數(2026-09-29)</a></li>
+    <li><a href="https://keeptrack.space/articles/21">KeepTrack:星鏈突破 10,000 顆</a></li>
+    <li><a href="https://gpb.org/news/2026/09/28/spacexs-starship-launches-on-first-orbital-mission-texas">GPB:星艦首次軌道任務</a></li>
+    <li><a href="https://thenextweb.com/news/spacex-starship-first-orbit-flight-14">The Next Web:星艦首次入軌後提前返回</a></li>
+    <li><a href="https://space-connect.jp/?p=22531">sorae(space-connect):Flight 14 結果</a></li>
+    <li><a href="https://innovatopia.jp/spacetechnology/spacetechnology-news/118345/">Innovatopia:Flight 13 與 Flight 14 的差異</a></li>
+    <li><a href="https://convergedigest.com/starlink-v3-boosts-per-satellite-downlink-capacity-to-1-tbps/?amp=1">Converge Digest:V3 規格</a></li>
+    <li><a href="https://aphnetworks.com/news/29690-spacex-teases-1tbps-download-bandwidth-v3-starlink-satellites">APH Networks:V3 與 V2 mini 比較</a></li>
+    <li><a href="https://technews.tw/?p=1454307">科技新報:V3 質量與每次發射容量</a></li>
+    <li><a href="https://news.pts.org.tw/article/818630">公視:電信管理法修正案三讀</a></li>
+    <li><a href="https://news.pts.org.tw/article/817352">公視:初審通過草案內容</a></li>
+    <li><a href="https://www.ctee.com.tw/news/20260722700188-430104">工商時報:星鏈條款三讀</a></li>
+    <li><a href="https://udn.com/news/story/7238/9624397">聯合新聞網:數發部說明星鏈來台意願</a></li>
+    <li><a href="https://udn.com/news/story/7240/9515773">聯合新聞網:遠傳 Amazon Leo 時程</a></li>
+    <li><a href="https://technews.tw/2026/05/19/fetnet-amazon-leo/">科技新報:遠傳成為 Amazon Leo 經銷商</a></li>
+    <li><a href="https://cna.com.tw/business/chinese/426990">中央社:台灣大與 AST 合作備忘錄</a></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/0001780312/000119312526216946/asts-ex99_1.htm">SEC:AST SpaceMobile 第一季業績與 98.9 Mbps</a></li>
+    <li><a href="https://ec.ltn.com.tw/article/breakingnews/5232548">自由時報:中華電信取得 SES 中軌許可</a></li>
+    <li><a href="https://uanalyze.com.tw/articles/8331256119">鉅亨網:中華電信衛星布局與 Astranis 時程</a></li>
+    <li><a href="https://www.cna.com.tw/news/afe/202410140031.aspx">中央社:OneWeb 地面站與 770 個站點(2024)</a></li>
+  </ul>
+</section>
+
+</div>
+
+</body></html>
