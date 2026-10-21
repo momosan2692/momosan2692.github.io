@@ -38,7 +38,7 @@ tags: [draft, KellyCrit]
 
 全倉的下場很直接:100 萬 → 200 萬 → 400 萬 → 第三把輸,歸零。你不需要連輸,**只需要輸一次**。
 
-![全倉連續下注的存活機率](/assets/img/header/2026-10-02/fig1-all-in-survival.svg)
+![全倉連續下注的存活機率](/assets/img/charts/fig1-all-in-survival.svg)
 
 連續全倉 10 局,存活機率只剩約 0.6%。局數愈多,出局愈接近必然。
 
@@ -76,7 +76,7 @@ tags: [draft, KellyCrit]
 
 跌 50% 要漲 100% 才能回本。跌幅愈大,缺口呈指數級擴大:
 
-![回本所需漲幅](/assets/img/header/2026-10-02/fig2-recovery.svg)
+![回本所需漲幅](/assets/img/charts/fig2-recovery.svg)
 
 ---
 
@@ -130,7 +130,7 @@ tags: [draft, KellyCrit]
 
 畫出來是一條先升後降的山形曲線:
 
-![成長率與下注比例](/assets/img/header/2026-10-02/fig3-growth-curve.svg)
+![成長率與下注比例](/assets/img/charts/fig3-growth-curve.svg)
 
 - f = 20%:山頂,成長最快
 - f 約 39%:成長率回到 0,再往上壓就是負成長
@@ -140,7 +140,7 @@ tags: [draft, KellyCrit]
 
 壓得太多,一次大虧就打回原形;壓得太少,浪費優勢。看看同一場遊戲、不同比例,100 局後的典型結果:
 
-![不同下注比例的典型路徑](/assets/img/header/2026-10-02/fig4-typical-paths.svg)
+![不同下注比例的典型路徑](/assets/img/charts/fig4-typical-paths.svg)
 
 以對數成長率估算(典型路徑,不是保證):f = 20% 約成長 7.5 倍;f = 10% 約 4.5 倍;f = 30% 約 4.4 倍;f = 50% 只剩約 0.03 倍。壓 30% 的結果竟然比壓 10% 還差,這就是過度下注的代價。
 
@@ -196,7 +196,7 @@ tags: [draft, KellyCrit]
 - 真實勝率 50%、賠率 1:1,期望值為 0,正確答案是一分錢都不壓。
 - 你卻把 20% 壓在零期望值的遊戲上,長期被波動拖累慢慢吃掉。
 
-![高估勝率的代價](/assets/img/header/2026-10-02/fig5-estimation-error.svg)
+![高估勝率的代價](/assets/img/charts/fig5-estimation-error.svg)
 
 這就是凱利公式在現實中最危險的地方:**它吃你的估計精度**。估得愈不準,公式給的答案愈危險。
 
@@ -220,7 +220,7 @@ tags: [draft, KellyCrit]
 
 索普的說法是:壓一半凱利,大約能拿到四分之三的報酬,波動只有一半。驗算一下:全凱利成長率 0.0201,半凱利 0.0150,比值約 75%。
 
-![半凱利的交換](/assets/img/header/2026-10-02/fig6-half-kelly.svg)
+![半凱利的交換](/assets/img/charts/fig6-half-kelly.svg)
 
 **回撤風險也大幅降低:** 在一段時間內曾損失一半本金的機率,全凱利大約是 1/2,半凱利降到約 1/8。
 
@@ -248,7 +248,7 @@ tags: [draft, KellyCrit]
 - 再平衡:股票 375,現金 375
 - 第二年股價翻倍:股票 750,現金 375,總資產 1125
 
-![香農的惡魔](/assets/img/header/2026-10-02/fig7-shannon-demon.svg)
+![香農的惡魔](/assets/img/charts/fig7-shannon-demon.svg)
 
 股價從 1000 → 500 → 1000,回到原點,但總資產從 1000 變成 1125,多了 12.5%。
 
@@ -270,5 +270,258 @@ tags: [draft, KellyCrit]
 | 最大的風險? | 勝率、賠率是估的;高估優勢就等於過度下注 |
 | 現實怎麼用? | 半凱利或更低:約 75% 的成長,換一半的波動和更小的回撤 |
 
-最後只有一句話:**跑得快不重要,跑得久才重要。** 一旦歸零,所有的增長速度都和你無關。**不下牌桌,就還有機會。**
+最後只有一句話:**跑得快不重要,跑得久才重要。** 一旦歸零,所有的增長速度都和你無關。不下牌桌,就還有機會。
 
+而剩下的難題是模型風險:當你的前提假設本身就是錯的,一個知道自己不知道的人,該按什麼比例下注?這個問題比前面所有的數學都難。
+
+---
+
+## 十二、實作:用 sizing.py 把凱利公式接進回測
+
+前面講的都是原理。真正放進交易系統時,會碰到兩個問題:p、b 從哪裡來?怎麼確保算出來的倉位沒有偷看未來?`sizing.py` 就是針對這兩個問題寫的小模組,只依賴 numpy。
+
+### 用意
+
+回測系統裡常見的做法是固定倉位,例如永遠半倉。這很穩,但它和凱利公式沒有關係,策略有沒有優勢、優勢多大,倉位都不會變。`sizing.py` 做的是讓倉位**隨著策略已經驗證過的優勢調整**:
+
+- 優勢明顯、樣本夠多,倉位放大
+- 優勢很薄,倉位自動縮小
+- 沒有優勢(f\* ≤ 0),倉位為 0,不下單
+
+對應前文的三個重點:
+
+| 前文的問題 | sizing.py 的處理 |
+| --- | --- |
+| 估計誤差(第八節) | p 取信賴區間下界,b 取保守估計,再加半凱利 |
+| 樣本太少估不準 | 暖機期內不用凱利,固定小倉位 |
+| 時間線不可逆、不能偷看未來 | 只用已平倉的交易,並附遮罩測試 |
+
+### 輸入與輸出
+
+- **輸入**:每筆已平倉交易的「淨報酬率」(已扣手續費,以投入資金為分母)與「出場 bar 的索引」`exit_bar`。
+- **輸出**:在第 t 根 bar 收盤時,下一根開盤要投入的資金比例 f,範圍在 0 到上限之間。
+
+執行時間點:**t 收盤後決策,t+1 開盤成交**,與 next-open 的回測規則一致。
+
+### 基本用法
+
+```python
+from sizing import kelly_fraction, SizingConfig
+
+# exit_bars: 每筆已平倉交易的出場 bar;rets: 對應的扣費後報酬率
+f = kelly_fraction(exit_bars, rets, t)
+
+qty = equity * f / next_open      # 下一根開盤的下單數量
+```
+
+要一次算出整段回測的倉位序列:
+
+```python
+from sizing import sizing_series
+sizes = sizing_series(exit_bars, rets, n_bars)
+```
+
+要調整參數,建立設定物件即可:
+
+```python
+cfg = SizingConfig(kelly_mult=0.5, cap=0.20, min_trades=40)
+f = kelly_fraction(exit_bars, rets, t, cfg)
+```
+
+### 內部流程
+
+1. **篩選**:只取 `exit_bar < t` 的交易。未平倉的交易,結果在 t 時還不知道,不能算。
+2. **暖機判斷**:已平倉少於 30 筆,或虧損少於 10 筆,直接回傳固定的 10% 倉位。
+3. **估計 p**:勝率取 Wilson 下界,比單純的勝場數除以總場數保守。
+4. **估計 b**:獲利與虧損分開做縮尾處理(winsorize,5/95 百分位),算出平均獲利 ÷ 平均虧損;再向先驗值 1.0 收縮,並取 bootstrap 的 25 百分位;兩者取較小值。
+5. **代入公式**:**f\* = (b × p − q) ÷ b**,乘上 0.5 成為半凱利。
+6. **夾住範圍**:結果限制在 0 到 25%。f\* 為負或零時倉位為 0。
+
+另外附一個連續版 `kelly_fraction_continuous`,不拆成勝率與賠率,直接用 **f\* ≈ μ ÷ σ²**(μ 為報酬平均、σ² 為變異數),同樣打折並加上限。適合報酬分布不是二元結果的策略。
+
+### 主要參數
+
+| 參數 | 預設值 | 意義 |
+| --- | --- | --- |
+| `min_trades` | 30 | 暖機期所需的最少已平倉筆數 |
+| `min_losses` | 10 | 暖機期所需的最少虧損筆數 |
+| `warmup_fraction` | 10% | 暖機期的固定倉位 |
+| `p_z` | 1.0 | Wilson 下界的 z 值,越大越保守 |
+| `win_lo` / `win_hi` | 5 / 95 | 縮尾處理的百分位 |
+| `b_boot_pct` | 25 | b 的 bootstrap 保守百分位 |
+| `kelly_mult` | 0.5 | 凱利折扣,0.5 即半凱利 |
+| `cap` | 25% | 單次倉位的硬上限 |
+
+所有門檻要在回測前就固定,不要根據績效好壞回頭調整,否則等於把未來資訊塞進參數。
+
+### 驗證:遮罩測試
+
+`check_no_lookahead()` 的做法是:任選一個時間點 T,把 T 之後的所有交易結果換成亂數,重新計算倉位序列。T 以前的倉位必須與原本完全相同,只要有一個不同,就代表程式在決定倉位時用到了未來資料。
+
+```python
+from sizing import check_no_lookahead
+assert check_no_lookahead(exit_bars, rets, n_bars)
+```
+
+### 限制
+
+- **只能擋住 sizing 本身的洩漏。** 如果策略的參數是看過全部資料後才選的(例如布林通道倍數、均線長度),每一筆「過去的交易」本身已經帶著未來資訊,p 會偏樂觀。這種情況要改用 walk-forward 的樣本外交易,或把 p 當成上限再額外打折。
+- **p 與 b 只是歷史統計。** 市場環境改變時,過去的優勢可能消失,所以才要下界、半凱利和硬上限三層保護。
+- **持有期差異大時,連續版要小心。** σ² 是單筆報酬的變異數,若各筆交易的持有期長短不一,需先換算到同一時間尺度。
+
+### 怎麼知道值不值得用
+
+把「固定半倉」與「凱利動態倉位」放進同一個回測環境,比較最大回撤、Calmar 比率與期末資金。如果動態倉位在樣本外沒有明顯優於固定半倉,代表 p、b 的估計雜訊大於它帶來的資訊,這時維持固定比例反而更穩。回到本文的主題:凱利公式要的不是算得漂亮,而是在你**真的知道自己有多少優勢**的範圍內下注。
+
+### 全部的 python code
+
+```python
+"""
+sizing.py — Kelly position sizing from closed trades only (no look-ahead).
+
+Input : per-trade net returns (after fees, as fraction of capital invested)
+        + the bar index where each trade was CLOSED (exit_bar).
+Output: fraction of equity to deploy at bar t, in [0, cap].
+
+Rule: at bar t only trades with exit_bar < t are visible.
+      Decide at close of t, fill at open of t+1 (next-open execution).
+"""
+from dataclasses import dataclass
+import numpy as np
+
+
+@dataclass(frozen=True)
+class SizingConfig:
+    min_trades: int = 30          # warm-up: fewer closed trades -> fixed small size
+    min_losses: int = 10          # warm-up: fewer losing trades -> fixed small size
+    warmup_fraction: float = 0.10
+    p_z: float = 1.0              # Wilson lower bound z (1.0 ~ 84% one-sided)
+    win_lo: float = 5.0           # winsorize percentiles (fix in advance, don't tune)
+    win_hi: float = 95.0
+    b_prior: float = 1.0          # shrink b toward this
+    b_shrink_k: float = 10.0      # prior weight in "number of loss trades"
+    b_boot_n: int = 500
+    b_boot_pct: float = 25.0      # conservative bootstrap percentile of b
+    kelly_mult: float = 0.5       # half Kelly
+    cap: float = 0.25             # hard cap on fraction of equity
+    seed: int = 0                 # deterministic bootstrap
+
+
+def winsorize(x, lo=5.0, hi=95.0):
+    """Clip values outside [lo, hi] percentiles to the percentile value (count unchanged)."""
+    x = np.asarray(x, dtype=float)
+    if x.size == 0:
+        return x
+    a, b = np.percentile(x, [lo, hi])
+    return np.clip(x, a, b)
+
+
+def wilson_lower(wins: int, n: int, z: float) -> float:
+    """Wilson score lower bound of win rate."""
+    if n == 0:
+        return 0.0
+    ph = wins / n
+    d = 1 + z * z / n
+    c = ph + z * z / (2 * n)
+    m = z * np.sqrt(ph * (1 - ph) / n + z * z / (4 * n * n))
+    return float((c - m) / d)
+
+
+def _b_from(wins, losses_abs):
+    return float(np.mean(wins) / np.mean(losses_abs))
+
+
+def estimate_p_b(rets, cfg: SizingConfig):
+    """Return (p_low, b_conservative) or None if not enough data."""
+    rets = np.asarray(rets, dtype=float)
+    wins = rets[rets > 0]
+    losses = -rets[rets <= 0]            # absolute losses (zero-return counted as loss)
+    n, nl = rets.size, losses.size
+    if n < cfg.min_trades or nl < cfg.min_losses or wins.size < 1:
+        return None
+    wins = winsorize(wins, cfg.win_lo, cfg.win_hi)
+    losses = winsorize(losses, cfg.win_lo, cfg.win_hi)
+    if losses.mean() <= 0:
+        return None
+
+    p_low = wilson_lower(int(wins.size), n, cfg.p_z)
+
+    # shrink b toward prior (weight by number of loss trades)
+    b_hat = _b_from(wins, losses)
+    b_shr = (nl * b_hat + cfg.b_shrink_k * cfg.b_prior) / (nl + cfg.b_shrink_k)
+
+    # bootstrap conservative percentile of b
+    rng = np.random.default_rng(cfg.seed)
+    bs = []
+    for _ in range(cfg.b_boot_n):
+        w = rng.choice(wins, wins.size, replace=True)
+        l = rng.choice(losses, losses.size, replace=True)
+        if l.mean() > 0:
+            bs.append(_b_from(w, l))
+    b_boot = float(np.percentile(bs, cfg.b_boot_pct)) if bs else b_shr
+
+    return p_low, min(b_shr, b_boot)
+
+
+def kelly_fraction(exit_bars, rets, t: int, cfg: SizingConfig = SizingConfig()) -> float:
+    """Fraction of equity to deploy, deciding at close of bar t. Only trades with exit_bar < t."""
+    exit_bars = np.asarray(exit_bars)
+    rets = np.asarray(rets, dtype=float)
+    visible = rets[exit_bars < t]
+    est = estimate_p_b(visible, cfg)
+    if est is None:
+        return cfg.warmup_fraction
+    p, b = est
+    q = 1.0 - p
+    f_star = (b * p - q) / b             # f* = (b p - q) / b
+    f = f_star * cfg.kelly_mult
+    return float(np.clip(f, 0.0, cfg.cap))   # f <= 0 -> no position
+
+
+def kelly_fraction_continuous(exit_bars, rets, t: int, cfg: SizingConfig = SizingConfig(),
+                              per_period_vol_floor: float = 1e-8) -> float:
+    """Continuous variant: f* ~ mu / sigma^2 on winsorized visible returns (then fractional + cap)."""
+    exit_bars = np.asarray(exit_bars)
+    visible = np.asarray(rets, dtype=float)[exit_bars < t]
+    if visible.size < cfg.min_trades:
+        return cfg.warmup_fraction
+    x = winsorize(visible, cfg.win_lo, cfg.win_hi)
+    var = max(float(np.var(x, ddof=1)), per_period_vol_floor)
+    f = float(np.mean(x)) / var * cfg.kelly_mult
+    return float(np.clip(f, 0.0, cfg.cap))
+
+
+def sizing_series(exit_bars, rets, n_bars: int, cfg: SizingConfig = SizingConfig(), mode="binary"):
+    fn = kelly_fraction if mode == "binary" else kelly_fraction_continuous
+    return np.array([fn(exit_bars, rets, t, cfg) for t in range(n_bars)])
+
+
+def check_no_lookahead(exit_bars, rets, n_bars: int, cfg: SizingConfig = SizingConfig(),
+                       mode="binary", n_cuts: int = 5, seed: int = 1) -> bool:
+    """Mask test: replace every trade with exit_bar >= T by garbage; sizes for t <= T must not change."""
+    exit_bars = np.asarray(exit_bars)
+    rets = np.asarray(rets, dtype=float)
+    base = sizing_series(exit_bars, rets, n_bars, cfg, mode)
+    rng = np.random.default_rng(seed)
+    for T in rng.integers(n_bars // 4, n_bars, size=n_cuts):
+        bad = rets.copy()
+        m = exit_bars >= T
+        bad[m] = rng.normal(0.5, 1.0, m.sum())       # garbage future
+        alt = sizing_series(exit_bars, bad, n_bars, cfg, mode)
+        if not np.array_equal(base[: T + 1], alt[: T + 1]):
+            return False
+    return True
+
+
+if __name__ == "__main__":
+    rng = np.random.default_rng(42)
+    N = 400
+    exit_bars = np.sort(rng.integers(5, N, size=120))
+    rets = np.where(rng.random(120) < 0.55, rng.normal(0.03, 0.02, 120).clip(0.001),
+                    -rng.normal(0.025, 0.01, 120).clip(0.001))
+    s = sizing_series(exit_bars, rets, N)
+    print("warmup bars:", int((s == SizingConfig().warmup_fraction).sum()),
+          "| final f:", round(float(s[-1]), 4), "| max f:", round(float(s.max()), 4))
+    print("no look-ahead (binary):    ", check_no_lookahead(exit_bars, rets, N))
+    print("no look-ahead (continuous):", check_no_lookahead(exit_bars, rets, N, mode="continuous"))
+```
