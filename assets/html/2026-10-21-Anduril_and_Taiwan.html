@@ -1,0 +1,351 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Anduril and Taiwan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: one reading column; figures and the claim table go full column width. Order follows the video: founder, company model, Taiwan, systems by status, then the claim check. */
+:root {
+  --bg: #E8ECEF;
+  --surface: #F6F8F9;
+  --ink: #121F2B;
+  --muted: #4A5B69;
+  --rule: #C3CED6;
+  --blue: #1B5EA8;
+  --blue-soft: #D2E2F3;
+  --amber: #A8480A;
+  --amber-soft: #F6E1CF;
+  --ok: #2C7A4B;
+  --bad: #B3261E;
+  --head: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B141C; --surface: #111F2B; --ink: #E4ECF1; --muted: #98ABB8; --rule: #26394A;
+    --blue: #6FB0F2; --blue-soft: #14304D; --amber: #F0A25F; --amber-soft: #3B2713; --ok: #6CCB92; --bad: #F28B82;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B141C; --surface: #111F2B; --ink: #E4ECF1; --muted: #98ABB8; --rule: #26394A;
+  --blue: #6FB0F2; --blue-soft: #14304D; --amber: #F0A25F; --amber-soft: #3B2713; --ok: #6CCB92; --bad: #F28B82;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--sans); font-size: 16px; line-height: 1.75;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 72px;
+}
+.wrap { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 52px; }
+header { display: flex; flex-direction: column; gap: 16px; }
+.kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); }
+h1 { font-family: var(--head); font-weight: 700; font-size: clamp(38px, 8vw, 68px); line-height: 1.02; margin: 0; text-transform: uppercase; letter-spacing: .01em; text-wrap: balance; }
+.lede { font-size: 18px; margin: 0; max-width: 40em; }
+.takeaways { background: var(--surface); border: 1px solid var(--rule); border-top: 4px solid var(--ink); padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+.takeaways h2 { font-size: 15px; letter-spacing: .08em; }
+.takeaways ul { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 8px; }
+section { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.tag { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); }
+h2 { font-family: var(--head); font-weight: 700; font-size: clamp(28px, 5vw, 40px); line-height: 1.1; margin: 0; text-transform: uppercase; text-wrap: balance; letter-spacing: .01em; }
+h3 { font-family: var(--head); font-weight: 600; font-size: 22px; line-height: 1.2; margin: 8px 0 0; text-transform: uppercase; letter-spacing: .02em; }
+p { margin: 0; max-width: 41em; }
+a { color: var(--blue); text-underline-offset: 3px; }
+figure { margin: 4px 0 0; background: var(--surface); border: 1px solid var(--rule); padding: 18px 16px 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+figure .scroll { overflow-x: auto; }
+figure svg { display: block; width: 100%; height: auto; min-width: 540px; }
+figcaption { font-size: 13px; line-height: 1.6; color: var(--muted); }
+figcaption b { font-family: var(--mono); font-weight: 500; color: var(--ink); margin-right: .6em; }
+svg text { fill: var(--ink); font-family: var(--sans); font-size: 13px; }
+svg .m { fill: var(--muted); }
+svg .mono { font-family: var(--mono); font-size: 12px; }
+svg .b { font-weight: 700; }
+svg .f-blue { fill: var(--blue); }
+svg .f-bsoft { fill: var(--blue-soft); }
+svg .f-amber { fill: var(--amber); }
+svg .f-asoft { fill: var(--amber-soft); }
+svg .f-rule { fill: var(--rule); }
+svg .f-sur { fill: var(--surface); }
+svg .f-ink { fill: var(--ink); }
+svg .band { fill: var(--bg); }
+svg .p { fill: var(--surface); stroke-width: 2; }
+svg .p-del { fill: var(--blue-soft); stroke: var(--blue); stroke-width: 3; }
+svg .p-con { stroke: var(--blue); }
+svg .p-co { stroke: var(--blue); stroke-dasharray: 6 4; }
+svg .p-un { stroke: var(--muted); stroke-dasharray: 3 4; }
+svg .st-ink { stroke: var(--ink); fill: none; stroke-width: 1.5; }
+svg .st-mut { stroke: var(--muted); fill: none; stroke-width: 1; stroke-dasharray: 3 4; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { display: inline-block; width: 22px; height: 12px; border: 2px solid var(--blue); background: var(--surface); }
+.legend i.del { background: var(--blue-soft); border-width: 3px; }
+.legend i.co { border-style: dashed; }
+.legend i.un { border-color: var(--muted); border-style: dotted; }
+ol.tl { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border-left: 2px solid var(--rule); }
+ol.tl li { display: grid; grid-template-columns: 110px 1fr; gap: 14px; padding: 7px 0 7px 16px; position: relative; min-width: 0; }
+ol.tl li::before { content: ""; position: absolute; left: -6px; top: 16px; width: 10px; height: 10px; background: var(--bg); border: 2px solid var(--blue); border-radius: 50%; }
+ol.tl li.fut::before { border-style: dashed; border-color: var(--amber); }
+ol.tl time { font-family: var(--mono); font-size: 13px; color: var(--muted); padding-top: 2px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.6; }
+.spec { min-width: 560px; }
+.claims { min-width: 780px; }
+th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--rule); }
+th { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .04em; color: var(--muted); background: var(--bg); text-transform: uppercase; }
+tr:last-child td { border-bottom: 0; }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.v { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; padding: 2px 7px; border: 1px solid currentColor; white-space: nowrap; }
+.v.ok { color: var(--ok); } .v.pt { color: var(--amber); } .v.bad { color: var(--bad); } .v.un { color: var(--muted); }
+.claims td:first-child { width: 34%; }
+.claims td:nth-child(2) { width: 120px; }
+.note { background: var(--surface); border-left: 4px solid var(--amber); padding: 14px 16px; font-size: 15px; line-height: 1.7; }
+.src { font-size: 14px; line-height: 1.7; }
+.src ul { margin: 0; padding-left: 1.2em; }
+.src li + li { margin-top: 3px; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+@media (max-width: 520px) {
+  ol.tl li { grid-template-columns: 1fr; gap: 0; }
+}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="kicker">Defense technology · Fact-checked summary · 20 Oct 2026</div>
+  <h1>Anduril and Taiwan</h1>
+  <p class="lede">A video transcript about Palmer Luckey, his defense company Anduril, and the systems Taiwan has bought, may buy, or probably should skip. Each claim was checked against current reporting. Most numbers hold up. Several details are outdated, mixed up, or unsupported, and they are marked below.</p>
+  <div class="takeaways">
+    <h2>What the checking found</h2>
+    <ul>
+      <li><b>Confirmed:</b> Anduril is valued at $61B after a $5B round in May 2026, and Taiwan signed a NT$26.9B (about $847M) contract in August 2026 for 1,554 Altius-700M and 478 Altius-600ISR drones.</li>
+      <li><b>Updated:</b> The video says Taiwan does not have the Barracuda-500 yet. Taiwan's NCSIST has since shown a Taiwan version of it and says the whole supply chain will be local.</li>
+      <li><b>Corrected:</b> The anti-drone quadcopter is Anvil, not Pulsar (Pulsar is electronic warfare). Kuwait has a US-approved possible sale, not a completed purchase. Copperhead is a torpedo-type underwater vehicle, not a seabed missile that flies out of the water.</li>
+      <li><b>Not verified:</b> The Pittsburgh billboard location, the "$17 million startup" figure, the Roadrunner rumor for Taiwan, and the claim that a car factory could become a missile factory in a week.</li>
+    </ul>
+  </div>
+</header>
+
+<section id="founder">
+  <div class="tag">The founder</div>
+  <h2>From Oculus to a defense company</h2>
+  <p>Luckey founded Oculus VR in April 2012 and ran a Kickstarter that raised $2.4 million. Facebook later bought the company; the reported price is about $2 billion, and Forbes estimated Luckey's net worth at $700 million in 2015.</p>
+  <p>In September 2016 he gave $10,000 to Nimble America, a pro-Trump group whose billboard showed Hillary Clinton under the caption "Too Big to Jail." Some game developers paused support for Oculus and Luckey apologized. He left Facebook in March 2017. Neither side explained it then, and Mark Zuckerberg told the Senate in 2018 that it was not over a political view. The Wall Street Journal reported in 2018 that executives pressured him to publicly back a different candidate and that he negotiated a payout of at least $100 million. Facebook denied that politics was the reason.</p>
+  <p>Anduril was incorporated on April 20, 2017 (some accounts give June 2017) with five founders in total: Luckey, Trae Stephens, Matt Grimm, Joe Chen and Brian Schimpf, who later became CEO. The name is Aragorn's sword in <i>The Lord of the Rings</i>.</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 680 260" role="img" aria-label="Bar chart of Anduril valuation at six funding rounds, from 1 billion dollars in 2019 to 61 billion in May 2026">
+      <text class="m mono" x="10" y="16">Reported valuation at each round, US$ billions</text>
+      <text x="10" y="52">Sep 2019</text><rect class="f-rule" x="130" y="38" width="8" height="18"/><text class="mono b" x="146" y="52">1+</text>
+      <text x="10" y="88">Jul 2020</text><rect class="f-rule" x="130" y="74" width="15" height="18"/><text class="mono b" x="153" y="88">2</text>
+      <text x="10" y="124">Jun 2021</text><rect class="f-rule" x="130" y="110" width="35" height="18"/><text class="mono b" x="173" y="124">4.6</text>
+      <text x="10" y="160">Dec 2022</text><rect class="f-rule" x="130" y="146" width="64" height="18"/><text class="mono b" x="202" y="160">8.5</text>
+      <text x="10" y="196">Aug 2024</text><rect class="f-rule" x="130" y="182" width="106" height="18"/><text class="mono b" x="244" y="196">14</text>
+      <text x="10" y="232">May 2026</text><rect class="f-blue" x="130" y="218" width="464" height="18"/><text class="mono b" x="602" y="232">61</text>
+    </svg>
+    </div>
+    <figcaption><b>Fig 1</b>Anduril valuation by round. Sources: Wikipedia for 2019, 2020, 2021, 2024; Orange County Business Journal for 2022; Mezha for May 2026 ($5B round led by Thrive Capital and Andreessen Horowitz). The video's "$17 million startup" starting point is not supported by these figures.</figcaption>
+  </figure>
+</section>
+
+<section id="model">
+  <div class="tag">The pitch</div>
+  <h2>Build the product first, then sell it</h2>
+  <p>The video's argument is that traditional contractors wait for the military to define a need, then build on a cost-plus basis with little reason to come in under budget. Anduril instead guesses the need, builds the system, and offers it. That is the company's stated model, and the critique of cost-plus contracting is a widely held view, but nothing I found measures how much it saves.</p>
+  <p>The claim that matters most for Taiwan is manufacturability. For the Barracuda, Anduril says it takes 50% less time to produce, needs 95% fewer tools and 50% fewer parts, and costs 30% less than unnamed competitors. Anduril also says assembly needs ten or fewer tools and can use automotive and consumer-electronics workers. A trade analyst reports assembly in as little as 30 hours and about 70% commercial content. No independent body has verified any of this. The video's picture of a scooter factory becoming a cruise-missile factory "within a week" goes beyond what these sources say. Anduril's new Arsenal-1 plant in Ohio, a roughly $1 billion project, will build Barracuda missiles, Roadrunner and the Fury jet.</p>
+</section>
+
+<section id="taiwan">
+  <div class="tag">Taiwan</div>
+  <h2>The relationship so far</h2>
+  <p>Luckey spoke on September 19, 2026 at the Resilient Taiwan for Sustainable Democracy forum, hosted by the Presidential Office at the Grand Hyatt Taipei. He argued that freedom is Taiwan's strongest asset, that Taiwan needs asymmetric methods because China spends roughly 8 to 10 times more on defense, and that its machine-tool, semiconductor and component industries could build weapons in the millions. He said Taiwan should export defense products so other countries depend on them the way they depend on TSMC. The video says the visit was "about a week ago," so it was probably recorded in late September. China sanctioned Anduril and its executives in July 2024 over arms sales related to Taiwan.</p>
+  <ol class="tl" aria-label="Timeline of Anduril and Taiwan">
+    <li><time>Jul 2024</time><span>China sanctions Anduril and its executives over Taiwan-related arms sales.</span></li>
+    <li><time>5 Aug 2025</time><span>Taiwan receives the first Altius-600M batch. Anduril announces a Taiwan office and an agreement with NCSIST on AI-enabled command and control and unmanned systems.</span></li>
+    <li><time>Sep 2025</time><span>At the TADTE show, NCSIST displays a Taiwan version of the Barracuda-500. It also plans to co-produce the Dive-LD and Copperhead C-500M.</span></li>
+    <li><time>Dec 2025</time><span>First live-fire exercise with the Altius-600M. The sale of 1,554 Altius-700M and 478 Altius-600ISR is announced.</span></li>
+    <li><time>Feb 2026</time><span>Reports say only two of five Altius-600M drones completed an earlier live-fire test. The Army says they perform normally.</span></li>
+    <li><time>Mar 2026</time><span>Delivery of all 291 Altius-600M drones is complete.</span></li>
+    <li><time>Jun 2026</time><span>In the Tienma Exercise, the Altius-600M is fired at maritime targets for the first time. Military footage shows a 100% hit rate.</span></li>
+    <li><time>27 Aug 2026</time><span>Taiwan signs the NT$26.9B contract (about $847M) for the Altius-700M and Altius-600ISR.</span></li>
+    <li><time>Aug 2026</time><span>NCSIST plans to take delivery of one Dive-LD, for civilian uses such as undersea cable inspection.</span></li>
+    <li><time>19 Sep 2026</time><span>Luckey speaks at the Taipei forum.</span></li>
+    <li class="fut"><time>Q4 2026</time><span>First deliveries of the Altius-700M and Altius-600ISR are expected.</span></li>
+    <li class="fut"><time>Jun 2033</time><span>Full delivery of the August 2026 order is due.</span></li>
+  </ol>
+</section>
+
+<section id="fielded">
+  <div class="tag">Category 1 · Bought</div>
+  <h2>Altius, Dive-LD</h2>
+  <p>The Altius is a tube-launched loitering munition: it is launched, flies until it finds a target, then strikes. Taiwan has three versions on order or in service.</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 680 150" role="img" aria-label="Bar chart of Taiwan's Altius drone quantities: 291 Altius-600M delivered, 1,554 Altius-700M ordered, 478 Altius-600ISR ordered">
+      <text class="m mono" x="10" y="16">Units</text>
+      <text x="10" y="52">Altius-600M</text><text class="m" x="10" y="68" style="font-size:12px">delivered, Mar 2026</text>
+      <rect class="f-blue" x="170" y="36" width="82" height="20"/><text class="mono b" x="260" y="52">291</text>
+      <text x="10" y="96">Altius-700M</text><text class="m" x="10" y="112" style="font-size:12px">ordered, from Q4 2026</text>
+      <rect class="f-bsoft" x="170" y="80" width="435" height="20" style="stroke:var(--blue);stroke-width:2;stroke-dasharray:6 4"/><text class="mono b" x="612" y="96">1,554</text>
+      <text x="10" y="140">Altius-600ISR</text>
+      <rect class="f-bsoft" x="170" y="124" width="134" height="20" style="stroke:var(--blue);stroke-width:2;stroke-dasharray:6 4"/><text class="mono b" x="312" y="140">478</text>
+    </svg>
+    </div>
+    <figcaption><b>Fig 2</b>Altius units for Taiwan. Solid bar means delivered; dashed means contracted and not yet delivered. The video's "about 300," "around 1,500" and "nearly 500" match these figures.</figcaption>
+  </figure>
+  <div class="tablewrap">
+  <table class="spec">
+    <thead><tr><th>Version</th><th>Warhead</th><th>Range</th><th>Endurance</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td>Altius-600M</td><td class="num">4 kg</td><td class="num">~160 km</td><td class="num">~1.5 h</td><td>Loitering munition</td></tr>
+      <tr><td>Altius-700M</td><td class="num">~15 kg</td><td class="num">~160 km</td><td class="num">~1.25 h</td><td>Loitering munition, aimed at armor and air defense</td></tr>
+      <tr><td>Altius-600ISR</td><td class="num">none</td><td class="num">n/a</td><td class="num">~3.5 h</td><td>Surveillance, target designation, electronic warfare</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The video calls the June test a 100% hit rate. That figure comes from the military's own footage of the Tienma Exercise, where the drones fired more than a dozen rounds at maritime targets. It sits next to a February report that only two of five drones completed an earlier live-fire test, which the Army disputed. A supply issue was also reported: the original chargers were made in China and were not covered by the US sale, so US technicians had to come to Taiwan to charge the drones. The military and the US have since developed a non-China battery and charger chain, with batteries to be built in Taiwan.</p>
+  <h3>Dive-LD</h3>
+  <p>The video says Taiwan has bought the Dive-LD, an unmanned submarine with no attack role. That is right with limits: NCSIST acquired a single vehicle, with delivery planned for August 2026, and for now it is restricted to civilian work by US export controls and agreements with Anduril. The first use is inspecting undersea cables with Chunghwa Telecom. Anduril lists it at 5.8 m long, 1.2 m in diameter, rated to 6,000 m and up to 10 days submerged. NCSIST wants to adapt it with a multibeam sonar to look for mines and submarines.</p>
+</section>
+
+<section id="likely">
+  <div class="tag">Category 2 · Probably next</div>
+  <h2>Barracuda, Lattice, Copperhead</h2>
+  <h3>Barracuda cruise missiles</h3>
+  <p>The family has three sizes. The video focuses on the 500. Its range is given as 800 km in the video and on Wikipedia, and as more than 500 nautical miles (926 km) in an Anduril-sourced profile, so treat the exact number as approximate. The 45 kg figure is the payload capacity, not a published warhead. Unit costs are scattered because the sources measure different things.</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 680 330" role="img" aria-label="Two bar charts: Barracuda range by variant in kilometers, and Barracuda cost figures from different sources in thousands of dollars">
+      <text class="m mono" x="10" y="16">Range, km (Anduril-stated, "more than")</text>
+      <text x="10" y="46">Barracuda-100</text><rect class="f-bsoft" x="140" y="32" width="111" height="18" style="stroke:var(--blue);stroke-width:2"/><text class="mono b" x="259" y="46">~222</text>
+      <text x="10" y="74">Barracuda-250</text><rect class="f-bsoft" x="140" y="60" width="185" height="18" style="stroke:var(--blue);stroke-width:2"/><text class="mono b" x="333" y="74">~370</text>
+      <text x="10" y="102">Barracuda-500</text><rect class="f-blue" x="140" y="88" width="463" height="18" /><text class="mono b" x="611" y="102">~926</text>
+      <line class="st-mut" x1="10" y1="124" x2="670" y2="124"/>
+      <text class="m mono" x="10" y="146">Unit cost figures, US$ thousands (different definitions, not like for like)</text>
+      <text x="10" y="176">Earlier DIU aspiration</text><rect class="f-rule" x="250" y="162" width="80" height="18"/><text class="mono b" x="338" y="176">~100</text>
+      <text x="10" y="202">Test-vehicle target</text><rect class="f-rule" x="250" y="188" width="120" height="18"/><text class="mono b" x="378" y="202">150</text>
+      <text x="10" y="228">Reported SLB-500M price</text><rect class="f-rule" x="250" y="214" width="160" height="18"/><text class="mono b" x="418" y="228">~200</text>
+      <text x="10" y="254">NCSIST co-production target</text><rect class="f-blue" x="250" y="240" width="173" height="18"/><text class="mono b" x="431" y="254">216</text>
+      <text x="10" y="280">FAMM round (reported)</text><rect class="f-rule" x="250" y="266" width="174" height="18"/><text class="mono b" x="432" y="280">~218</text>
+      <text x="10" y="306">FAMM budget average (derived)</text><rect class="f-amber" x="250" y="292" width="360" height="18"/><text class="mono b" x="618" y="306">~450</text>
+    </svg>
+    </div>
+    <figcaption><b>Fig 3</b>Barracuda range and cost claims from a single industry profile. The video's "about $200,000" fits most figures. The orange bar is a budget average divided over about 28,000 rounds, so it is a different kind of number. No contract value has been published for any Barracuda agreement.</figcaption>
+  </figure>
+  <p><b>Does Taiwan have it?</b> The video says no. That is out of date. In September 2025 NCSIST showed a land-mobile missile based on the Barracuda-500, said the whole supply chain would be in Taiwan, and planned production within 18 months. Anduril has also shown ground launch, and the US Air Force's pallet-launch route (Rapid Dragon, now the Dragon Cart program) was made a program of record on April 1, 2026 with fielding targeted for 2027.</p>
+  <h3>Lattice</h3>
+  <p>Lattice is Anduril's software that fuses data from many sensors and ties its systems together. The video says Taiwan should buy it. Anduril has already said Lattice is integrated onto NCSIST-built systems, with a live-fire demonstration planned in 2025.</p>
+  <h3>Copperhead</h3>
+  <p>The video describes it as an underwater cruise missile that lies on the seabed and flies off the surface. The sources describe something different. Copperhead is a torpedo-type autonomous underwater vehicle in two sizes (100M and 500M), with a top speed of 30 knots. It is launched from surface vessels, aircraft, or larger undersea vehicles such as the Dive-LD and Dive-XL. The seabed role belongs to a separate product, the Seabed Sentry sensor network. NCSIST has said it plans to co-produce the Copperhead C-500M, and the number of platforms is classified.</p>
+</section>
+
+<section id="other">
+  <div class="tag">Category 3 · Open questions</div>
+  <h2>Roadrunner, Anvil, Pulsar, Fury, EagleEye</h2>
+  <p><b>Roadrunner.</b> A reusable twin-jet interceptor that is described as between a drone and a missile. I found no report that Taiwan has bought it, so the video's "rumor" stays unconfirmed. The video's cost-effectiveness argument is the speaker's opinion.</p>
+  <p><b>Anvil and Pulsar.</b> The video uses "Pulsar" for two things. Pulsar is the electronic-warfare product. The quadcopter that rams other drones is Anvil. On Kuwait, the US State Department announced on June 5, 2026 a possible sale worth about $1.98 billion that includes Roadrunner-M, Anvil, Pulsar, Lattice, sentry towers and launch boxes. That is an approval, and quantities are not stated, so "Kuwait has already bought these" overstates it.</p>
+  <p><b>Fury (YFQ-44A).</b> First flew on October 31, 2025, and Anduril started production at Arsenal-1 in March 2026. On a flight announced February 26, 2026 it was flown by both Shield AI's Hivemind and Anduril's Lattice Mission Autonomy in the same sortie, so "piloted by Hivemind" is only half the picture. The speaker's view that Taiwan would be better served by interceptors, and by a version that needs no runway, is opinion.</p>
+  <p><b>EagleEye.</b> A helmet-mounted display system unveiled in late 2025, with a reported 84-degree field of view and Lattice data feeds. The Army approved moving Microsoft's IVAS contract to Anduril in April 2025. IVAS had a record of user complaints, and a July 2026 GAO assessment says none of the roughly 10,000 IVAS units will be fielded. Anduril received $159 million for the follow-on SBMC prototyping, and a competitor, Rivet, received $195 million.</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 680 340" role="img" aria-label="Domain map placing Anduril systems in air, surface and undersea layers, with outline style showing each system's status for Taiwan">
+      <rect class="band" x="0" y="22" width="680" height="116"/>
+      <rect class="f-sur" x="0" y="138" width="680" height="70"/>
+      <rect class="band" x="0" y="208" width="680" height="116"/>
+      <text class="m mono" x="10" y="16">AIR</text><text class="m mono" x="10" y="156">SURFACE AND LAND</text><text class="m mono" x="10" y="226">UNDERSEA</text>
+      <!-- air row 1 -->
+      <rect class="p-del" x="10" y="32" width="152" height="40"/><text class="b" x="20" y="57">Altius-600M</text>
+      <rect class="p p-con" x="172" y="32" width="152" height="40"/><text class="b" x="182" y="57">Altius-700M</text>
+      <rect class="p p-con" x="334" y="32" width="152" height="40"/><text class="b" x="344" y="57">Altius-600ISR</text>
+      <rect class="p p-co" x="496" y="32" width="174" height="40"/><text class="b" x="506" y="52" style="font-size:12px">Barracuda-500</text><text class="m" x="506" y="66" style="font-size:11px">Taiwan version</text>
+      <!-- air row 2 -->
+      <rect class="p p-un" x="10" y="84" width="152" height="40"/><text class="b" x="20" y="109">Roadrunner</text>
+      <rect class="p p-un" x="172" y="84" width="152" height="40"/><text class="b" x="182" y="109">Anvil</text>
+      <rect class="p p-un" x="334" y="84" width="152" height="40"/><text class="b" x="344" y="109">Fury YFQ-44A</text>
+      <rect class="p p-un" x="496" y="84" width="174" height="40"/><text class="b" x="506" y="109">Pulsar (EW)</text>
+      <!-- surface -->
+      <rect class="p p-co" x="10" y="164" width="212" height="36"/><text class="b" x="20" y="187">Lattice on NCSIST systems</text>
+      <rect class="p p-un" x="232" y="164" width="152" height="36"/><text class="b" x="242" y="187">Sentry towers</text>
+      <rect class="p p-un" x="394" y="164" width="152" height="36"/><text class="b" x="404" y="187">EagleEye</text>
+      <!-- undersea -->
+      <rect class="p-del" x="10" y="238" width="190" height="52"/><text class="b" x="20" y="260">Dive-LD</text><text class="m" x="20" y="278" style="font-size:11px">one vehicle, civilian use</text>
+      <rect class="p p-co" x="210" y="238" width="190" height="52"/><text class="b" x="220" y="260">Copperhead C-500M</text><text class="m" x="220" y="278" style="font-size:11px">co-production planned</text>
+      <rect class="p p-un" x="410" y="238" width="190" height="52"/><text class="b" x="420" y="260">Seabed Sentry</text>
+      <text class="m" x="10" y="316" style="font-size:12px">Placement is by where the system operates. A system can be launched from one layer and act in another.</text>
+    </svg>
+    </div>
+    <div class="legend"><span><i class="del"></i>Delivered</span><span><i></i>Contracted, not yet delivered</span><span><i class="co"></i>Co-production or integration announced</span><span><i class="un"></i>No Taiwan purchase confirmed in sources</span></div>
+    <figcaption><b>Fig 4</b>Status of each system for Taiwan as of 20 October 2026, according to the sources listed below. "No Taiwan purchase confirmed" does not mean none exists; it means I could not find one.</figcaption>
+  </figure>
+</section>
+
+<section id="check">
+  <div class="tag">Claim check</div>
+  <h2>Every checkable claim, one by one</h2>
+  <div class="tablewrap">
+  <table class="claims">
+    <thead><tr><th>Claim in the video</th><th>Verdict</th><th>What the sources say</th></tr></thead>
+    <tbody>
+      <tr><td>A 2016 donation tied to a billboard led to Luckey losing his job</td><td><span class="v ok">Confirmed</span></td><td>$10,000 to Nimble America in Sept 2016; he left Facebook in March 2017. The billboard city is not in my sources, so "Pittsburgh" is unverified.</td></tr>
+      <tr><td>The billboard was anti-Clinton, not pro-Trump</td><td><span class="v pt">Partly</span></td><td>The billboard targeted Clinton, but the sponsoring group is described as pro-Trump.</td></tr>
+      <tr><td>Facebook fired him, then a settlement followed</td><td><span class="v pt">Disputed</span></td><td>Facebook denies politics was the reason. The WSJ reported Luckey negotiated a payout of at least $100M, so the video's phrasing seems reversed.</td></tr>
+      <tr><td>He invented the first working commercial VR headset</td><td><span class="v pt">Simplified</span></td><td>He founded Oculus in 2012 and launched the Rift through a $2.4M Kickstarter.</td></tr>
+      <tr><td>Five founders; name from Lord of the Rings</td><td><span class="v ok">Confirmed</span></td><td>Luckey plus four co-founders; named after Aragorn's sword.</td></tr>
+      <tr><td>A "$17 million startup" grew to $50–60B</td><td><span class="v pt">Partly</span></td><td>$61B in May 2026 is confirmed. The $17M starting figure is not.</td></tr>
+      <tr><td>Systems can be mass produced with hand tools, from converted car or scooter factories within a week</td><td><span class="v un">Unverified</span></td><td>Anduril's own claims: 10 or fewer tools, 95% fewer tools, 50% less time. A trade source says about 30 hours of assembly. Nothing independent, and no source mentions a one-week conversion.</td></tr>
+      <tr><td>Luckey gave a keynote in Taipei about a week ago</td><td><span class="v ok">Confirmed</span></td><td>September 19, 2026, Resilient Taiwan forum.</td></tr>
+      <tr><td>Anduril opened a Taiwan office last year</td><td><span class="v ok">Confirmed</span></td><td>Announced August 5, 2025, with an agreement with NCSIST. The city is not named in my source.</td></tr>
+      <tr><td>Altius-600M: 12 kg, 4 kg warhead, 1.5 h, 160 km</td><td><span class="v pt">Mostly</span></td><td>Warhead, endurance and range match. I found no source for the 12 kg weight.</td></tr>
+      <tr><td>About 300 delivered</td><td><span class="v ok">Confirmed</span></td><td>291 under Project Hunter Owl, complete in March 2026.</td></tr>
+      <tr><td>June test: 100% hit rate</td><td><span class="v pt">Partly</span></td><td>From military footage of more than a dozen rounds at maritime targets. A February report cited two of five successes in an earlier test; the Army said the drones perform normally.</td></tr>
+      <tr><td>Altius-700M: about 1,500 bought, deliveries starting this year</td><td><span class="v ok">Confirmed</span></td><td>1,554 units; first batch Q4 2026; full order by June 2033.</td></tr>
+      <tr><td>ISR version: about 500 ordered, 3.5 h</td><td><span class="v ok">Confirmed</span></td><td>478 units, endurance about 3.5 h.</td></tr>
+      <tr><td>Dive-LD bought; no attack role; about 6 m; 6,000 m; days of endurance</td><td><span class="v ok">Confirmed</span></td><td>One vehicle for NCSIST, civilian use only for now; 5.8 m, 6,000 m, up to 10 days per Anduril.</td></tr>
+      <tr><td>Barracuda-500: 800 km, 45 kg warhead, about $200,000</td><td><span class="v pt">Partly</span></td><td>Range is 800 km or 926 km depending on source; 45 kg is payload; cost figures range from about $100k to $450k.</td></tr>
+      <tr><td>Taiwan does not have Barracuda yet</td><td><span class="v bad">Outdated</span></td><td>NCSIST showed a Taiwan version in Sept 2025 with local supply chain and production planned within 18 months.</td></tr>
+      <tr><td>Copperhead lies on the seabed and flies off the surface</td><td><span class="v bad">Not supported</span></td><td>It is a torpedo-type underwater vehicle launched from ships, aircraft or larger undersea vehicles; top speed 30 knots.</td></tr>
+      <tr><td>Rumor that Taiwan already bought Roadrunner</td><td><span class="v un">Unverified</span></td><td>No source found either way.</td></tr>
+      <tr><td>Kuwait has already bought the anti-drone systems</td><td><span class="v bad">Overstated</span></td><td>US approval of a possible ~$1.98B sale on June 5, 2026; quantities not given.</td></tr>
+      <tr><td>The ramming quadcopter is "Pulsar"</td><td><span class="v bad">Mislabeled</span></td><td>That product is Anvil. Pulsar is electronic warfare.</td></tr>
+      <tr><td>Fury is piloted by Shield AI's Hivemind; production in Ohio</td><td><span class="v pt">Partly</span></td><td>Flown with both Hivemind and Lattice in Feb 2026; production began at Arsenal-1 in March 2026.</td></tr>
+      <tr><td>EagleEye came from a contract Microsoft kept failing at</td><td><span class="v pt">Partly</span></td><td>The Army moved Microsoft's IVAS contract to Anduril in 2025; GAO says no IVAS unit will be fielded. EagleEye was unveiled in late 2025.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note"><b>Not covered.</b> The video's Surfshark sponsor segment is advertising, so I left it out. Statements like "Taiwan should buy the Copperhead" or "the Fury is not right for Taiwan" are the speaker's opinions, and I did not rate them. Some Taiwan-related numbers rest on a few outlets, and Anduril's performance and cost figures are mostly company-stated.</div>
+</section>
+
+<section id="sources" class="src">
+  <div class="tag">Sources</div>
+  <ul>
+    <li><a href="https://www.taipeitimes.com/News/taiwan/archives/2026/09/20/2003864575">Taipei Times: Luckey at the Resilient Taiwan forum</a></li>
+    <li><a href="https://thedefensepost.com/2026/08/28/taiwan-acquires-anduril-altius/">The Defense Post: Taiwan to acquire more than 2,000 Altius drones</a></li>
+    <li><a href="https://www.taiwannews.com.tw/news/6428878">Taiwan News: NT$26.9 billion Altius contract</a></li>
+    <li><a href="https://www.taipeitimes.com/News/taiwan/archives/2026/09/11/2003864079">Taipei Times: batteries and chargers for the Altius</a></li>
+    <li><a href="https://tsm.schar.gmu.edu/weekly-arms-update-2-18-26/">Taiwan Security Monitor: February 2026 Altius test reports</a></li>
+    <li><a href="https://www.ftvnews.com.tw/video/detail/XI_c6xu-kfA">FTV News: Tienma Exercise Altius-600M firing</a></li>
+    <li><a href="https://www.taiwannews.com.tw/news/6389282">Taiwan News: Dive-LD acquisition for cable inspection</a></li>
+    <li><a href="https://www.janes.com/osint-insights/defence-news/defence/tadte-2025-ncsist-plans-to-modify-produce-anduril-underwater-vehicles-for-taiwan">Janes: NCSIST plans to produce Dive-LD and Copperhead</a></li>
+    <li><a href="https://thedefensepost.com/2025/09/18/taiwan-us-first-missile/">The Defense Post: Taiwan's Barracuda-500-based missile</a></li>
+    <li><a href="https://quwa.org/north-america/profile-anduril-barracuda-autonomous-air-vehicle-family/">Quwa: Barracuda family profile</a></li>
+    <li><a href="https://theaviationist.com/2026/04/27/anduril-shows-copperhead-500m-autonomous-underwater-munitions-testing/">The Aviationist: Copperhead-500M testing</a></li>
+    <li><a href="https://breakingdefense.com/2026/06/us-approves-2b-sale-of-anduril-counter-drone-systems-to-kuwait/">Breaking Defense: Kuwait counter-drone sale approval</a></li>
+    <li><a href="https://theaviationist.com/2026/03/03/yfq-44a-tests-shivemind-lattice-ais/">The Aviationist: YFQ-44A flies Hivemind and Lattice</a></li>
+    <li><a href="https://theaviationist.com/2026/03/24/yfq-44a-fury-cca-is-now-in-production/">The Aviationist: Fury enters production</a></li>
+    <li><a href="https://roadtovr.com/anduril-eagleeyes-wide-fov-ar-night-vision/">Road to VR: EagleEye</a></li>
+    <li><a href="https://www.everycrsreport.com/files/2026-07-20_IF13022_06226ecfaadb2bc19b6b6fd748e6d6d76f511305.html">Congressional Research Service: IVAS and SBMC</a></li>
+    <li><a href="https://www.tectonicdefense.com/anduril-expands-to-taiwan/">Tectonic Defense: Anduril Taiwan office</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Palmer_Luckey">Wikipedia: Palmer Luckey</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Anduril_Industries">Wikipedia: Anduril Industries</a></li>
+    <li><a href="https://www.ocbj.com/defense-2/anduril-confirms-1-5b-funding-round/">Orange County Business Journal: 2022 funding round</a></li>
+    <li><a href="https://mezha.net/eng/bukvy/c6795b26_anduril_raises_5/">Mezha: $5B Series H at $61B</a></li>
+  </ul>
+</section>
+
+</div>
+
+</body></html>
