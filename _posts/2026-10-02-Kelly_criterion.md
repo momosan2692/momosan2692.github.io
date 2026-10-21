@@ -38,7 +38,7 @@ tags: [draft, KellyCrit]
 
 全倉的下場很直接:100 萬 → 200 萬 → 400 萬 → 第三把輸,歸零。你不需要連輸,**只需要輸一次**。
 
-![全倉連續下注的存活機率](/assets/img/charts/fig1-all-in-survival.svg)
+![全倉連續下注的存活機率](/assets/img/header/2026-10-02/fig1-all-in-survival.svg)
 
 連續全倉 10 局,存活機率只剩約 0.6%。局數愈多,出局愈接近必然。
 
@@ -76,7 +76,7 @@ tags: [draft, KellyCrit]
 
 跌 50% 要漲 100% 才能回本。跌幅愈大,缺口呈指數級擴大:
 
-![回本所需漲幅](/assets/img/charts/fig2-recovery.svg)
+![回本所需漲幅](/assets/img/header/2026-10-02/fig2-recovery.svg)
 
 ---
 
@@ -130,7 +130,7 @@ tags: [draft, KellyCrit]
 
 畫出來是一條先升後降的山形曲線:
 
-![成長率與下注比例](/assets/img/charts/fig3-growth-curve.svg)
+![成長率與下注比例](/assets/img/header/2026-10-02/fig3-growth-curve.svg)
 
 - f = 20%:山頂,成長最快
 - f 約 39%:成長率回到 0,再往上壓就是負成長
@@ -140,7 +140,7 @@ tags: [draft, KellyCrit]
 
 壓得太多,一次大虧就打回原形;壓得太少,浪費優勢。看看同一場遊戲、不同比例,100 局後的典型結果:
 
-![不同下注比例的典型路徑](/assets/img/charts/fig4-typical-paths.svg)
+![不同下注比例的典型路徑](/assets/img/header/2026-10-02/fig4-typical-paths.svg)
 
 以對數成長率估算(典型路徑,不是保證):f = 20% 約成長 7.5 倍;f = 10% 約 4.5 倍;f = 30% 約 4.4 倍;f = 50% 只剩約 0.03 倍。壓 30% 的結果竟然比壓 10% 還差,這就是過度下注的代價。
 
@@ -196,7 +196,7 @@ tags: [draft, KellyCrit]
 - 真實勝率 50%、賠率 1:1,期望值為 0,正確答案是一分錢都不壓。
 - 你卻把 20% 壓在零期望值的遊戲上,長期被波動拖累慢慢吃掉。
 
-![高估勝率的代價](/assets/img/charts/fig5-estimation-error.svg)
+![高估勝率的代價](/assets/img/header/2026-10-02/fig5-estimation-error.svg)
 
 這就是凱利公式在現實中最危險的地方:**它吃你的估計精度**。估得愈不準,公式給的答案愈危險。
 
@@ -220,7 +220,7 @@ tags: [draft, KellyCrit]
 
 索普的說法是:壓一半凱利,大約能拿到四分之三的報酬,波動只有一半。驗算一下:全凱利成長率 0.0201,半凱利 0.0150,比值約 75%。
 
-![半凱利的交換](/assets/img/charts/fig6-half-kelly.svg)
+![半凱利的交換](/assets/img/header/2026-10-02/fig6-half-kelly.svg)
 
 **回撤風險也大幅降低:** 在一段時間內曾損失一半本金的機率,全凱利大約是 1/2,半凱利降到約 1/8。
 
@@ -248,7 +248,7 @@ tags: [draft, KellyCrit]
 - 再平衡:股票 375,現金 375
 - 第二年股價翻倍:股票 750,現金 375,總資產 1125
 
-![香農的惡魔](/assets/img/charts/fig7-shannon-demon.svg)
+![香農的惡魔](/assets/img/header/2026-10-02/fig7-shannon-demon.svg)
 
 股價從 1000 → 500 → 1000,回到原點,但總資產從 1000 變成 1125,多了 12.5%。
 
@@ -270,9 +270,11 @@ tags: [draft, KellyCrit]
 | 最大的風險? | 勝率、賠率是估的;高估優勢就等於過度下注 |
 | 現實怎麼用? | 半凱利或更低:約 75% 的成長,換一半的波動和更小的回撤 |
 
-最後只有一句話:**跑得快不重要,跑得久才重要。** 一旦歸零,所有的增長速度都和你無關。不下牌桌,就還有機會。
+最後只有一句話:**跑得快不重要,跑得久才重要。** 一旦歸零,所有的增長速度都和你無關。**不下牌桌,就還有機會。**
 
-而剩下的難題是模型風險:當你的前提假設本身就是錯的,一個知道自己什麼都不知道的人,該按什麼比例下注?這個問題比前面所有的數學都難。
+
+
+
 
 ---
 
@@ -454,3 +456,4 @@ if __name__ == "__main__":
     print("no look-ahead (binary):    ", check_no_lookahead(exit_bars, rets, N))
     print("no look-ahead (continuous):", check_no_lookahead(exit_bars, rets, N, mode="continuous"))
 ```
+---
