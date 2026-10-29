@@ -1,4 +1,4 @@
-            ---
+---
 layout: post
 title: Marvell洽購Lumentum把光路從雷射到記憶體池一次收齊
 subtitle: 拆解Marvell的五條戰略線
