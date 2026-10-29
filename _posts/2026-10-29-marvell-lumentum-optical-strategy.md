@@ -1,14 +1,14 @@
             ---
 layout: post
-title: Marvell 洽購 Lumentum 把光路從雷射到記憶體池一次收齊
-subtitle: how it works從 Celestial AI XConn到LITE拆解Marvell的五條戰略線
+title: Marvell洽購Lumentum把光路從雷射到記憶體池一次收齊
+subtitle: 拆解Marvell的五條戰略線
 cover-img: /assets/img/header/2026-04-18/QUANTUM.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/header/2026-04-18/QUANTUM.png
 published: true
 pinned: true
 mathjax: true
-tags: [draft, spaceX]
+tags: [draft, Marvell]
 ---
 
 
