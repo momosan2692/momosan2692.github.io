@@ -1,4 +1,4 @@
----
+            ---
 layout: post
 title: Marvell 洽購 Lumentum 把光路從雷射到記憶體池一次收齊
 subtitle: how it works從 Celestial AI XConn到LITE拆解Marvell的五條戰略線
