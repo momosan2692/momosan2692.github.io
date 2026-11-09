@@ -4,8 +4,9 @@ title: 暴跌那天，四種機構各自按下了什麼按鈕
 subtitle: 從挪威主權基金的再平衡規則學到的重要訊息
 date: 2026-11-07
 tags: [投資, 資產配置, 再平衡, 主權基金, 風險管理]
-cover-img: /assets/img/charts/2020-03-best-worst-days.svg
-thumbnail-img: /assets/img/charts/2020-03-best-worst-days.svg
+cover-img: /assets/img/header/2026-04-18/QUANTUM.png
+thumbnail-img: /assets/img/thumb.png
+share-img: /assets/img/header/2026-04-18/QUANTUM.png
 published: true
 pinned: true
 ---
