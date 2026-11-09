@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 暴跌那天，四種機構各自按下了什麼按鈕
-subtitle: 從挪威主權基金的再平衡規則，看「退出原則要在買入時寫好」
+subtitle: 從挪威主權基金的再平衡規則 退出原則要在買入時寫好吧
 date: 2026-11-07
 tags: [投資, 資產配置, 再平衡, 主權基金, 風險管理]
 cover-img: /assets/img/charts/2020-03-best-worst-days.svg
