@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="760" height="420" role="img" aria-label="End to end flow from memory files to a cached prefill" font-family="Helvetica, Arial, sans-serif" font-size="13">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5b636d"/></marker></defs>
+<text x="30" y="30" font-size="15" font-weight="600" fill="#1f2328">Fig. 1  From memory files to a cached prefill</text>
+<rect x="30" y="68" width="200" height="64" rx="8" fill="#1d9e75" fill-opacity="0.13" stroke="#1d9e75" stroke-width="1.4"/>
+<text x="130" y="97" text-anchor="middle" font-weight="600" fill="#1f2328">Memory files</text>
+<text x="130" y="115" text-anchor="middle" font-size="11.5" fill="#5b636d">tier 1 always, tier 2 by need</text>
+<rect x="30" y="188" width="200" height="64" rx="8" fill="#8a8f98" fill-opacity="0.13" stroke="#8a8f98" stroke-width="1.4"/>
+<text x="130" y="217" text-anchor="middle" font-weight="600" fill="#1f2328">Raw archive</text>
+<text x="130" y="235" text-anchor="middle" font-size="11.5" fill="#5b636d">tier 3, searched on demand</text>
+<rect x="30" y="308" width="200" height="64" rx="8" fill="#d85a30" fill-opacity="0.13" stroke="#d85a30" stroke-width="1.4"/>
+<text x="130" y="337" text-anchor="middle" font-weight="600" fill="#1f2328">Volatile data</text>
+<text x="130" y="355" text-anchor="middle" font-size="11.5" fill="#5b636d">time, prices, task</text>
+<rect x="280" y="160" width="200" height="120" rx="8" fill="#1d9e75" fill-opacity="0.13" stroke="#1d9e75" stroke-width="1.4"/>
+<text x="380" y="217" text-anchor="middle" font-weight="600" fill="#1f2328">Prompt builder</text>
+<text x="380" y="235" text-anchor="middle" font-size="11.5" fill="#5b636d">system: layers 0-2 / user: layer 3</text>
+<rect x="530" y="118" width="200" height="64" rx="8" fill="#1d9e75" fill-opacity="0.13" stroke="#1d9e75" stroke-width="1.4"/>
+<text x="630" y="147" text-anchor="middle" font-weight="600" fill="#1f2328">Router</text>
+<text x="630" y="165" text-anchor="middle" font-size="11.5" fill="#5b636d">X-Route-Key picks the slot</text>
+<rect x="530" y="288" width="200" height="64" rx="8" fill="#1d9e75" fill-opacity="0.13" stroke="#1d9e75" stroke-width="1.4"/>
+<text x="630" y="317" text-anchor="middle" font-weight="600" fill="#1f2328">llama-server</text>
+<text x="630" y="335" text-anchor="middle" font-size="11.5" fill="#5b636d">reuses cached prefix</text>
+<path d="M230 100H255V185H280" fill="none" stroke="#5b636d" stroke-width="1.3" marker-end="url(#a)"/>
+<path d="M230 220H280" fill="none" stroke="#5b636d" stroke-width="1.3" marker-end="url(#a)"/>
+<path d="M230 340H255V255H280" fill="none" stroke="#5b636d" stroke-width="1.3" marker-end="url(#a)"/>
+<path d="M480 220H505V150H530" fill="none" stroke="#5b636d" stroke-width="1.3" marker-end="url(#a)"/>
+<path d="M630 182V288" fill="none" stroke="#5b636d" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="30" y="404" font-size="12" font-weight="400" fill="#5b636d">Stable text is cached per slot; only the volatile part is computed on each request.</text>
+</svg>
