@@ -8,6 +8,8 @@ share-img: /assets/img/header/2026-04-18/QUANTUM.png
 published: true
 pinned: true
 mathjax: true
+footer-extra:
+  - mermaid.html
 tags: [draft, LineApp]
 ---
 
