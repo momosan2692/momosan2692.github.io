@@ -1,0 +1,1009 @@
+
+// This Pine Script™ code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © momosan2692_friends
+
+//@version=6
+ 
+indicator('葛蘭碧八大法則 V1.0 AI_KNN ALERT w ER/ES line VERSION', 'AI_KNN & ER/ES', overlay = true, max_bars_back = 4000)
+//
+// Parts start here
+
+// ~~ Inputs {
+PriceValue = input.string('hl2', options = ['hl2', 'VWAP', 'sma', 'wma', 'ema', 'hma'], group = '', inline = 'Value')
+maLen = input.int(5, minval = 2, maxval = 200, title = '', group = '', inline = 'Value')
+TargetValue = input.string('Price Action', options = ['Price Action', 'VWAP', 'Volatility', 'sma', 'wma', 'ema', 'hma'], group = '', inline = 'Target')
+maLen_ = input.int(5, minval = 2, maxval = 200, title = '', group = '', inline = 'Target')
+// Input parameters for the KNN Moving Average
+numberOfClosestValues = input.int(3, 'Number of Closest Values', 2, 200)
+smoothingPeriod = input.int(50, 'Smoothing Period', 2, 500)
+windowSize = math.max(numberOfClosestValues, 30)
+
+// knn Color
+Upknn_col = input.color(color.lime, title = '', group = 'KNN Color', inline = 'knn col')
+Dnknn_col = input.color(color.red, title = '', group = 'KNN Color', inline = 'knn col')
+Neuknn_col = input.color(color.orange, title = '', group = 'KNN Color', inline = 'knn col')
+// MA knn Color
+Maknn_col = input.color(color.teal, title = '', group = 'MA KNN Color', inline = 'MA knn col')
+// BG Color
+bgcolor = input.bool(false, title = 'Trend Prediction Color', group = 'BG Color', inline = 'bg')
+Up_col = input.color(#092fe9, title = '', group = 'BG Color', inline = 'bg')
+Dn_col = input.color(color.red, title = '', group = 'BG Color', inline = 'bg')
+Up_Early_col = input.color(#092fe9, title = '', group = 'BG Color', inline = 'bg')
+Dn_Early_col = input.color(#f66b6b, title = '', group = 'BG Color', inline = 'bg')
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+
+// ~~ kNN Classifier {
+value_in = switch PriceValue
+    'hl2' => ta.sma(hl2, maLen)
+    'VWAP' => ta.vwap(close[maLen])
+    'sma' => ta.sma(close, maLen)
+    'wma' => ta.wma(close, maLen)
+    'ema' => ta.ema(close, maLen)
+    'hma' => ta.hma(close, maLen)
+
+meanOfKClosest(value_, target_) =>
+    closestDistances = array.new_float(numberOfClosestValues, 1e10)
+    closestValues = array.new_float(numberOfClosestValues, 0.0)
+    for i = 1 to windowSize by 1
+        value = value_[i]
+        distance = math.abs(target_ - value)
+        maxDistIndex = 0
+        maxDistValue = closestDistances.get(0)
+        for j = 1 to numberOfClosestValues - 1 by 1
+            if closestDistances.get(j) > maxDistValue
+                maxDistIndex := j
+                maxDistValue := closestDistances.get(j)
+                maxDistValue
+        if distance < maxDistValue
+            closestDistances.set(maxDistIndex, distance)
+            closestValues.set(maxDistIndex, value)
+    closestValues.sum() / numberOfClosestValues
+
+// Choose the target input based on user selection
+target_in = switch TargetValue
+    'Price Action' => ta.rma(close, maLen_)
+    'VWAP' => ta.vwap(close[maLen_])
+    'Volatility' => ta.atr(14)
+    'sma' => ta.sma(close, maLen_)
+    'wma' => ta.wma(close, maLen_)
+    'ema' => ta.ema(close, maLen_)
+    'hma' => ta.hma(close, maLen_)
+
+knnMA = meanOfKClosest(value_in, target_in)
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+
+// ~~ kNN Prediction {
+// Function to calculate KNN Classifier
+price = math.avg(knnMA, close)
+c = ta.rma(knnMA[1], smoothingPeriod)
+o = ta.rma(knnMA, smoothingPeriod)
+
+// Defines KNN function to perform classification
+knn(price) =>
+    Pos_count = 0
+    Neg_count = 0
+    min_distance = 10e10
+    nearest_index = 0
+    for j = 1 to 10 by 1
+        distance = math.sqrt(math.pow(price[j] - price, 2))
+        if distance < min_distance
+            min_distance := distance
+            nearest_index := j
+            Neg = c[nearest_index] > o[nearest_index]
+            Pos = c[nearest_index] < o[nearest_index]
+            if Pos
+                Pos_count := Pos_count + 1
+                Pos_count
+            if Neg
+                Neg_count := Neg_count + 1
+                Neg_count
+    output = Pos_count > Neg_count ? 1 : -1
+    output
+
+// Calls KNN function and smooths the prediction
+knn_prediction_raw = knn(price)
+knn_prediction = ta.wma(knn_prediction_raw, 3)
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+
+// ~~ Plots {
+// Plots for display on the chart
+knnMA_ = ta.wma(knnMA, 5)
+knnMA_col = knnMA_ > knnMA_[1] ? Upknn_col : knnMA_ < knnMA_[1] ? Dnknn_col : Neuknn_col
+Classifier_Line = plot(knnMA_, 'Knn Classifier Line', knnMA_col)
+
+knnTrend = knnMA_ > knnMA_[1] ? 'U' : knnMA_ < knnMA_[1] ? 'D' : 'E'
+//knnMA_txt         = knnTrend == knnTrend[1]? "": (knnTrend=="U" and knnTrend[1]=="D")? "B": "S"  
+
+knnMA_shape_sell = close[1] > knnMA_[1] and close < knnMA_ ? 1 : na
+knnMA_shape_buy = close[1] < knnMA_[1] and close > knnMA_ ? 1 : na
+
+plotshape(knnMA_shape_buy, title = 'Buy', text = 'B', location = location.belowbar, style = shape.labelup, size = size.tiny, color = Dnknn_col, textcolor = color.white)
+plotshape(knnMA_shape_sell, title = 'Sell', text = 'S', location = location.abovebar, style = shape.labeldown, size = size.tiny, color = Upknn_col, textcolor = color.white)
+
+// LongTerm True Average line display 
+ltATRflag = input.bool(true, title = 'Longterm True Average Line', group = 'LongATR', inline = 'LATR')
+
+MAknn_ = ltATRflag ? ta.rma(knnMA, smoothingPeriod): na
+
+Maknn_col0 = (MAknn_ > MAknn_[1]) and ltATRflag ? color.lime : color.red
+Maknn_col1 = (MAknn_ > MAknn_[1]) and ltATRflag ? color.new(color.lime, 85) : color.new(color.red, 85)
+
+
+plot(MAknn_, 'Average Knn Classifier Line',linewidth=10, color=Maknn_col1) // out of line 
+//plot(MAknn_, 'Average Knn Classifier Line',linewidth=1, color=Maknn_col0) // line of core 
+
+green = knn_prediction < 0.5
+red = knn_prediction > -0.5
+bgcolor(green and bgcolor ? color.new(Dn_col, 80) : red and bgcolor ? color.new(Up_col, 80) : na)
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+
+// ~~ Alerts {
+knnMA_cross_Over_Ma = ta.crossover(knnMA_, MAknn_)
+knnMA_cross_Under_Ma = ta.crossunder(knnMA_, MAknn_)
+knnMA_cross_Over_Close = ta.crossover(knnMA_, close)
+knnMA_cross_Under_Close = ta.crossunder(knnMA_, close)
+knnMA_Switch_Up = knnMA_[1] < knnMA_ and knnMA_[1] <= knnMA_[2]
+knnMA_Switch_Dn = knnMA_[1] > knnMA_ and knnMA_[1] >= knnMA_[2]
+knnMA_Neutral = knnMA_col == Neuknn_col and knnMA_col[1] != Neuknn_col
+greenBG = green and not green[1]
+redBG = red and not red[1]
+
+alertcondition(knnMA_cross_Over_Ma, title = 'Knn Crossover Average Knn', message = 'Knn Crossover Average Knn')
+alertcondition(knnMA_cross_Under_Ma, title = 'Knn Crossunder Average Knn', message = 'Knn Crossunder Average Knn')
+alertcondition(knnMA_cross_Over_Close, title = 'Knn Crossover Close', message = 'Knn Crossover Close')
+alertcondition(knnMA_cross_Under_Close, title = 'Knn Crossunder Close', message = 'Knn Crossunder Close')
+alertcondition(knnMA_Switch_Up, title = 'Knn Switch Up', message = 'Knn Switch Up')
+alertcondition(knnMA_Switch_Dn, title = 'Knn Switch Dn', message = 'Knn Switch Dn')
+alertcondition(knnMA_Neutral, title = 'Knn is Neutral', message = 'Knn is Neutral')
+alertcondition(greenBG, title = 'Positive Prediction', message = 'Positive Prediction')
+alertcondition(redBG, title = 'Negative Prediction', message = 'Negative Prediction')
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+
+
+// Channel Ruled Buy/Sell point 
+
+colup = input.color(title = '低高位 標簽 顏色', defval = color.green, inline = 'sarcol')
+coldn = input.color(title = '高位 標簽 顏色', defval = color.red, inline = 'sarcol')
+
+plotBB = input(title = '顯示預測上下通道?', defval = true, group = '通道----')
+plotBBPr = input(title = '顯示預測上下通道上下價格?', defval = true)
+
+bsizeOption = input.string(title = '標籤文字大小?', options = ['Auto', 'Huge', 'Large', 'Normal', 'Small', 'Tiny'], defval = 'Normal')
+blabelSize = bsizeOption == 'Huge' ? size.huge : bsizeOption == 'Large' ? size.large : bsizeOption == 'Small' ? size.small : bsizeOption == 'Tiny' ? size.tiny : bsizeOption == 'Auto' ? size.auto : size.normal
+
+
+blabelSizePlus = bsizeOption == 'Huge' ? size.huge : bsizeOption == 'Large' ? size.huge : bsizeOption == 'Small' ? size.large : bsizeOption == 'Tiny' ? size.small : bsizeOption == 'Auto' ? size.auto : size.normal
+
+
+blabeloff = bsizeOption == 'Huge' ? 20 : bsizeOption == 'Large' ? 17 : bsizeOption == 'Small' ? 12 : bsizeOption == 'Tiny' ? 8 : bsizeOption == 'Auto' ? 15 : 15
+
+lengthBB = 14 //input.int(20, minval=1)
+srcBB = close //input(close, title="Source")
+multBB = 2.0 //input.float(2.0, minval=0.001, maxval=50, title="StdDev")
+basis = ta.sma(srcBB, lengthBB)
+dev = multBB * ta.stdev(srcBB, lengthBB)
+upper = basis + dev
+lower = basis - dev
+offset = 0 //input.int(0, "Offset", minval = -500, maxval = 500)
+plot(plotBB ? basis : na, 'Basis', color = color.new(#2960F0, 0), offset = offset)
+
+trendclrup = color.new(#2962FF, 0)
+trendclrup := upper > upper[1] ? color.new(#2962FF, 0) : upper == upper[1] ? color.new(#e7e9ee, 0) : color.new(#dff476, 0)
+trendclrdn = color.new(#2962FF, 0)
+trendclrdn := lower > lower[1] ? color.new(#2962FF, 0) : lower == lower[1] ? color.new(#e7e9ee, 0) : color.new(#dff476, 0)
+
+p1 = plot(plotBB ? upper : na, 'Upper', color = trendclrup, offset = offset, linewidth = 4)
+p2 = plot(plotBB ? lower : na, 'Lower', color = trendclrdn, offset = offset, linewidth = 4)
+p3 = plot(plotBB ? upper : na, 'UpperEdge', color = color.new(#1c0687, 0), offset = offset, linewidth = 2)
+p4 = plot(plotBB ? lower : na, 'LowerEdge', color = color.new(#1c0687, 0), offset = offset, linewidth = 2)
+
+bbfillclr = input.color(color.new(color.blue, 87), title = '通道背景色設定')
+fill(p1, p2, title = 'BBand Background', color = bbfillclr)
+
+
+upperTrend = close[1] > upper[1] and close < upper or high > upper and high[1] < upper[1] and close < upper ? 1 : na
+lowerTrend = close[1] < lower[1] and close > lower or low < lower and low[1] > lower[1] and close > lower ? 1 : na
+//upper_txt         = knnTrend == knnTrend[1]? "": (knnTrend=="U" and knnTrend[1]=="D")? "B": "S"  
+
+//knnMA_shape_sell= knnMA_txt == "S" ? 1:na
+//knnMA_shape_buy = knnMA_txt == "B" ? 1:na
+
+plotshape(lowerTrend, title = 'Early Buy', text = 'EB', location = location.belowbar, style = shape.labelup, size = size.tiny, color = Dn_Early_col, textcolor = color.white)
+plotshape(upperTrend, title = 'Early Sell', text = 'ES', location = location.abovebar, style = shape.labeldown, size = size.tiny, color = Up_Early_col, textcolor = color.white)
+
+
+
+// BB channel price
+
+if plotBBPr // and plotBB
+    var label blineu = na
+    var label blined = na
+    var label PMaxLi = na
+    var label CloseCu1 = na
+    var label CloseCu2 = na
+
+    if barstate.islast
+        label.delete(blineu[1])
+        label.delete(blined[1])
+        label.delete(PMaxLi[1])
+        label.delete(CloseCu1[1])
+        label.delete(CloseCu2[1])
+
+        trendtxtup = ''
+        trendtxtup := (upper > upper[1] ? '\n😉😜😜\n' : '\n😢😢😢\n') + str.tostring(math.abs(math.round_to_mintick((upper[0] - close[0]) / close[0] * 100))) + '%'
+        trendtxtdn = ''
+        trendtxtdn := (lower < lower[1] ? '\n😢😢😢\n' : '\n😉😜😜\n') + str.tostring(math.abs(math.round_to_mintick((lower[0] - close[0]) / close[0] * 100))) + '%'
+        blineu := label.new(bar_index, upper, text = '預測高 ' + str.tostring(math.round_to_mintick(upper)) + trendtxtup, color = color.new(color.lime,65), textcolor = color.white, style = label.style_label_lower_left, size = blabelSize)
+        blined := label.new(bar_index, lower, text = '預測低 ' + str.tostring(math.round_to_mintick(lower)) + trendtxtdn, color = color.new(color.red ,65)  , textcolor = color.white, style = label.style_label_upper_left, size = blabelSize)
+        blined
+        //PMaxLi := label.new(bar_index, PMax,  text='真實均價 '+str.tostring(math.round_to_mintick(PMax)),  color=color.blue, textcolor=color.white, style=label.style_label_upper_left, size=blabelSize)
+
+
+esCol = bool(upperTrend) ? #ff5252e8 : bool(lowerTrend) ? color.rgb(0, 230, 119, 95) : color.black
+// fill (p1, p2, esCol, title = "Early Sell Fill")
+
+////////
+// Seek Menu
+import DevLucem/ZigLib/1 as ZigZag
+////////
+// Fetch Ingredients 
+// [
+plotZigzag = input.bool(true, title = 'Plot the Zigzag', group = 'ZigZag Config')
+plotLast = input.bool(true, title = 'Plot the Last Zigzag', group = 'ZigZag Config')
+showZZpercent = input.bool(false, title = 'calculate the Zigzag percents', group = 'ZigZag Config')
+Depth = input.int(12, 'Depth', minval = 1, step = 1, group = 'ZigZag Config')
+Deviation = input.int(5, 'Deviation', minval = 1, step = 1, group = 'ZigZag Config')
+Backstep = input.int(2, 'Backstep', minval = 2, step = 1, group = 'ZigZag Config')
+line_thick = input.int(2, 'Line Thickness', minval = 1, maxval = 4, group = 'ZigZag Lines')
+labels = input(5, 'Labels Transparency', group = 'ZigZag Labels')
+upcolor = input(color.new(color.lime,65), 'Bull Color', group = 'ZigZag Colors')
+dncolor = input(color.new(color.red,65), 'Bear Color', group = 'ZigZag Colors')
+lines = input(0, 'Lines Transparency', group = 'ZigZag Lines')
+background = input(97, 'Background Transparency', group = 'ZigZag Colors')
+label_size__2 = input.int(2, 'Label SIze', minval = 1, maxval = 5, group = 'Labels')
+label_size = switch label_size__2
+    1 => size.tiny
+    2 => size.small
+    3 => size.normal
+    4 => size.large
+    5 => size.huge
+
+extend = input.bool(false, 'Extend ZigZag', group = 'Lines')
+
+// ////////
+// // Bake it with a simple oven this time
+[direction, z1, z2] = ZigZag.zigzag(low, high, Depth, Deviation, Backstep)
+string nowPoint = ''
+string nowPoint2 = ''
+
+field_0 = z1.price
+var float lastPoint = field_0[1]
+if bool(ta.change(direction))
+    field_1 = z1.price
+    lastPoint := field_1[1]
+    lastPoint
+
+
+// ////////
+// // Let it Cool And Serve
+line zz = na
+label point = na
+
+if plotZigzag
+    if plotLast
+        zz := line.new(z1, z2, xloc.bar_time, extend ? extend.right : extend.none, color.new(direction > 0 ? upcolor : dncolor, lines), width = line_thick)
+        pfield1 = z1.price
+        pfield2 = z2.price
+        nowPoint := direction < 0 ? z2.price < lastPoint ? 'LL' : 'HL' : z2.price > lastPoint ? 'HH' : 'LH'
+        // nowPoint := nowPoint + "\n" + str.tostring( math.round_to_mintick( (lastPoint-z2.price) / z2.price*100)) + "%" 
+        // nowPoint2 := "\n" + str.tostring(math.round_to_mintick(lastPoint[1])) + "\n" + str.tostring(math.round_to_mintick(pfield1))  + "\n" + str.tostring(math.round_to_mintick(pfield2)) // z2.price[1]*100)) + "%" 
+        nowPoint2 := "\n" + str.tostring(math.round_to_mintick((pfield2-pfield1)*100/pfield1)) + "%" 
+        if not showZZpercent
+            nowPoint2 := ""
+        point := label.new(z2, nowPoint+nowPoint2, xloc.bar_time, yloc.price, color.new(direction < 0 ? upcolor : dncolor, labels), direction > 0 ? label.style_label_down : label.style_label_up, color.new(direction > 0 ? upcolor : dncolor, labels), label_size)
+        if direction == direction[1]
+            line.delete(zz[1])
+            label.delete(point[1])
+        else
+            line.set_extend(zz[1], extend.none)
+    else
+        if direction != direction[1]
+            zz := line.new(z1[1], z2[1], xloc.bar_time, extend.none, color.new(direction > 0 ? upcolor : dncolor, lines), width = line_thick)
+            field_2 = z2.price
+            field_3 = z2.price
+            nowPoint := direction[1] < 0 ? field_2[1] < lastPoint[1] ? 'LL' : 'HL' : field_3[1] > lastPoint[1] ? 'HH' : 'LH'
+            // nowPoint := nowPoint + "\n" + str.tostring( math.round_to_mintick( (lastPoint[1]-z2.price[1]) / z2.price[1]*100)) + "%" 
+            nowPoint2 := "\n" + str.tostring(math.round_to_mintick(lastPoint[1])) + "\n" + str.tostring(math.round_to_mintick(field_2))  + "\n" + str.tostring(math.round_to_mintick(field_2[1])) // z2.price[1]*100)) + "%" 
+            point := label.new(z2[1], nowPoint+nowPoint2, xloc.bar_time, yloc.price, color.new(direction[1] < 0 ? upcolor : dncolor, labels), direction[1] > 0 ? label.style_label_down : label.style_label_up, color.new(direction[1] > 0 ? upcolor : dncolor, labels), label_size)
+            point
+
+
+bgcolor(direction < 0 ? color.new(dncolor, background) : color.new(upcolor, background), title = 'Direction Background')
+plotarrow(direction, 'direction', display = display.status_line)
+
+
+// ////////
+// // Declare Meal Was Sweet By Force
+field_4 = z2.price
+alertcondition(nowPoint == 'HH' and z2.price != field_4[1], 'New Higher High', 'Zigzag on {{ticker}} higher higher high detected at {{time}}')
+field_5 = z2.price
+alertcondition(nowPoint == 'LH' and z2.price != field_5[1], 'New Lower High', 'Zigzag on {{ticker}} higher lower high detected at {{time}}')
+field_6 = z2.price
+alertcondition(nowPoint == 'HL' and z2.price != field_6[1], 'New Higher Low', 'Zigzag on {{ticker}} higher lower low detected at {{time}}')
+field_7 = z2.price
+alertcondition(nowPoint == 'LL' and z2.price != field_7[1], 'New Lower Low', 'Zigzag on {{ticker}} lower low detected at {{time}}')
+alertcondition(direction != direction[1], 'Direction Changed', 'Zigzag on {{ticker}} direction changed at {{time}}')
+alertcondition(direction != direction[1] and direction > 0, 'Bullish Direction', 'Zigzag on {{ticker}} bullish direction at {{time}}')
+alertcondition(direction != direction[1] and direction < 0, 'Bearish Direction', 'Zigzag on {{ticker}} bearish direction at {{time}}')
+
+if direction != direction[1]
+    alert((direction < 0 ? 'Bearish' : 'Bullish') + ' Direction Final ', alert.freq_once_per_bar_close)
+
+// 葛蘭碧八大法則
+//  S : last State, S[1] : last - 1 state  
+// 葛蘭碧是均線的發明者，他所創的八大法則，被均線使用者視為珍寶，八大法則四條為研判買進時機，四條為研判賣出時機！
+// 四大買點  
+// 第一條：突破性跟漲買點 (S[1] < upper and S > upper and trend > 0 )
+// 第二條：回試不破買點   (S[1]~= Avger and S > Avger and trend > 0 )
+// 第三條：破均再上買點   (S[1]< Avger and S > Avger)
+// 第四條：乖離反抽買點   (S[1] < lower and S > lower and trend > 0 )
+// 四大賣點
+// 第一條：破均賣點，失守均線，均線平走或向下 (S[1] > Avger and S < Avger and trend < 0)
+// 第二條：反抽賣點,均線向下，反抽至均線附近  (trend < 0 and S~= Avger and S[1] < S )
+// 第三條：突破轉下，突破站不住，再次破均線   ()
+// 第四條：乖離賣點，趨勢向上遠離均線
+
+//【買進訊號】：
+// 買進訊號	條件
+// B1.突破	當移動平均線從下降趨勢逐漸轉為水平盤整或上昇時，且股價從移動平均線下方突破移動平均線，可視為買進訊號。
+// B2.假跌破	股價往下跌破移動平均線，但隨即又回到移動平均線之上，且此時移動平均線依然呈現上升趨勢，可視為買進訊號。
+// B3.支撐	當股價趨勢走在移動平均線之上，雖然股價修正下跌但並未跌破移動平均線便再度反彈走高，可視為買進訊號。
+// B4.抄底	當股價向下急跌，不僅跌破移動平均線，甚至遠遠偏離至移動平均線下方深處，而股價開始反彈上升又趨向移動平均線時，可視為買進訊號。
+
+// 【賣出訊號】：
+// 賣出訊號	條件
+// S5.跌破	當移動平均線從上升趨勢轉變成水平線或呈現下跌時，且股價從移動平均線上方跌破移動平均線時，可視為賣出訊號。
+// S6.假突破	當股價反彈突破移動平均線後，卻又隨即下跌跌破移動平均線，且此時移動平均線依然呈現下降趨勢，可視為賣出訊號。
+// S7.反壓	當股價走勢持續走在移動平均線之下，即使股價反彈也無法突破移動平均線，這時移動平均線成為股價的反壓，可視為賣出訊號。
+// S8.反轉	當股價向上急漲，且遠遠偏離移動平均線上方極遠之後，股價反轉下跌使得股價趨向移動平均線時，可視為賣出訊號。
+
+bool GAlert = false
+string Gstate = ''
+
+if barstate.islast
+    var label blineu = na
+    var label blined = na
+
+    label.delete(blineu[1])
+    label.delete(blined[1])
+
+    if upperTrend[0] == 1
+        txt_sell = ''
+        txt_sell := '\n😉😜😜\n S8.急漲後，反轉下跌' + str.tostring(math.round_to_mintick(math.abs(upper[0] - close[0]) / close[0] * 100)) + '%'
+        //label.delete (blineu[1])
+        blineu := label.new(bar_index + 0, close, text = '距高值 高' + str.tostring(math.round_to_mintick(upper)) + txt_sell, color = #3f3ff0, textcolor = color.white, style = label.style_label_upper_left, size = blabelSizePlus)
+        GAlert := true
+        Gstate := 'S8:急漲後，反轉下跌'
+        Gstate
+    if lowerTrend[0] == 1
+        txt_buy = ''
+        txt_buy := '\n😉😜😜\n B4.低價抄底,左側買入 ' + str.tostring(math.round_to_mintick(math.abs(close[0] - lower[0]) / close[0] * 100)) + '%'
+        //label.delete (blined[1])
+        blined := label.new(bar_index + 0, close, text = '距低值 低' + str.tostring(math.round_to_mintick(lower)) + txt_buy, color = #3f3ff0, textcolor = color.white, style = label.style_label_lower_left, size = blabelSizePlus)
+        GAlert := true
+        Gstate := 'B4:低價抄底,左側買入'
+        Gstate
+    if knnMA_shape_sell[0] == 1
+        txt_sell = ''
+        txt_sell := '\n😉😜😜\n S5.均線跌破賣出 \n 上方距離' + str.tostring(math.round_to_mintick(math.abs(knnMA_[0] - close[0]) / knnMA_[0] * 100)) + '%'
+        //label.delete (blineu[1])
+        blineu := label.new(bar_index + 1, knnMA_, text = '均值以下 ' + str.tostring(math.round_to_mintick(knnMA_)) + txt_sell, color = #3f3ff0, textcolor = color.white, style = label.style_label_lower_left, size = blabelSizePlus)
+        GAlert := true
+        Gstate := 'S5:均線跌破賣出'
+        Gstate
+    if knnMA_shape_buy[0] == 1
+        txt_buy = ''
+        txt_buy := '\n😉😜😜\n B1.突破,右側買入 \n ，下方距離 ' + str.tostring(math.round_to_mintick(math.abs(close[0] - knnMA_[0]) / knnMA_[0] * 100)) + '%'
+        //label.delete (blined[1])
+        blined := label.new(bar_index + 1, knnMA_, text = '均值以上 ' + str.tostring(math.round_to_mintick(knnMA_)) + txt_buy, color = #3f3ff0, textcolor = color.white, style = label.style_label_upper_left, size = blabelSizePlus)
+        GAlert := true
+        Gstate := 'B1:均線突破,右側買入'
+        Gstate
+
+alertcondition(GAlert == true, '葛蘭碧八買賣點', '葛蘭碧八大法 {{ticker}}  at {{time}} state {{Gstate}}')
+
+// 我將四個最近均線且在判斷上有模糊的四個買賣點先省下
+alert8Gstate = input.bool(false, title = '發出警告 （葛蘭碧八買賣點）', group = 'Alert Config', inline = 'Alert')
+
+if alert8Gstate
+    if GAlert[0]
+        var alertstr = ''
+        alertstr := Gstate[0]
+        alert(Gstate)
+
+
+// Multi Time-Frames RSI
+
+// MTF RSI start here
+//
+import jmosullivan/Table/1
+import jmosullivan/Utils/11
+
+// Configuration
+
+grpTable = 'RSI Table'
+showRSITables = input.bool(false, 'Show', inline='timeframes', group=grpTable)
+showTable5 = input.bool(true, '5m', inline='timeframes', group=grpTable)
+showTable15 = input.bool(true, '15m', inline='timeframes', group=grpTable)
+showTable30 = input.bool(false, '30m', inline='timeframes', group=grpTable)
+showTable1h = input.bool(true, '1h', inline='timeframes', group=grpTable)
+showTable4h = input.bool(true, '4h', inline='timeframes', group=grpTable)
+showTable12h = input.bool(false, '12h', inline='timeframes', group=grpTable)
+showTable1D = input.bool(true, 'D', inline='timeframes', group=grpTable)
+showTable1W = input.bool(true, 'W', inline='timeframes', group=grpTable)
+// showTable1M = input.bool(false, 'M', inline='timeframes', group=grpTable)
+friendlyTextSize = input.string('Small', 'Appearance    ', ['Tiny', 'Small', 'Normal', 'Large', 'Huge'], inline='position and size', group=grpTable)
+textSize = Utils.getSizeFromString(friendlyTextSize)
+friendlyPosition = input.string('Bottom Center', '', ['Top Left', 'Top Center', 'Top Right', 'Middle Left', 'Middle Center', 'Middle Right', 'Bottom Left', 'Bottom Center', 'Bottom Right'], inline='position and size', group=grpTable)
+position = Utils.getPositionFromString(friendlyPosition)
+verticalOffset = input.int(0, '', options=[0, 1, 2, 3], tooltip='The last input here is the number of row-sized spaces to place the table away from the top or bottom of the chart.', inline="position and size", group=grpTable)
+format = input.string('##', 'Format', ['##', '##.#'], group=grpTable)
+colorHelp = 'Moderate and extreme backgrounds, moderate and overbought/oversold text.'
+colorModerate = input.color(color.rgb(40, 98, 255), 'Colors         ', inline='colors', group=grpTable)
+colorExtreme = input.color(color.rgb(235, 46, 175), '', inline='colors', group=grpTable)
+colorText = input.color(color.white, '', inline='colors', group=grpTable)
+colorOverText = input.color(color.rgb(255, 183, 77), '', tooltip=colorHelp, inline='colors', group=grpTable)
+
+grpStack = 'RSI Stacking Labels'
+showLabelType = input.string('Extreme Conditions Only', 'Show labels in', ['Any Overbought/Oversold Conditions', 'Extreme Conditions Only'], 'Labels will appear when 3 or more timeframes are in overbought/oversold or extreme overbought/oversold conditions depending on what you select here. You can optionally hide one or both overbought and oversold labels using the checkboxes below.\n\nNote: You can customize what categorizes RSI levels that are "overbought/oversold" or "extreme overbought/oversold" in the "Advanced" section below.', group=grpStack)
+showOBLabels = input.bool(true, 'OB       ', inline='obcolors', group=grpStack)
+labelOBColor = input.color(color.rgb(235, 46, 175), '', inline='obcolors', group=grpStack)
+labelOBXColor = input.color(color.rgb(222, 23, 159), '', inline='obcolors', group=grpStack)
+labelOBTooltip = 'If RSI gets overbought on 3 or more timeframes, check this box to show a label on the chart to point this out.\n\nColor options are for overbought label, extreme overbought label, and text.'
+labelOBColorText = input.color(#ffffff, '', labelOBTooltip, inline='obcolors', group=grpStack)
+showOSLabels = input.bool(true, 'OS       ', inline='oscolors', group=grpStack)
+labelOSColor = input.color(color.rgb(76, 175, 80), '', inline='oscolors', group=grpStack)
+labelOSXColor = input.color(color.rgb(46, 134, 49), '', inline='oscolors', group=grpStack)
+labelOSTooltip = 'If RSI gets oversold on 3 or more timeframes, check this box to show a label on the chart to point this out.\n\nColor options are for oversold label, extreme oversold label, and text.'
+labelOSColorText = input.color(#ffffff, '', labelOSTooltip, inline='oscolors', group=grpStack)
+labelFriendlySize = input.string('Small', 'Size', ['Tiny', 'Small', 'Normal', 'Large', 'Huge'], group=grpStack)
+labelSize = Utils.getSizeFromString(labelFriendlySize)
+
+grpAdvanced = 'Advanced'
+rsiLength = input.int(14, 'RSI length', group=grpAdvanced)
+sessionFriendly = input.string('Extended', 'Session', ['Regular', 'Extended'], tooltip='In order to make sure that lower timeframe levels are calculated properly when you are viewing higher timeframe charts, you need to define your preferred session for the calculations. We default to extended session.', group=grpAdvanced)
+session = sessionFriendly == 'Extended' ? session.extended : session.regular
+// Kludge: Found a bug where futures symbols would return incorrect candle values if you specified session.extended. 
+if syminfo.type == 'futures'
+    session := session.regular
+levelOB = input.int(60, 'OB RSI         ', inline='overbought', group=grpAdvanced)
+levelOBX = input.int(66, '', inline='overbought', group=grpAdvanced, tooltip='RSI readings >= these values will be considered overbought, extreme overbought.')
+levelOS = input.int(35, 'OS RSI         ', inline='oversold', group=grpAdvanced)
+levelOSX = input.int(30, '', inline='oversold', group=grpAdvanced, tooltip='RSI readings <= these values will be considered oversold, extreme oversold.')
+
+// Types
+
+type Superstack
+    string type = 'oversold'
+    string timeframe = ''
+    float price = na
+    int index = na
+
+// Functions
+
+superstackOs30 = false
+superstackOs1h = false
+superstackOs4h = false
+superstackOs12h = false
+superstackOs1D = false
+superstackOb30 = false
+superstackOb1h = false
+superstackOb4h = false
+superstackOb12h = false
+superstackOb1D = false
+
+superstackOS = false
+superstackOB = false
+
+requestSecurityNormal(ticker, timeframe, rsiLength) => 
+    request.security(ticker, timeframe, ta.rsi(close, rsiLength), gaps=barmerge.gaps_off)
+
+requestSecurityLower(ticker, timeframe, rsiLength) =>
+    _timeframe = timeframe.in_seconds('') < timeframe.in_seconds(timeframe) ? '' : timeframe
+    rsiArray = request.security_lower_tf(ticker, _timeframe, ta.rsi(close, rsiLength))
+    float rsi = na
+    count = array.size(rsiArray)
+    if count > 0
+        rsi := array.get(rsiArray, count - 1)
+    rsi
+
+requestSecurity(session, timeframe, show, rsiLength) =>
+    ticker = ticker.new(syminfo.prefix, syminfo.ticker, session)
+    float rsi = na
+    if timeframe.in_seconds('') <= timeframe.in_seconds(timeframe) and show
+        rsi := requestSecurityNormal(ticker, timeframe, rsiLength)
+    else
+        rsi := requestSecurityLower(ticker, timeframe, rsiLength)
+    rsi
+
+processRequests(timeframe, rsi, showOnTable, dataArray, rsiMap) =>
+    var _rsi = float(na)
+    _rsi := na(rsi) ? _rsi : rsi
+    map.put(rsiMap, timeframe, _rsi)
+    if (showOnTable)
+        obx = _rsi >= levelOBX
+        osx = _rsi <= levelOSX
+        ob = _rsi >= levelOB
+        os = _rsi <= levelOS
+        bgColor = switch
+            osx or obx => colorExtreme
+            => colorModerate
+        textColor = switch
+            osx or obx => colorText
+            os or ob => colorOverText
+            => colorText
+        cellFormat = format == '##' ? " {0} \n {1,number,#} " : " {0} \n {1,number,0.0} "
+        array.push(dataArray, Table.Cell.new(
+           str.format(cellFormat, Utils.timeframeToString(timeframe), _rsi),
+           bgColor,
+           textColor
+           ))
+
+getStacks(rsiMap) =>
+    osCount = int(0)
+    osxCount = int(0)
+    os = true
+    osx = true
+    osTf = ''
+    osxTf = ''
+    osType = 'oversold'
+    obCount = int(0)
+    obxCount = int(0)
+    ob = true
+    obx = true
+    obTf = ''
+    obxTf = ''
+    obType = 'overbought'
+    for key in map.keys(rsiMap)
+        rsi = map.get(rsiMap, key)
+        os := os and rsi <= levelOS ? true : false
+        osx := osx and rsi <= levelOSX ? true : false
+        osCount := osCount + (os ? 1 : 0)
+        osxCount := osxCount + (osx ? 1 : 0)
+        if os
+            osTf := key
+        if osx
+            osxTf := key
+        ob := ob and rsi >= levelOB ? true : false
+        obx := obx and rsi >= levelOBX ? true : false
+        obCount := obCount + (ob ? 1 : 0)
+        obxCount := obxCount + (obx ? 1 : 0)
+        if ob
+            obTf := key
+        if obx
+            obxTf := key
+
+    if osTf == osxTf and osCount == osxCount
+        osType := 'extreme oversold'
+
+    if obTf == obxTf and obCount == obxCount
+        obType := 'extreme overbought'
+    [osTf, osCount, osType, obTf, obCount, obType]
+
+getStackLabel(stack, labelType = 'standard') =>
+    isStandard = labelType == 'standard'
+    isOverbought = stack.type == 'overbought' or stack.type == 'extreme overbought'
+    labelColor = switch stack.type
+        'overbought' => labelOBColor
+        'extreme overbought' => labelOBXColor
+        'extreme oversold' => labelOSXColor
+        => labelOSColor
+    if not isStandard
+        labelColor := color.new(labelColor, 90)
+
+    label.new(
+      stack.index, 
+      stack.price, 
+      isStandard ? Utils.timeframeToString(stack.timeframe) : '', 
+      color=labelColor, 
+      textcolor=isOverbought ? labelOBColorText : labelOSColorText, 
+      style=isStandard ? label.style_label_center : label.style_circle, // isOverbought ? label.style_label_down : label.style_label_up : label.style_circle,
+      yloc=isStandard ? isOverbought ? yloc.abovebar : yloc.belowbar : yloc.price,
+      size=isStandard ? labelSize : size.large)
+
+stackLabel(timeframe, count, stackType) =>
+    isOversoldStack = stackType == 'oversold' or stackType == 'extreme oversold'
+    var Superstack stack = na
+    var Superstack lastStack = na
+
+    stack := Superstack.new()
+    lastStack := Superstack.new()
+    // If we've piled up the minimum # of timeframes where RSI is extended, we are stacking.
+    // But don't bother tracking it unless the stacking is occurring on this timeframe or above
+    // (bc, for example, you don't want to see hourly stacking when looking at the daily chart)
+    allowNewStack = true
+    if na(stack) and not na(lastStack) and bar_index - lastStack.index < 10
+        allowNewStack := isOversoldStack ? low < lastStack.price : high > lastStack.price
+
+    if count >= 3
+      and timeframe.in_seconds(timeframe) >= timeframe.in_seconds(timeframe.period)
+      and allowNewStack
+        if na(stack)
+            stack := Superstack.new(stackType, timeframe, na, na)
+        else
+            stack.timeframe := timeframe
+        
+        if na(stack.price) 
+          or (low < stack.price and isOversoldStack)
+          or (high > stack.price and not isOversoldStack)
+            stack.price := isOversoldStack ? low : high
+            stack.index := bar_index
+
+    // If not stacking anymore, but we have an existing stack from before...
+    if not na(stack)
+        if count < 3
+            if (low > stack.price and isOversoldStack)
+              or (high < stack.price and not isOversoldStack)
+                // The stacking has ended, so assign the stack to the last stack and reset the active one.
+                lastStack := stack
+                stack := na
+            if (not na(stack) and low < stack.price and isOversoldStack)
+              or (not na(stack) and high > stack.price and not isOversoldStack)
+                // The prices still moving in the stack direction, so update them
+                stack.price := isOversoldStack ? low : high
+                stack.index := bar_index
+
+    var label stackLabel = na
+    var label stackShape = na
+    if not na(stack)
+        if na(stackLabel)
+            stackLabel := getStackLabel(stack)
+            stackShape := getStackLabel(stack, 'shape')
+        else
+            label.set_text(stackLabel, Utils.timeframeToString(stack.timeframe))
+            label.set_xy(stackLabel, stack.index, stack.price)
+            label.set_xy(stackShape, stack.index, stack.price)
+            labelColor = switch stack.type
+                'overbought' => labelOBColor
+                'extreme overbought' => labelOBXColor
+                'extreme oversold' => labelOSXColor
+                => labelOSColor
+            label.set_color(stackLabel, labelColor)
+
+
+    // If the stack just ended, leave a label behind based on the one that just finished
+    if na(stack) and not na(stack[1]) and not na(lastStack)
+        label.delete(stackLabel)
+        label.delete(stackShape)
+        getStackLabel(lastStack)
+        getStackLabel(lastStack, 'shape')
+
+// Indicator Logic
+
+// Table array
+dataArray = array.new<Table.Cell>()
+// Collection of RSI levels on this bar
+rsiMap = map.new<string, float>()
+
+
+// Append if show tables 
+// Requests
+if showRSITables or GAlert
+    
+    rsi5 = requestSecurity(session, '5', showTable5, rsiLength)
+    rsi15 = requestSecurity(session, '15', showTable15, rsiLength)
+    rsi30 = requestSecurity(session, '30', showTable30, rsiLength)
+    rsi1h = requestSecurity(session, '60', showTable1h, rsiLength)
+    rsi4h = requestSecurity(session, '240', showTable4h, rsiLength)
+    rsi12h = requestSecurity(session, '720', showTable12h, rsiLength)
+    rsi1D = requestSecurity(session, '1D', showTable1D, rsiLength)
+    rsi1W = requestSecurity(session, '1W', showTable1W, rsiLength)
+    //rsi1M = requestSecurity(session, '1M', showTable1M, rsiLength)
+
+    // Process all of the requested data for the table
+    processRequests('5', rsi5, showTable5, dataArray, rsiMap)
+    processRequests('15', rsi15, showTable15, dataArray, rsiMap)
+    processRequests('30', rsi30, showTable30, dataArray, rsiMap)
+    processRequests('60', rsi1h, showTable1h, dataArray, rsiMap)
+    processRequests('240', rsi4h, showTable4h, dataArray, rsiMap)
+    processRequests('720', rsi12h, showTable12h, dataArray, rsiMap)
+    processRequests('1D', rsi1D, showTable1D, dataArray, rsiMap)
+    processRequests('1W', rsi1W, showTable1W, dataArray, rsiMap)
+    //processRequests('1M', rsi1M, showTable1M, dataArray, rsiMap)
+
+    // Render the Table
+    if barstate.islast
+        if array.size(dataArray) > 0
+            Table.fromArray(dataArray, position, verticalOffset, false, textSize, 2)
+
+    // Define superstacks...
+    [osTf, osCount, osType, obTf, obCount, obType] = getStacks(rsiMap)
+
+    // Make sure to only show extreme labels, if requested...
+    if showLabelType == 'Extreme Conditions Only'
+        showOBLabels := obType == 'overbought' ? false : showOBLabels
+        showOSLabels := osType == 'oversold' ? false : showOSLabels
+
+    // Render superstack labels
+    if showOBLabels
+        stackLabel(obTf, obCount, obType)
+    if showOSLabels
+        stackLabel(osTf, osCount, osType)
+
+    // Alert Conditions
+    superstackOs30 = osCount == 3 and osType == 'oversold'
+    superstackOs1h = osCount == 4 and osType == 'oversold'
+    superstackOs4h = osCount == 5 and osType == 'oversold'
+    superstackOs12h = osCount == 6 and osType == 'oversold'
+    superstackOs1D = osCount == 7 and osType == 'oversold'
+    superstackOb30 = osCount == 3 and osType == 'overbought'
+    superstackOb1h = osCount == 4 and osType == 'overbought'
+    superstackOb4h = osCount == 5 and osType == 'overbought'
+    superstackOb12h = osCount == 6 and osType == 'overbought'
+    superstackOb1D = osCount == 7 and osType == 'overbought'
+    superstackOS = ((osCount > 2 and osCount < 8) and  osType == 'oversold') 
+    superstackOB = ((osCount > 2 and osCount < 8) and  osType == 'overbought') 
+
+// End append show table session
+
+// Alerts
+alertcondition(superstackOs30, title='30m Superstack Oversold', message='{{ticker}} 30m Superstack Oversold: 5m, 15m & 30m timeframes oversold')
+alertcondition(superstackOs1h, title='1h Superstack Oversold', message='{{ticker}} 1h Superstack Oversold: 5m, 15m, 30m & 1h timeframes oversold')
+alertcondition(superstackOs4h, title='4h Superstack Oversold', message='{{ticker}} 4h Superstack Oversold: 5m, 15m, 30m, 1h & 4h timeframes oversold')
+alertcondition(superstackOs12h, title='12h Superstack Oversold', message='{{ticker}} 12h Superstack Oversold: 5m, 15m, 30m, 1h, 4h & 12h timeframes oversold')
+alertcondition(superstackOs1D, title='1D Superstack Oversold', message='{{ticker}} Daily Superstack Oversold: 5m, 15m, 30m, 1h, 4h, 12h & Daily timeframes oversold')
+alertcondition(superstackOb30, title='30m Superstack Overbought', message='{{ticker}} 30m Superstack Overbought: 5m, 15m & 30m timeframes overbought')
+alertcondition(superstackOb1h, title='1h Superstack Overbought', message='{{ticker}} 1h Superstack Overbought: 5m, 15m, 30m & 1h timeframes overbought')
+alertcondition(superstackOb4h, title='4h Superstack Overbought', message='{{ticker}} 4h Superstack Overbought: 5m, 15m, 30m, 1h & 4h timeframes overbought')
+alertcondition(superstackOb12h, title='12h Superstack Overbought', message='{{ticker}} 12h Superstack Overbought: 5m, 15m, 30m, 1h, 4h & 12h timeframes overbought')
+alertcondition(superstackOb1D, title='1D Superstack Overbought', message='{{ticker}} Daily Superstack Overbought: 5m, 15m, 30m, 1h, 4h, 12h & Daily timeframes overbought')
+
+alertcondition(superstackOS, title='Any Superstack Oversold', message='{{ticker}} Daily Superstack OverSold: Any timeframes Sold')
+alertcondition(superstackOB, title='Any Superstack Overbought', message='{{ticker}} Daily Superstack Overbought: Any timeframes overbought')
+
+alertcondition((superstackOS or superstackOB) and GAlert, title='葛蘭碧買賣點觸發後 RSI 超買或超賣', message='{{ticker}} Daily Superstack : Any timeframes oversold/overbought')
+
+
+Alertnow= input.bool(true, 'Alert Now', inline='SBNow', group='SBN')
+if Alertnow and ((superstackOS or superstackOB) and GAlert)
+    alert("immed Buy/Sell Signal", freq=alert.freq_once_per_bar_close)
+
+// State variables
+var line upper_es_line = na
+var line lower_eb_line = na
+float line_level_lower = na
+float line_level_upper = na
+var label upper_label = na 
+var label lower_label = na 
+
+// Clean up previous lines
+if not na(upper_es_line)
+    line.delete(upper_es_line)
+    label.delete (upper_label)
+if not na(lower_eb_line)
+    line.delete(lower_eb_line)
+    label.delete (lower_label)
+
+// State checks
+EB_State = not na(lowerTrend) and (close > lower)
+ES_State = not na(upperTrend) and (close < upper)
+
+// Line level calculations using ternary operators
+
+line_level_upper := ES_State ? upper : (not na(line_level_upper[1]) and close[0] < line_level_upper[1] and na(knnMA_shape_sell[0])) ? line_level_upper[1] : na
+line_level_lower := EB_State ? lower : (not na(line_level_lower[1]) and close[0] > line_level_lower[1] and na(knnMA_shape_buy[0])) ? line_level_lower[1] : na
+
+// Draw extended lines
+upper_es_line := line.new(bar_index, line_level_upper, bar_index + 1, line_level_upper, extend = extend.right, color = color.green, width = 2, style = line.style_dashed)
+lower_eb_line := line.new(bar_index, line_level_lower, bar_index + 1, line_level_lower, extend = extend.right, color = color.red, width = 2, style = line.style_dashed)
+
+// Add label for upper level on last bar
+if barstate.islast 
+    if not na(upper_es_line)
+        upper_label := label.new(bar_index+5, line_level_upper, str.tostring(math.round_to_mintick(line_level_upper)), color = color.green, style = label.style_label_left)
+    if not na(lower_eb_line)
+        lower_label := label.new(bar_index+5, line_level_lower, str.tostring(math.round_to_mintick(line_level_lower)), color = color.green, style = label.style_label_left)
+    
+
+// Price crossover checks
+ES_over_price = (close > line_level_upper) and not na(line_level_upper)
+EB_over_price = (close < line_level_lower) and not na(line_level_lower)
+
+// Alert conditions
+alertcondition(EB_over_price, title='EarlyBuy xcrossover', message='{{ticker}} Daily Trade Over Buy: Any timeframes overSold')
+alertcondition(ES_over_price, title='EalrySell xcrossover', message='{{ticker}} Daily Trade Over Sell: Any timeframes overbought')
+
+// Combinational alert for free accounts
+Combinational_condition = (EB_over_price and superstackOs30) or (ES_over_price and superstackOb30)
+alertcondition(Combinational_condition, title='Combinational_condition', message='{{ticker}} Combinational_condition: Left Trader Notice')
+
+
+
+//Session KNN ATR Dual Range 
+
+// Groups // 
+g1 = 'Settings'
+g2 = 'Primary Targets'
+g3 = 'Secondary Targets'
+// Settings 
+train = input.int(150, 'Training Time', group = g1)
+reg_type = input.string('Last Instance', 'KNN Regression Type', ['Last Instance', 'Cluster'], group = g1)
+clust = input.int(3, 'Clusters', group = g1)
+tol = input.float(0.5, 'Tolerance', group = g1)
+stats = input.bool(false, 'Show Regression Statistics', group = g1)
+
+// Primary Targets 
+prim_tf = input.bool(false, 'Show Primary Timeframe Targets', group = g2)
+fill = input.bool(true, 'Fill Primary Targets', group = g2)
+
+// Secondary Targets 
+alt_tf = input.bool(false, 'Show Secondary Timeframe Targets', group = g3)
+timeframe = input.timeframe('D', 'Secondary Timeframe', group = g3)
+
+// Regression 
+
+knn_regression(float y, float x, int len, string last_instance_or_cluster_or_avg, int clusters, float tolerance) =>
+    int index_of = 0
+    float result = 0.0
+    float error = 0.0
+    int inst = 0
+    float y_result = 0.0
+    float cor = 0.0
+    float r2 = 0.0
+    y_in = y[1]
+    ed_y = math.abs(math.sqrt(math.pow(y[1] - x[1], 2)))
+    ed_x = math.abs(math.sqrt(math.pow(y - x, 2)))
+    ed_array = array.new<float>()
+    y_array = array.new<float>()
+    cluster_array = array.new<float>()
+    cluster_avg = array.new<float>()
+    for i = 0 to len by 1
+        array.push(ed_array, ed_y[i])
+        array.push(y_array, y_in[i])
+    // Find KNN 
+    if last_instance_or_cluster_or_avg == 'Last Instance'
+        if array.includes(ed_array, ed_x)
+            index_of := array.indexof(ed_array, ed_x)
+            result := array.get(y_array, index_of)
+            result
+        else if result[1] < 0
+            result := result[1]
+            result
+        else if result[2] < 0
+            result := result[2]
+            result
+        else if result[3] < 0
+            result := result[3]
+            result
+        else
+            na
+    else if last_instance_or_cluster_or_avg == 'Avg'
+        for i = 0 to array.size(ed_array) - 1 by 1
+            if array.get(ed_array, i) == ed_x
+                y_result := y_result + array.get(y_array, i)
+                inst := inst + 1
+                inst
+
+        result := y_result / inst
+        result
+    else if last_instance_or_cluster_or_avg == 'Cluster'
+        for i = 0 to array.size(ed_array) - 1 by 1
+            if array.get(ed_array, i) >= ed_x - tolerance and array.get(ed_array, i) <= ed_x + tolerance
+                array.push(cluster_array, array.get(y_array, i))
+        if array.size(cluster_array) - 1 > clusters
+            for i = 0 to clusters by 1
+                array.push(cluster_avg, array.get(cluster_array, i))
+            result := array.avg(cluster_avg)
+            result
+
+
+    // Error 
+    bool above_result = y > result
+    bool below_result = y < result
+    above_arr = array.new<float>()
+    below_arr = array.new<float>()
+    above_dif = y - result
+    below_dif = result - y
+    for i = 0 to len by 1
+        if above_result[i]
+            array.push(above_arr, above_dif[i])
+        else if below_result[i]
+            array.push(below_arr, below_dif[i])
+        else
+            na
+    avg1 = array.avg(above_arr)
+    avg2 = array.avg(below_arr)
+    error := math.avg(avg1, avg2)
+    // Correlation 
+    result_array = array.new<float>()
+    for i = 0 to array.size(y_array) - 1 by 1
+        array.push(result_array, result[i])
+    cov = array.covariance(result_array, y_array)
+    y_sd = array.stdev(y_array)
+    r_sd = array.stdev(result_array)
+    cor := cov / (y_sd * r_sd)
+    // R2 
+    r2 := math.pow(cor, 2)
+    [result, error, cor, r2]
+
+// Calcs 
+[hitoop_tf, optolo_tf, op_tf, ti] = request.security(syminfo.tickerid, timeframe, [high[1] - open[1], open[1] - low[1], open, time], lookahead = barmerge.lookahead_on)
+
+hitoop = high[1] - open[1]
+optolo = open[1] - low[1]
+
+[h_r, h_er, h_cor, h_r2] = knn_regression(hitoop, hitoop[1], train, str.tostring(reg_type), clust, tol)
+[l_r, l_er, l_cor, l_r2] = knn_regression(optolo, optolo[1], train, str.tostring(reg_type), clust, tol)
+
+[h_tf_r, h_tf_er, h_tf_cor, h_tf_r2] = knn_regression(hitoop_tf, hitoop_tf[1], train, str.tostring(reg_type), clust, tol)
+[l_tf_r, l_tf_er, l_tf_cor, l_tf_r2] = knn_regression(optolo_tf, optolo_tf[1], train, str.tostring(reg_type), clust, tol)
+
+// Colours 
+color black = color.rgb(0, 0, 0)
+color white = color.white
+color gray = color.gray
+color greenfill = color.new(color.lime, 60)
+color redfill = color.new(color.red, 60)
+
+// Plots 
+plot_a = plot(prim_tf ? ta.sma(open + h_r, 14) : na, color = greenfill, linewidth = 2)
+plot_b = plot(prim_tf ? ta.sma(open + h_r + h_er, 14) : na, color = greenfill, linewidth = 2)
+plot_c = plot(prim_tf ? ta.sma(open - l_r, 14) : na, color = redfill, linewidth = 2)
+plot_d = plot(prim_tf ? ta.sma(open - l_r - l_er, 14) : na, color = redfill, linewidth = 2)
+
+
+fill(plot_a, plot_b, color = fill ? greenfill : na)
+fill(plot_c, plot_d, color = fill ? redfill : na)
+
+// Secondary TF Plots 
+var line hitp_1 = na
+var line hitp_2 = na
+var line lotp_1 = na
+var line lotp_2 = na
+
+var label label_hitp_1 = na 
+var label label_hitp_2 = na 
+var label label_lotp_1 = na 
+var label label_lotp_2 = na 
+var label area_hi = na
+var label area_lo = na
+
+if barstate.isconfirmed and alt_tf
+    line.delete(hitp_1)
+    line.delete(hitp_2)
+    line.delete(lotp_1)
+    line.delete(lotp_2)
+    label.delete (label_hitp_1)
+    label.delete (label_hitp_2)
+    label.delete (label_lotp_1)
+    label.delete (label_lotp_2)
+
+    label.delete (area_hi)
+    label.delete (area_lo)
+
+    hitp_1 := line.new(bar_index[10], op_tf + h_tf_r, bar_index, op_tf + h_tf_r, extend = extend.right, color = greenfill, width = 1)
+    hitp_2 := line.new(bar_index[10], op_tf + h_tf_r + h_tf_er, bar_index, op_tf + h_tf_r + h_tf_er, extend = extend.right, color = greenfill, width = 1)
+    lotp_1 := line.new(bar_index[10], op_tf - l_tf_r, bar_index, op_tf - l_tf_r, extend = extend.right, color = redfill , width = 1)
+    lotp_2 := line.new(bar_index[10], op_tf - l_tf_r - l_tf_er, bar_index, op_tf - l_tf_r - l_tf_er, extend = extend.right, color = redfill, width = 1)
+    
+    label_hitp_1 := label.new(bar_index+5, op_tf + h_tf_r,           "極短線高標下緣", color = greenfill, style = label.style_label_left)
+    label_hitp_2 := label.new(bar_index+5, op_tf + h_tf_r + h_tf_er, "極短線高標上緣", color = greenfill, style = label.style_label_left)
+    label_lotp_1 := label.new(bar_index+5, op_tf - l_tf_r,           "極短線低標上緣", color = redfill,   style = label.style_label_left)
+    label_lotp_2 := label.new(bar_index+5, op_tf - l_tf_r - l_tf_er, "極短線低標下緣", color = redfill,   style = label.style_label_left)
+
+    area_hi := label.new(bar_index+7, op_tf + h_tf_r + (h_tf_er/2), "賣區", color = greenfill, style = label.style_label_left)
+    area_lo := label.new(bar_index+7, op_tf - l_tf_r - (l_tf_er/2), "買區", color = redfill,   style = label.style_label_left)
+
+    lotp_2
+
+
+
+// Stats 
+
+if stats
+    var table stats_tbl = table.new(position.middle_right, 3, 6, bgcolor = black, frame_color = color.aqua, frame_width = 3)
+    table.cell(stats_tbl, 1, 1, text = 'Statistics Table', bgcolor = black, text_color = white)
+    table.cell(stats_tbl, 1, 2, text = 'Primary Timeframe Data', bgcolor = gray, text_color = white)
+    table.cell(stats_tbl, 1, 3, text = 'High Correlation: ' + str.tostring(math.round(h_cor, 2)) + '\n High R2: ' + str.tostring(math.round(h_r2, 2)) + '\n Low Correlation: ' + str.tostring(math.round(l_cor, 2)) + '\n Low R2: ' + str.tostring(math.round(l_r2, 2)), bgcolor = black, text_color = white)
+    table.cell(stats_tbl, 1, 4, text = 'Secondary Timeframe Data', bgcolor = gray, text_color = white)
+    table.cell(stats_tbl, 1, 5, text = 'High Correlation: ' + str.tostring(math.round(h_tf_cor, 2)) + '\n High R2: ' + str.tostring(math.round(h_tf_r2, 2)) + '\n Low Correlation: ' + str.tostring(math.round(l_tf_cor, 2)) + '\n Low R2: ' + str.tostring(math.round(l_tf_r2, 2)), bgcolor = black, text_color = white)

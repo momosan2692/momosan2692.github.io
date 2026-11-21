@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GitHub Pages + Jekyll on macOS</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0e0f14;
+      --surface: #16181f;
+      --surface2: #1d2029;
+      --border: #2a2d3a;
+      --accent: #7fffb2;
+      --accent2: #5b8fff;
+      --accent3: #ff7f9e;
+      --text: #e4e6f0;
+      --muted: #7a7f96;
+      --code-bg: #0a0b0f;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    header {
+      position: relative;
+      padding: 72px 48px 56px;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(127,255,178,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(127,255,178,0.3);
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-weight: 300;
+      max-width: 520px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .badge.green { color: var(--accent); border-color: rgba(127,255,178,0.25); background: rgba(127,255,178,0.06); }
+    .badge.blue  { color: var(--accent2); border-color: rgba(91,143,255,0.25); background: rgba(91,143,255,0.06); }
+    .badge.pink  { color: var(--accent3); border-color: rgba(255,127,158,0.25); background: rgba(255,127,158,0.06); }
+
+    main {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 56px 48px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Step card */
+    .step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0 24px;
+      margin-bottom: 48px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .step:nth-child(1) { animation-delay: 0.05s; }
+    .step:nth-child(2) { animation-delay: 0.1s; }
+    .step:nth-child(3) { animation-delay: 0.15s; }
+    .step:nth-child(4) { animation-delay: 0.2s; }
+    .step:nth-child(5) { animation-delay: 0.25s; }
+    .step:nth-child(6) { animation-delay: 0.3s; }
+    .step:nth-child(7) { animation-delay: 0.35s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+      position: relative;
+      top: 4px;
+    }
+
+    .step-body {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      transition: border-color 0.2s;
+    }
+
+    .step-body:hover { border-color: rgba(127,255,178,0.2); }
+
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .step-desc {
+      color: var(--muted);
+      font-size: 0.93rem;
+      margin-bottom: 16px;
+    }
+
+    .step-desc a {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+
+    .step-desc a:hover { text-decoration: underline; }
+
+    /* Code block */
+    .code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .code-lang {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .copy-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+    .copy-btn.copied { color: var(--accent); border-color: var(--accent); }
+
+    pre {
+      padding: 16px 18px;
+      overflow-x: auto;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.83rem;
+      line-height: 1.8;
+      color: #c8d0e8;
+    }
+
+    pre .comment { color: #4a5170; font-style: italic; }
+    pre .cmd     { color: var(--accent); }
+    pre .str     { color: var(--accent3); }
+    pre .key     { color: var(--accent2); }
+
+    /* Tip box */
+    .tip {
+      background: rgba(91,143,255,0.07);
+      border: 1px solid rgba(91,143,255,0.2);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 0.88rem;
+      color: #9fb4ff;
+      margin-top: 14px;
+    }
+
+    .tip strong { color: var(--accent2); }
+
+    /* File example */
+    .file-example {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+
+    .file-name {
+      padding: 8px 16px;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--accent3);
+    }
+
+    /* Section divider */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 32px;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Result box */
+    .result-box {
+      background: rgba(127,255,178,0.05);
+      border: 1px solid rgba(127,255,178,0.2);
+      border-radius: 12px;
+      padding: 28px;
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .result-box .big { 
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .result-box p { color: var(--muted); font-size: 0.93rem; }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .checklist li::before {
+      content: '✓';
+      color: var(--accent);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 40px 24px 36px; }
+      main { padding: 36px 24px 60px; }
+      .step { grid-template-columns: 1fr; }
+      .step-num { width: 40px; height: 40px; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="tag">Step-by-step guide</div>
+  <h1>GitHub Pages<br>+ <span>Jekyll</span> on macOS</h1>
+  <p class="subtitle">Free blog hosting with Markdown support — no server required. Everything runs on GitHub.</p>
+  <div class="badges">
+    <span class="badge green">✦ 100% Free</span>
+    <span class="badge blue">✦ Markdown Native</span>
+    <span class="badge pink">✦ Custom Domain</span>
+    <span class="badge">macOS</span>
+  </div>
+</header>
+
+<main>
+
+  <div class="section-label">Prerequisites</div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Create a GitHub Account</div>
+      <p class="step-desc">
+        Go to <a href="https://github.com" target="_blank">github.com</a> and sign up for a free account if you don't have one yet.
+        Your blog URL will be based on your username: <strong style="color:#fff">yourusername.github.io</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Install Homebrew (macOS package manager)</div>
+      <p class="step-desc">Open <strong style="color:#fff">Terminal</strong> (press ⌘+Space, type "Terminal") and run:</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="cmd">/bin/bash</span> -c "<span class="str">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>"</pre>
+      </div>
+      <div class="tip"><strong>Tip:</strong> If you already have Homebrew, skip this step. Check by running <code>brew --version</code></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Install Ruby and Jekyll</div>
+      <p class="step-desc">macOS has Ruby built-in, but it's better to install a fresh one via Homebrew:</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="comment"># Install Ruby</span>
+brew install ruby
+
+<span class="comment"># Add Ruby to your PATH (add this to ~/.zshrc or ~/.bash_profile)</span>
+echo 'export PATH="/opt/homebrew/opt/ruby/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+
+<span class="comment"># Install Jekyll and Bundler</span>
+gem install jekyll bundler</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Create your site</div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <div class="step-title">Create a New Jekyll Site</div>
+      <p class="step-desc">In Terminal, navigate to where you want your blog folder and run:</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="comment"># Create new Jekyll site</span>
+jekyll new my-blog
+
+<span class="comment"># Enter the folder</span>
+cd my-blog
+
+<span class="comment"># Preview locally in your browser</span>
+bundle exec jekyll serve</pre>
+      </div>
+      <div class="tip"><strong>Tip:</strong> Open <a href="http://localhost:4000" target="_blank" style="color:var(--accent2)">http://localhost:4000</a> in your browser to see your site live locally!</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <div class="step-title">Write Your First Blog Post</div>
+      <p class="step-desc">Create a new file in the <code style="color:var(--accent3)">_posts/</code> folder. The filename format must be: <code style="color:var(--accent)">YYYY-MM-DD-title.md</code></p>
+      <div class="file-example">
+        <div class="file-name">_posts/2026-03-01-my-first-post.md</div>
+        <pre style="padding:16px 18px; font-family:'DM Mono',monospace; font-size:0.83rem; line-height:1.8; color:#c8d0e8;">---
+<span class="key">layout:</span> post
+<span class="key">title:</span>  <span class="str">"My First Blog Post"</span>
+<span class="key">date:</span>   2026-03-01 12:00:00 +0800
+<span class="key">categories:</span> blog
+---
+
+# Hello World!
+
+This is my first post written in **Markdown**.
+
+- Item one
+- Item two
+
+> A great quote goes here.
+
+Happy blogging! 🎉</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Publish to GitHub</div>
+
+  <div class="step">
+    <div class="step-num">6</div>
+    <div class="step-body">
+      <div class="step-title">Create a GitHub Repository</div>
+      <p class="step-desc">
+        On GitHub, click <strong style="color:#fff">New Repository</strong> and name it exactly:<br>
+        <code style="color:var(--accent); font-family:'DM Mono',monospace; font-size:1rem;">yourusername.github.io</code><br><br>
+        Then push your local Jekyll site to GitHub:
+      </p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="comment"># Initialize git in your project folder</span>
+git init
+git add .
+git commit -m <span class="str">"Initial blog setup"</span>
+
+<span class="comment"># Connect to GitHub (replace YOUR_USERNAME)</span>
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_USERNAME.github.io.git
+
+<span class="comment"># Push!</span>
+git branch -M main
+git push -u origin main</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">7</div>
+    <div class="step-body">
+      <div class="step-title">Enable GitHub Pages</div>
+      <p class="step-desc">
+        On your GitHub repository page, go to <strong style="color:#fff">Settings → Pages</strong>.
+        Under "Source", select <strong style="color:#fff">Deploy from branch → main → / (root)</strong> and click Save.
+      </p>
+      <div class="tip">
+        <strong>⏳ Wait ~2 minutes</strong> — then visit <code style="color:var(--accent)">https://yourusername.github.io</code> and your blog is live! 🎉
+      </div>
+    </div>
+  </div>
+
+  <div class="result-box">
+    <div class="big">🎉 Your blog is live!</div>
+    <p style="margin-bottom:16px;">Here's what you got for free:</p>
+    <ul class="checklist" style="display:inline-flex; flex-direction:column; text-align:left;">
+      <li>Free hosting at yourusername.github.io</li>
+      <li>Write posts in Markdown (.md files)</li>
+      <li>Auto-rebuild when you push new posts</li>
+      <li>Free HTTPS / SSL certificate</li>
+      <li>Can connect your own custom domain</li>
+    </ul>
+  </div>
+
+  <div style="margin-top:48px;">
+    <div class="section-label">Workflow after setup</div>
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">everyday workflow</span>
+        <button class="copy-btn" onclick="copyCode(this)">copy</button>
+      </div>
+      <pre><span class="comment"># 1. Write a new post (create a .md file in _posts/)</span>
+<span class="comment"># 2. Preview locally</span>
+bundle exec jekyll serve
+
+<span class="comment"># 3. Push to GitHub = auto-publish!</span>
+git add .
+git commit -m <span class="str">"New post: my title"</span>
+git push</pre>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  const text = pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

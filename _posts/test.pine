@@ -1,0 +1,512 @@
+// This work is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+// @CJH - BB %B + Two-Pole Oscillator Combo — INDICATOR + ALERTS + BUCKET TRACKER + ER REGIME
+// Base indicator merged from: BB %B Oscillator + Two-Pole Oscillator v4.3
+//
+// v7 (indicator version): same signal/plot/table logic as the v6 strategy,
+// but no strategy.entry/exit/close order execution — this is a study-only
+// script for visual confirmation and alert()/alertcondition() webhook firing.
+// Use this if you want TradingView alerts to drive an external execution
+// engine (e.g. AlpacaTradingAgent) instead of TradingView's own backtester/
+// paper trading. Kaufman's Efficiency Ratio (low-lag regime filter) is
+// plotted normalized to -100~+100 (0.5 native value -> 0%) in the same
+// oscillator pane as BB%B / Two-Pole. ADX stays out of the live decision
+// path (~26-bar lag from double Wilder smoothing makes it a post-hoc
+// labeling tool, not a live gatekeeper).
+//@version=6
+indicator("@CJH@ BB%B + Two-Pole Combo Indicator", shorttitle="BB%B+2P-IND",
+     overlay=false, max_labels_count=500, max_lines_count=500)
+
+// ════════════════════════════════════════════════════════════════
+//  DISPLAY TOGGLES
+// ════════════════════════════════════════════════════════════════
+show_bb_osc = input.bool(true, "Show BB %B Oscillator", group="Display Toggles")
+show_2p_osc = input.bool(false, "Show Two-Pole Oscillator", group="Display Toggles")
+
+// ════════════════════════════════════════════════════════════════
+//  USER NOTES PANEL (right side, on/off switch)
+// ════════════════════════════════════════════════════════════════
+show_user_notes = input.bool(false, "顯示使用說明面板 / Show User Notes", group="User Notes")
+note_position    = input.string("Middle Right", "面板位置 / Panel Position",
+     options=["Top Right", "Middle Right", "Bottom Right"], group="User Notes")
+note_text_size   = input.string("small", "文字大小 / Text Size",
+     options=["tiny", "small", "normal"], group="User Notes")
+
+f_note_position(p) =>
+    switch p
+        "Top Right"    => position.top_right
+        "Middle Right" => position.middle_right
+        "Bottom Right" => position.bottom_right
+        => position.middle_right
+
+f_note_text_size(s) =>
+    switch s
+        "tiny"   => size.tiny
+        "small"  => size.small
+        "normal" => size.normal
+        => size.small
+
+// ════════════════════════════════════════════════════════════════
+//  STRATEGY ENTRY MODE — buy near the bottom / sell near the top
+// ════════════════════════════════════════════════════════════════
+entry_source = input.string("Either (Triangle OR Threshold)", "進場訊號來源 / Entry Signal Source",
+     options=["BB %B Triangle (Reversal)", "BB %B Extreme Threshold", "Either (Triangle OR Threshold)"],
+     group="Strategy Entry Mode")
+buy_extreme_th  = input.float(-80, "買進閾值 Buy Threshold (BB %B ≤)", minval=-100, maxval=0, group="Strategy Entry Mode")
+sell_extreme_th = input.float(80,  "賣出閾值 Sell Threshold (BB %B ≥)", minval=0,  maxval=100, group="Strategy Entry Mode")
+
+// ════════════════════════════════════════════════════════════════
+//  REGIME FILTER (LIVE) — Efficiency Ratio, low-lag vs ADX
+// ════════════════════════════════════════════════════════════════
+show_er        = input.bool(true, "顯示 Efficiency Ratio 線 (-100~+100)", group="Regime Filter (Live)")
+er_len         = input.int(10, "Efficiency Ratio Length", minval=2, group="Regime Filter (Live)")
+er_trending_th = input.float(-20, "ER 趨勢門檻 Trending Threshold (-100~+100)", minval=-100, maxval=100, group="Regime Filter (Live)",
+     tooltip="0.5 的原生效率值 = 0%；門檻預設 -20 相當於原生 efficiency_ratio > 0.4。此值僅代表效率高低，正負號不代表趨勢方向。")
+use_er_filter  = input.bool(false, "趨勢市時阻擋逢極值進場 / Block extreme-zone entries when ER > threshold", group="Regime Filter (Live)")
+
+// ════════════════════════════════════════════════════════════════
+//  REGIME CALC (moved earlier so BB%B section can reference is_trending_live)
+// ════════════════════════════════════════════════════════════════
+er_change        = math.abs(close - close[er_len])
+er_volatility    = math.sum(math.abs(close - close[1]), er_len)
+efficiency_ratio = er_volatility != 0 ? er_change / er_volatility : 0.0
+er_pct           = (efficiency_ratio - 0.5) * 200   // 0.0-1.0 -> -100~+100 (0.5 -> 0%)
+is_trending_live = er_pct > er_trending_th
+
+// ════════════════════════════════════════════════════════════════
+//  SHARED OSC GRID
+// ════════════════════════════════════════════════════════════════
+g100  = plot(100,  color=color.new(chart.fg_color, 80), title="Grid +100")
+g50   = plot(50,   color=color.new(chart.fg_color, 90), title="Grid +50")
+g0    = plot(0,    color=color.new(bar_index % 2 == 0 ? chart.fg_color : na, 0), title="Grid 0")
+gm50  = plot(-50,  color=color.new(chart.fg_color, 90), title="Grid -50")
+gm100 = plot(-100, color=color.new(chart.fg_color, 80), title="Grid -100")
+fill(g100, g0, 100, 0, color.new(chart.fg_color, 88), na)
+fill(gm100, g0, 0, -100, na, color.new(chart.fg_color, 88))
+
+// ════════════════════════════════════════════════════════════════
+//  SECTION 1 — BB %B OSCILLATOR (±100%)  — primary entry driver
+// ════════════════════════════════════════════════════════════════
+bb_src    = input.source(close, "Source", group="BB %B Oscillator")
+bb_length = input.int(20, "BB Length", minval=1, group="BB %B Oscillator")
+bb_mult   = input.float(2.0, "BB StdDev Mult", minval=0.001, maxval=50, group="BB %B Oscillator")
+
+bb_basis = ta.sma(bb_src, bb_length)
+bb_dev   = bb_mult * ta.stdev(bb_src, bb_length)
+bb_upper = bb_basis + bb_dev
+bb_lower = bb_basis - bb_dev
+
+bb_bandWidth = bb_upper - bb_lower
+bb_pctB = bb_bandWidth != 0 ? (bb_src - bb_lower) / bb_bandWidth : 0.5
+bb_osc  = (bb_pctB - 0.5) * 200
+
+// Red/Teal dim to transparency 60 when show_er + use_er_filter are on AND
+// the live regime is trending (i.e. the exact condition under which
+// er_block_buy / er_block_sell actually suppress the entry signal below).
+bb_red_color  = show_er and use_er_filter and is_trending_live ? color.new(color.red, 60)  : color.new(color.red, 0)
+bb_teal_color = show_er and use_er_filter and is_trending_live ? color.new(color.teal, 60) : color.new(color.teal, 0)
+bb_oscColor   = bb_osc >= 0 ? bb_teal_color : bb_red_color
+
+bb_oscPlot  = plot(show_bb_osc ? bb_osc : na, title="BB %B Osc", color=bb_oscColor, linewidth=2)
+bb_zeroPlot = plot(show_bb_osc ? 0 : na, display=display.none)
+fill(bb_oscPlot, bb_zeroPlot,
+     color = show_bb_osc ? (bb_osc >= 0 ? color.new(color.teal, 85) : color.new(color.red, 85)) : na)
+
+bb_hundredPlot    = plot(100,  display=display.none)
+bb_negHundredPlot = plot(-100, display=display.none)
+fill(bb_oscPlot, bb_hundredPlot,    color = (show_bb_osc and bb_osc > 100)  ? color.new(color.green, 70) : na, title="BB OB Extreme Fill")
+fill(bb_oscPlot, bb_negHundredPlot, color = (show_bb_osc and bb_osc < -100) ? color.new(color.red, 70)   : na, title="BB OS Extreme Fill")
+
+bb_uZoneHi = hline(100, display=display.none)
+bb_uZoneLo = hline(80,  display=display.none)
+bb_lZoneHi = hline(-80, display=display.none)
+bb_lZoneLo = hline(-100, display=display.none)
+fill(bb_uZoneLo, bb_uZoneHi, color = show_bb_osc ? color.new(color.orange, 90) : na)
+fill(bb_lZoneHi, bb_lZoneLo, color = show_bb_osc ? color.new(color.orange, 90) : na)
+
+bb_downFromUpper = ta.crossunder(bb_osc, 100)
+bb_upFromLower   = ta.crossover(bb_osc, -100)
+
+trianglecolor_trans = er_pct < er_trending_th ? 0 : 60
+plotshape(show_bb_osc and bb_downFromUpper ? bb_osc : na, title="BB Down from +100% (Best Sell)",
+     location=location.absolute, style=shape.triangledown, color=color.new(color.red, trianglecolor_trans), size=size.small, offset=0)
+plotshape(show_bb_osc and bb_upFromLower ? bb_osc : na, title="BB Up from -100% (Best Buy)",
+     location=location.absolute, style=shape.triangleup, color=color.new(color.green, trianglecolor_trans), size=size.small, offset=0)
+
+alertcondition(bb_osc > 100,        title="BB %B Above +100%",        message="BB %B Osc broke above +100%")
+alertcondition(bb_osc < -100,       title="BB %B Below -100%",        message="BB %B Osc broke below -100%")
+alertcondition(bb_downFromUpper,    title="BB %B Down from +100% (Best Sell)",    message="Best-sell triangle")
+alertcondition(bb_upFromLower,      title="BB %B Up from -100% (Best Buy)",      message="Best-buy triangle")
+
+bb_buy_threshold  = ta.crossunder(bb_osc, buy_extreme_th)
+bb_sell_threshold = ta.crossover(bb_osc, sell_extreme_th)
+alertcondition(bb_buy_threshold,  title="BB %B Buy Threshold Cross",  message="BB %B crossed below Buy Threshold")
+alertcondition(bb_sell_threshold, title="BB %B Sell Threshold Cross", message="BB %B crossed above Sell Threshold")
+
+// ════════════════════════════════════════════════════════════════
+//  SECTION 1b — EFFICIENCY RATIO (low-lag regime signal) — plotting only
+//  (calc itself lives up in REGIME CALC above so Section 1 can use it)
+//  ER natively ranges 0.0-1.0 (0% = choppy/mean-reverting, 100% = pure trend).
+//  Normalized to 0-100 to sit in the same visual scale as BB%B / Two-Pole.
+// ════════════════════════════════════════════════════════════════
+// Yellow line dims to transparency 60 while ER sits below the trending
+// threshold (mean-reversion regime); full-opacity yellow once ER crosses
+// above the threshold (trending regime).
+er_line_color = er_pct < er_trending_th ? color.new(color.yellow, 60) : color.new(color.yellow, 0)
+plot(show_er ? er_pct : na, title="Efficiency Ratio (-100~+100)", color=show_er ? er_line_color : na, linewidth=2, style=plot.style_line)
+hline(show_er ? er_trending_th : na, title="ER Trending Threshold", color=color.new(color.lime, 18), linestyle=hline.style_dashed)
+
+// ════════════════════════════════════════════════════════════════
+//  SECTION 2 — TWO-POLE OSCILLATOR v4.3 (flat-market filter + visual context)
+// ════════════════════════════════════════════════════════════════
+int    length       = input.int  (15,   minval=1,              title="Filter Length", group="Two-Pole Oscillator")
+float  sig_ratio    = input.float(0.6,  minval=0.2, maxval=1.0, step=0.05, title="Signal Line Ratio", group="Two-Pole Oscillator")
+float  osc_flat_th  = input.float(0.15, minval=0.05, step=0.01, title="鈍化偵測門檻（OSC Range）", group="Two-Pole Oscillator")
+bool   disp_lvl     = input.bool (true, "顯示價格支撐/壓力線", group="Two-Pole Oscillator")
+bool   show_vel     = input.bool (true, "顯示 Velocity 線", group="Two-Pole Oscillator")
+bool   show_flat    = input.bool (true, "顯示鈍化背景警示", group="Two-Pole Oscillator")
+bool   use_flat_filter = input.bool(true, "鈍化時阻擋進場 / Block entries during flat market", group="Two-Pole Oscillator")
+bool   show_reentry = input.bool (true, "顯示停損後 Re-Buy / Re-Sell 信號", group="Two-Pole Oscillator")
+
+color up_color = input.color(#55ffda, "", inline="color", group="Two-Pole Oscillator")
+color dn_color = input.color(#8c5bff, "", inline="color", group="Two-Pole Oscillator")
+
+var buy_line  = line(na)
+var sell_line = line(na)
+
+var float reentry_buy_price  = na
+var float reentry_sell_price = na
+var bool  wait_buy_reentry   = false
+var bool  wait_sell_reentry  = false
+
+f_two_pole(source, len) =>
+    var float s1 = na
+    var float s2 = na
+    float a = 2.0 / (len + 1)
+    s1 := na(s1) ? source : (1 - a) * s1 + a * source
+    s2 := na(s2) ? s1     : (1 - a) * s2 + a * s1
+    s2
+
+f_one_pole(source, len) =>
+    var float s = na
+    float a = 2.0 / (len + 1)
+    s := na(s) ? source : (1 - a) * s + a * source
+    s
+
+float sma1   = ta.sma(close, 25)
+float sma_n1 = ((close - sma1) - ta.sma(close - sma1, 25)) / ta.stdev(close - sma1, 25)
+float area   = ta.sma(high - low, 100)
+
+float two_p = f_two_pole(sma_n1, length)
+
+int   sig_len = math.max(2, math.round(length * sig_ratio))
+float signal  = f_one_pole(two_p, sig_len)
+
+float vel   = two_p - two_p[2]
+float vel_s = f_one_pole(vel, 3)
+
+float two_p_pct  = two_p  * 100
+float signal_pct = signal * 100
+float vel_pct    = vel_s  * 100
+
+float osc_range   = ta.highest(two_p, 10) - ta.lowest(two_p, 10)
+float osc_mean    = ta.sma(two_p, 10)
+
+bool is_flat      = osc_range < osc_flat_th
+bool is_high_flat = is_flat and osc_mean >  0.2
+bool is_low_flat  = is_flat and osc_mean < -0.2
+bool is_mid_flat  = is_flat and math.abs(osc_mean) <= 0.2
+
+bool low_flat_block_buy   = use_flat_filter and (is_low_flat  and vel_s <= 0)
+bool high_flat_block_sell = use_flat_filter and (is_high_flat and vel_s >= 0)
+bool mid_flat_block_buy   = use_flat_filter and (is_mid_flat  and vel_s <= 0)
+bool mid_flat_block_sell  = use_flat_filter and (is_mid_flat  and vel_s >= 0)
+
+color osc_color = two_p > signal
+     ? color.from_gradient(two_p, -1, 1, up_color, color.new(up_color, 0))
+     : color.from_gradient(two_p, -1, 1, color.new(dn_color, 0), dn_color)
+
+// ════════════════════════════════════════════════════════════════
+//  FINAL ENTRY SIGNAL
+// ════════════════════════════════════════════════════════════════
+entry_buy_raw = switch entry_source
+    "BB %B Triangle (Reversal)"      => bb_upFromLower
+    "BB %B Extreme Threshold"        => bb_buy_threshold
+    "Either (Triangle OR Threshold)" => bb_upFromLower or bb_buy_threshold
+    => bb_upFromLower
+
+entry_sell_raw = switch entry_source
+    "BB %B Triangle (Reversal)"      => bb_downFromUpper
+    "BB %B Extreme Threshold"        => bb_sell_threshold
+    "Either (Triangle OR Threshold)" => bb_downFromUpper or bb_sell_threshold
+    => bb_downFromUpper
+
+bool er_block_buy  = use_er_filter and is_trending_live
+bool er_block_sell = use_er_filter and is_trending_live
+
+bool buy  = entry_buy_raw  and barstate.isconfirmed and not low_flat_block_buy  and not mid_flat_block_buy  and not er_block_buy
+bool sell = entry_sell_raw and barstate.isconfirmed and not high_flat_block_sell and not mid_flat_block_sell and not er_block_sell
+
+color buy_col1  = color.from_gradient(two_p, -1,  0.5, up_color, na)
+color sell_col1 = color.from_gradient(two_p, -0.5, 1,  na, dn_color)
+
+if show_2p_osc and buy
+    sell_line          := line(na)
+    wait_sell_reentry  := false
+    reentry_sell_price := na
+    if disp_lvl
+        buy_line := line.new(bar_index, low[0] - area, bar_index, low[0] - area,
+             force_overlay=true, color=buy_col1, style=line.style_dashed)
+    label.new(bar_index, low[0] - area, color=buy_col1, style=label.style_label_up, force_overlay=true, size=size.tiny)
+    label.new(bar_index, low[0] - area * 1.5, color=color.new(color.black, 100),
+         text=str.tostring((low[0] - area), "#.##"), style=label.style_label_up,
+         force_overlay=true, size=size.small, textcolor=color.new(chart.fg_color, 30))
+
+if show_2p_osc and ta.crossunder(low, buy_line.get_y1()) and barstate.isconfirmed
+    float sl_price = buy_line.get_y1()
+    label.new(bar_index, sl_price, color=color.new(up_color, 100), style=label.style_label_center,
+         force_overlay=true, size=size.normal, text="✖", textcolor=up_color)
+    reentry_buy_price := sl_price
+    wait_buy_reentry  := true
+    buy_line          := line(na)
+
+bool rebuy_fired = false
+if show_2p_osc and wait_buy_reentry and show_reentry and not na(reentry_buy_price)
+    if ta.crossover(close, reentry_buy_price) and barstate.isconfirmed
+        label.new(bar_index, reentry_buy_price, color=color.new(color.green, 0), style=label.style_label_up,
+             force_overlay=true, size=size.tiny, text="▲", textcolor=color.white)
+        label.new(bar_index, two_p_pct, color=color.new(color.green, 20), style=label.style_circle, size=size.tiny)
+        if disp_lvl
+            buy_line := line.new(bar_index, low[0] - area, bar_index, low[0] - area,
+                 force_overlay=true, color=color.new(color.green, 30), style=line.style_dashed)
+        label.new(bar_index, low[0] - area * 1.5, color=color.new(color.black, 100),
+             text=str.tostring((low[0] - area), "#.##"), style=label.style_label_up,
+             force_overlay=true, size=size.small, textcolor=color.new(color.green, 30))
+        wait_buy_reentry  := false
+        reentry_buy_price := na
+        rebuy_fired       := true
+
+if show_2p_osc and sell
+    buy_line          := line(na)
+    wait_buy_reentry  := false
+    reentry_buy_price := na
+    if disp_lvl
+        sell_line := line.new(bar_index, high[0] + area, bar_index, high[0] + area,
+             force_overlay=true, color=sell_col1, style=line.style_dashed)
+    label.new(bar_index, high[0] + area, color=sell_col1, style=label.style_label_down, force_overlay=true, size=size.tiny)
+    label.new(bar_index, high + area * 1.5, color=color.new(color.black, 100),
+         text=str.tostring((high + area), "#.##"), style=label.style_label_down,
+         force_overlay=true, size=size.small, textcolor=color.new(chart.fg_color, 30))
+
+if show_2p_osc and ta.crossover(high, sell_line.get_y1()) and barstate.isconfirmed
+    float sl_price_s = sell_line.get_y1()
+    label.new(bar_index, sl_price_s, color=color.new(dn_color, 100), style=label.style_label_center,
+         force_overlay=true, size=size.normal, text="✖", textcolor=dn_color)
+    reentry_sell_price := sl_price_s
+    wait_sell_reentry  := true
+    sell_line          := line(na)
+
+bool resell_fired = false
+if show_2p_osc and wait_sell_reentry and show_reentry and not na(reentry_sell_price)
+    if ta.crossunder(close, reentry_sell_price) and barstate.isconfirmed
+        label.new(bar_index, reentry_sell_price, color=color.new(#8c5bff, 0), style=label.style_label_down,
+             force_overlay=true, size=size.tiny, text="▼", textcolor=color.white)
+        label.new(bar_index, two_p_pct, color=color.new(#8c5bff, 20), style=label.style_circle, size=size.tiny)
+        if disp_lvl
+            sell_line := line.new(bar_index, high[0] + area, bar_index, high[0] + area,
+                 force_overlay=true, color=color.new(#8c5bff, 30), style=line.style_dashed)
+        label.new(bar_index, high[0] + area * 1.5, color=color.new(color.black, 100),
+             text=str.tostring((high[0] + area), "#.##"), style=label.style_label_down,
+             force_overlay=true, size=size.small, textcolor=color.new(#8c5bff, 30))
+        wait_sell_reentry  := false
+        reentry_sell_price := na
+        resell_fired       := true
+
+switch
+    not na(buy_line)  => buy_line.set_x2(bar_index)
+    not na(sell_line) => sell_line.set_x2(bar_index)
+
+bgcolor(show_2p_osc and show_flat and is_high_flat ? color.new(#8c5bff,    88) : na, title="高檔鈍化警示")
+bgcolor(show_2p_osc and show_flat and is_low_flat  ? color.new(color.green,  88) : na, title="低檔鈍化警示")
+bgcolor(show_2p_osc and show_flat and is_mid_flat  ? color.new(color.yellow, 88) : na, title="中段鈍化警示")
+
+p1 = plot(show_2p_osc ? two_p_pct  : na, color=osc_color, linewidth=2, title="Two-Pole OSC (%)")
+p2 = plot(show_2p_osc ? signal_pct : na, color=color.new(chart.fg_color, 55), linewidth=1, title="Signal Line (%)")
+fill(p1, p2, two_p_pct, signal_pct, osc_color, na)
+
+plot(show_2p_osc and show_vel ? vel_pct : na, color=color.new(color.orange, 20), linewidth=1, title="Velocity (%)")
+
+// ════════════════════════════════════════════════════════════════
+//  SIGNAL ALERTS (no order execution — indicator/study only)
+// ════════════════════════════════════════════════════════════════
+alertcondition(buy,          title="Entry Buy",  message="Buy signal fired (triangle/threshold)")
+alertcondition(sell,         title="Entry Sell", message="Sell signal fired (triangle/threshold)")
+alertcondition(rebuy_fired,  title="Re-Buy",     message="Re-Buy after stop-loss")
+alertcondition(resell_fired, title="Re-Sell",    message="Re-Sell after stop-loss")
+
+if barstate.isconfirmed
+    if buy
+        alert('{"symbol":"' + syminfo.ticker + '","event":"two_pole_buy","price":' + str.tostring(close) +
+             ',"two_pole_pct":' + str.tostring(two_p_pct, "#.##") + ',"bb_pctb_pct":' + str.tostring(bb_osc, "#.##") +
+             ',"er_pct":' + str.tostring(er_pct, "#.##") +
+             ',"time":"' + str.format_time(time, "yyyy-MM-dd'T'HH:mm:ssZ") + '"}', alert.freq_once_per_bar_close)
+    if sell
+        alert('{"symbol":"' + syminfo.ticker + '","event":"two_pole_sell","price":' + str.tostring(close) +
+             ',"two_pole_pct":' + str.tostring(two_p_pct, "#.##") + ',"bb_pctb_pct":' + str.tostring(bb_osc, "#.##") +
+             ',"er_pct":' + str.tostring(er_pct, "#.##") +
+             ',"time":"' + str.format_time(time, "yyyy-MM-dd'T'HH:mm:ssZ") + '"}', alert.freq_once_per_bar_close)
+    if rebuy_fired
+        alert('{"symbol":"' + syminfo.ticker + '","event":"two_pole_rebuy","price":' + str.tostring(close) +
+             ',"time":"' + str.format_time(time, "yyyy-MM-dd'T'HH:mm:ssZ") + '"}', alert.freq_once_per_bar_close)
+    if resell_fired
+        alert('{"symbol":"' + syminfo.ticker + '","event":"two_pole_resell","price":' + str.tostring(close) +
+             ',"time":"' + str.format_time(time, "yyyy-MM-dd'T'HH:mm:ssZ") + '"}', alert.freq_once_per_bar_close)
+    if bb_osc > 100
+        alert('{"symbol":"' + syminfo.ticker + '","event":"bb_pctb_overbought","price":' + str.tostring(close) +
+             ',"bb_pctb_pct":' + str.tostring(bb_osc, "#.##") +
+             ',"time":"' + str.format_time(time, "yyyy-MM-dd'T'HH:mm:ssZ") + '"}', alert.freq_once_per_bar_close)
+    if bb_osc < -100
+        alert('{"symbol":"' + syminfo.ticker + '","event":"bb_pctb_oversold","price":' + str.tostring(close) +
+             ',"bb_pctb_pct":' + str.tostring(bb_osc, "#.##") +
+             ',"time":"' + str.format_time(time, "yyyy-MM-dd'T'HH:mm:ssZ") + '"}', alert.freq_once_per_bar_close)
+
+// ════════════════════════════════════════════════════════════════
+//  BUCKET WIN-RATE TRACKER — non-repainting Pine port of
+//  bucket_reversal_analysis.py (consecutive-bars-beyond-threshold x
+//  triple-barrier win rate). Single symbol only — this chart's ticker.
+// ════════════════════════════════════════════════════════════════
+track_buckets      = input.bool(true, "啟用分桶勝率追蹤 / Enable Bucket Win-Rate Tracker", group="Bucket Win-Rate Tracker")
+bucket_atr_len     = input.int(14, "ATR Length", group="Bucket Win-Rate Tracker")
+bucket_max_hold    = input.int(15, "Max Hold (bars)", minval=2, group="Bucket Win-Rate Tracker")
+bucket_profit_mult = input.float(2.0, "Profit Target (x ATR)", group="Bucket Win-Rate Tracker")
+bucket_stop_mult   = input.float(1.0, "Stop Loss (x ATR)", group="Bucket Win-Rate Tracker")
+max_pending        = input.int(200, "Max Pending Events (memory cap)", minval=20, group="Bucket Win-Rate Tracker")
+
+bucket_atr = ta.sma(high - low, bucket_atr_len)
+
+var int buy_consec  = 0
+var int sell_consec = 0
+buy_consec  := bb_osc <= buy_extreme_th  ? buy_consec + 1  : 0
+sell_consec := bb_osc >= sell_extreme_th ? sell_consec + 1 : 0
+
+f_bucket_idx(c) =>
+    c <= 2 ? 0 : c <= 5 ? 1 : c <= 10 ? 2 : 3
+
+var array<string> bucket_names = array.from("1-2 棒", "3-5 棒", "6-10 棒", "10+ 棒")
+
+var array<int>   buy_entry_bar = array.new<int>()
+var array<float> buy_upper     = array.new<float>()
+var array<float> buy_lower     = array.new<float>()
+var array<int>   buy_bkt       = array.new<int>()
+
+var array<int>   sell_entry_bar = array.new<int>()
+var array<float> sell_upper     = array.new<float>()
+var array<float> sell_lower     = array.new<float>()
+var array<int>   sell_bkt       = array.new<int>()
+
+var array<int> buy_bucket_n     = array.new<int>(4, 0)
+var array<int> buy_bucket_wins  = array.new<int>(4, 0)
+var array<int> sell_bucket_n    = array.new<int>(4, 0)
+var array<int> sell_bucket_wins = array.new<int>(4, 0)
+
+if track_buckets and barstate.isconfirmed
+    if buy_consec > 0 and array.size(buy_entry_bar) < max_pending
+        array.push(buy_entry_bar, bar_index)
+        array.push(buy_upper, close + bucket_profit_mult * bucket_atr)
+        array.push(buy_lower, close - bucket_stop_mult   * bucket_atr)
+        array.push(buy_bkt, f_bucket_idx(buy_consec))
+    if sell_consec > 0 and array.size(sell_entry_bar) < max_pending
+        array.push(sell_entry_bar, bar_index)
+        array.push(sell_upper, close + bucket_stop_mult   * bucket_atr)
+        array.push(sell_lower, close - bucket_profit_mult * bucket_atr)
+        array.push(sell_bkt, f_bucket_idx(sell_consec))
+
+f_evaluate_pending(array<int> entry_bar_arr, array<float> upper_arr, array<float> lower_arr,
+     array<int> bkt_arr, array<int> bucket_n, array<int> bucket_wins, bool is_buy) =>
+    i = array.size(entry_bar_arr) - 1
+    while i >= 0
+        eb  = array.get(entry_bar_arr, i)
+        up  = array.get(upper_arr, i)
+        lo  = array.get(lower_arr, i)
+        bkt = array.get(bkt_arr, i)
+        age = bar_index - eb
+        bool resolved = false
+        bool win = false
+        if age >= 1
+            bool hit_upper = high >= up
+            bool hit_lower = low  <= lo
+            if hit_upper or hit_lower
+                resolved := true
+                if hit_upper and hit_lower
+                    win := false
+                else if is_buy
+                    win := hit_upper
+                else
+                    win := hit_lower
+            else if age >= bucket_max_hold
+                resolved := true
+                win := false
+        if resolved
+            array.set(bucket_n, bkt, array.get(bucket_n, bkt) + 1)
+            if win
+                array.set(bucket_wins, bkt, array.get(bucket_wins, bkt) + 1)
+            array.remove(entry_bar_arr, i)
+            array.remove(upper_arr, i)
+            array.remove(lower_arr, i)
+            array.remove(bkt_arr, i)
+        i -= 1
+
+if track_buckets and barstate.isconfirmed
+    f_evaluate_pending(buy_entry_bar,  buy_upper,  buy_lower,  buy_bkt,  buy_bucket_n,  buy_bucket_wins,  true)
+    f_evaluate_pending(sell_entry_bar, sell_upper, sell_lower, sell_bkt, sell_bucket_n, sell_bucket_wins, false)
+
+var table bucket_table = table.new(position.bottom_right, 3, 5,
+     bgcolor=color.new(color.black, 15), border_width=1, border_color=color.new(chart.fg_color, 40))
+
+if track_buckets and barstate.islast
+    table.cell(bucket_table, 0, 0, "分桶 Bucket", text_color=color.white, text_size=size.tiny, text_halign=text.align_left)
+    table.cell(bucket_table, 1, 0, "買 Buy WR(n)", text_color=color.white, text_size=size.tiny, text_halign=text.align_center)
+    table.cell(bucket_table, 2, 0, "賣 Sell WR(n)", text_color=color.white, text_size=size.tiny, text_halign=text.align_center)
+    for r = 0 to 3
+        bn = array.get(buy_bucket_n, r)
+        bw = array.get(buy_bucket_wins, r)
+        sn = array.get(sell_bucket_n, r)
+        sw = array.get(sell_bucket_wins, r)
+        buy_wr_txt  = bn > 0 ? str.tostring(bw / bn * 100, "#.#") + "% (" + str.tostring(bn) + ")" : "—"
+        sell_wr_txt = sn > 0 ? str.tostring(sw / sn * 100, "#.#") + "% (" + str.tostring(sn) + ")" : "—"
+        table.cell(bucket_table, 0, r + 1, array.get(bucket_names, r), text_color=color.white, text_size=size.tiny, text_halign=text.align_left)
+        table.cell(bucket_table, 1, r + 1, buy_wr_txt,  text_color=color.new(up_color, 0), text_size=size.tiny, text_halign=text.align_center)
+        table.cell(bucket_table, 2, r + 1, sell_wr_txt, text_color=color.new(dn_color, 0), text_size=size.tiny, text_halign=text.align_center)
+
+// ════════════════════════════════════════════════════════════════
+//  USER NOTES TABLE — right-side panel, toggled by show_user_notes
+// ════════════════════════════════════════════════════════════════
+var table user_note_table = show_user_notes ? table.new(f_note_position(note_position), 1, 1,
+     bgcolor=color.new(color.black, 15), border_width=1, border_color=color.new(chart.fg_color, 40)) : na
+
+note_body = "📌 使用說明 User Notes\n" +
+     "────────────────\n" +
+     "1️⃣ 上緣綠色區 (0%~+100%) = 賣出區\n" +
+     "　　下緣紅色區 (0%~-100%) = 買入區\n\n" +
+     "2️⃣ 價格向下穿越 0 軸 → 全部賣出\n" +
+     "　　價格向上穿越 0 軸 → 最新買入\n\n" +
+     "3️⃣ 綠色三角 = 最佳買點（延遲一根K棒確認）\n" +
+     "　　紅色三角 = 最佳賣點\n\n" +
+     "4️⃣ 賣出後價格再走高（高於上次賣出價）→ 買回\n" +
+     "　　持有多單後價格再走低（低於上次買入價）→ 全部賣出\n\n" +
+     "5️⃣ 右下角分桶勝率表：連續乖離棒數 x 反轉勝率\n" +
+     "　　（非重繪，需等待 Max Hold 根棒後才計分）\n\n" +
+     "6️⃣ 黃色線 = Efficiency Ratio（-100~+100，正規化自 0.0-1.0，0.5→0%）\n" +
+     "　　正負號僅代表效率高低，不代表趨勢方向\n" +
+     "　　高於門檻 = 趨勢市，均值回歸邏輯不可靠\n\n" +
+     "7️⃣ 萊姆綠虛線 = ER 趨勢門檻（er_trending_th）\n" +
+     "　　黃線高於虛線 = 趨勢市（線條全不透明）\n" +
+     "　　黃線低於虛線 = 盤整/均值回歸市（線條變淡）\n\n" +
+     "8️⃣ BB %B 紅/綠線變淡（透明度 60）＝\n" +
+     "　　show_er + use_er_filter 皆開啟，且目前為趨勢市\n" +
+     "　　→ 代表該方向進場訊號正被 ER 過濾器阻擋"
+
+if barstate.islast and show_user_notes 
+    table.cell(user_note_table, 0, 0, show_user_notes ? note_body : "",
+         text_color=color.white, text_size=f_note_text_size(note_text_size),
+         text_halign=text.align_left, text_valign=text.align_top,
+         width=18)
