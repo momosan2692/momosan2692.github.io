@@ -21,7 +21,7 @@ tags: [draft, LineApp]
 **Date:** 2026-11-14  
 **Scope:** LINE webhook handling, LLM responses, tool execution, and generated files
 
-** This procedure of LINE App long running Bot refere from a existing source by hand-code **
+**This procedure of LINE App long running Bot refere from a existing source by hand-code**
 
 
 ## Overview
