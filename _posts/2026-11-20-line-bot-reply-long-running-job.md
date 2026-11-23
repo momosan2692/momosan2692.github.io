@@ -13,8 +13,6 @@ footer-extra:
 tags: [draft, LineApp]
 ---
 
-# This procedure of LINE App long running Bot refere from a existing source by hand-code
-## And a coding agent read and write this documents, well done. 
 
 # LINE Bot Reply and Long-Running Job Flow
 
@@ -22,6 +20,9 @@ tags: [draft, LineApp]
 **Version:** 1.0  
 **Date:** 2026-11-14  
 **Scope:** LINE webhook handling, LLM responses, tool execution, and generated files
+
+** This procedure of LINE App long running Bot refere from a existing source by hand-code **
+
 
 ## Overview
 
