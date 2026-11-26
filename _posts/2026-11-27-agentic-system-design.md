@@ -17,13 +17,13 @@ tags: [draft, Agentic]
 
 **Conclusion:** A fully agentic system is four layers (Model, RAG, Harness, Memory) plus three cross-cutting planes (Eval, Observability, Security). Most home-built stacks are strong on Model, half done on RAG, and thin on Harness, Memory lifecycle, and the cross-cutting planes. **The agent proposes; the harness disposes.** Safety, budget, and termination live outside the model.
 
-> Diagrams are static SVGs. Place them in `/assets/img/charts/2026-11-27/` (files named `agentic-*.svg`).
+
 
 ---
 
 ## 0. The Big Picture
 
-![Reference architecture overview](/assets/img/charts/agentic-01-overview.svg)
+![Reference architecture overview](/assets/img/charts/2026-11-27/agentic-01-overview.svg)
 
 ---
 
@@ -33,7 +33,7 @@ tags: [draft, Agentic]
 
 One model for everything is the most common mistake. Split by role, then route by signal.
 
-![Role-based model routing with cascade escalation](/assets/img/charts/agentic-02-routing.svg)
+![Role-based model routing with cascade escalation](/assets/img/charts/2026-11-27/agentic-02-routing.svg)
 
 | Role | Model type | Thinking | Why |
 |---|---|---|---|
@@ -72,7 +72,7 @@ One model for everything is the most common mistake. Split by role, then route b
 
 ### 2.1 Three planes, three rule sets
 
-![RAG: three data planes and retrieval pipeline](/assets/img/charts/agentic-03-rag-planes.svg)
+![RAG: three data planes and retrieval pipeline](/assets/img/charts/2026-11-27/agentic-03-rag-planes.svg)
 
 | Plane | Content | Key requirement |
 |---|---|---|
@@ -97,7 +97,7 @@ One model for everything is the most common mistake. Split by role, then route b
 
 The loop is **act, observe, verify, update**, not just act and observe.
 
-![Agent loop: plan, act, observe, verify](/assets/img/charts/agentic-04-loop-states.svg)
+![Agent loop: plan, act, observe, verify](/assets/img/charts/2026-11-27/agentic-04-loop-states.svg)
 
 ### 3.2 Control-plane checklist
 
@@ -115,11 +115,11 @@ The loop is **act, observe, verify, update**, not just act and observe.
 
 ### 3.3 Permission tiers
 
-![Permission tiers by tool class](/assets/img/charts/agentic-05-permission-tiers.svg)
+![Permission tiers by tool class](/assets/img/charts/2026-11-27/agentic-05-permission-tiers.svg)
 
 ### 3.4 Multi-agent orchestration
 
-![Orchestrator and isolated workers](/assets/img/charts/agentic-06-multi-agent.svg)
+![Orchestrator and isolated workers](/assets/img/charts/2026-11-27/agentic-06-multi-agent.svg)
 
 ---
 
@@ -127,7 +127,7 @@ The loop is **act, observe, verify, update**, not just act and observe.
 
 ### 4.1 Five types
 
-![Five memory types and how they relate](/assets/img/charts/agentic-07-memory-types.svg)
+![Five memory types and how they relate](/assets/img/charts/2026-11-27/agentic-07-memory-types.svg)
 
 | Type | Holds | Store | Policy |
 |---|---|---|---|
@@ -141,7 +141,7 @@ The loop is **act, observe, verify, update**, not just act and observe.
 
 ### 4.2 Lifecycle (where most designs fail)
 
-![Memory write, merge, consolidate, forget lifecycle](/assets/img/charts/agentic-08-memory-lifecycle.svg)
+![Memory write, merge, consolidate, forget lifecycle](/assets/img/charts/2026-11-27/agentic-08-memory-lifecycle.svg)
 
 **Rules**
 - **Write policy:** store only user-stated or verified facts. Never store model guesses.
@@ -158,7 +158,7 @@ The loop is **act, observe, verify, update**, not just act and observe.
 
 ### 5.1 Eval and self-improvement loop
 
-![Eval and self-improvement loop](/assets/img/charts/agentic-09-eval-loop.svg)
+![Eval and self-improvement loop](/assets/img/charts/2026-11-27/agentic-09-eval-loop.svg)
 
 - Score **trajectories**, not just final answers (steps, cost, tool misuse).
 - Without a regression suite, every routing or memory change is blind.
@@ -171,7 +171,7 @@ The loop is **act, observe, verify, update**, not just act and observe.
 
 ### 5.3 Security: the lethal trifecta
 
-![The lethal trifecta](/assets/img/charts/agentic-10-lethal-trifecta.svg)
+![The lethal trifecta](/assets/img/charts/2026-11-27/agentic-10-lethal-trifecta.svg)
 
 Never let all three coexist in one agent without a gate. Remove at least one leg: confine private data to a worker with no network, strip untrusted content of instruction authority, or require approval on outbound calls.
 
