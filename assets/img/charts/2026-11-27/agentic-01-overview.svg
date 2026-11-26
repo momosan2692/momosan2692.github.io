@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 640" width="1040" height="640" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#555"/></marker></defs>
+<rect width="1040" height="640" fill="#fff"/>
+<rect x="420" y="16" width="200" height="40" rx="20" fill="#FFF4D6" stroke="#C9A227" stroke-width="1.5"/><text x="520.0" y="40.9" text-anchor="middle" font-size="14" font-weight="700" fill="#222">User / Trigger</text>
+<line x1="520" y1="56" x2="520" y2="86" stroke="#555" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="20" y="86" width="1000" height="150" rx="14" fill="#F4F4F4" stroke="#999" stroke-width="1.5"/>
+<text x="40" y="112" font-size="15" font-weight="700" fill="#222">Harness (control plane): the agent proposes, the harness disposes</text>
+<rect x="40" y="128" width="225" height="90" rx="10" fill="#EEF3FB" stroke="#5B7DB1" stroke-width="1.5"/><text x="152.5" y="159.55" text-anchor="middle" font-size="13" font-weight="700" fill="#222">Loop controller</text><text x="152.5" y="177.55" text-anchor="middle" font-size="13" fill="#222">plan, act, observe,</text><text x="152.5" y="195.55" text-anchor="middle" font-size="13" fill="#222">verify</text>
+<rect x="285" y="128" width="225" height="90" rx="10" fill="#EEF3FB" stroke="#5B7DB1" stroke-width="1.5"/><text x="397.5" y="159.55" text-anchor="middle" font-size="13" font-weight="700" fill="#222">Context manager</text><text x="397.5" y="177.55" text-anchor="middle" font-size="13" fill="#222">compaction,</text><text x="397.5" y="195.55" text-anchor="middle" font-size="13" fill="#222">scratchpad</text>
+<rect x="530" y="128" width="225" height="90" rx="10" fill="#EEF3FB" stroke="#5B7DB1" stroke-width="1.5"/><text x="642.5" y="168.55" text-anchor="middle" font-size="13" font-weight="700" fill="#222">Permission gates</text><text x="642.5" y="186.55" text-anchor="middle" font-size="13" fill="#222">+ hooks</text>
+<rect x="775" y="128" width="225" height="90" rx="10" fill="#EEF3FB" stroke="#5B7DB1" stroke-width="1.5"/><text x="887.5" y="168.55" text-anchor="middle" font-size="13" font-weight="700" fill="#222">Budget + termination</text><text x="887.5" y="186.55" text-anchor="middle" font-size="13" fill="#222">guards, checkpoints</text>
+<line x1="130" y1="236" x2="130" y2="276" stroke="#555" stroke-width="1.5" marker-start="url(#a)" marker-end="url(#a)"/>
+<rect x="20" y="276" width="220" height="230" rx="14" fill="#EAF6EE" stroke="#5FA777" stroke-width="1.5"/>
+<text x="130" y="304" text-anchor="middle" font-size="15" font-weight="700" fill="#222">Model layer</text>
+<rect x="32" y="316" width="196" height="30" rx="8" fill="#fff" stroke="#5FA777" stroke-width="1.5"/><text x="130.0" y="335.2" text-anchor="middle" font-size="12" fill="#222">Router (role + cascade)</text>
+<rect x="32" y="352" width="196" height="30" rx="8" fill="#fff" stroke="#5FA777" stroke-width="1.5"/><text x="130.0" y="371.2" text-anchor="middle" font-size="12" fill="#222">Planner: strong, thinking ON</text>
+<rect x="32" y="388" width="196" height="30" rx="8" fill="#fff" stroke="#5FA777" stroke-width="1.5"/><text x="130.0" y="407.2" text-anchor="middle" font-size="12" fill="#222">Executor: fast, thinking OFF</text>
+<rect x="32" y="424" width="196" height="30" rx="8" fill="#fff" stroke="#5FA777" stroke-width="1.5"/><text x="130.0" y="443.2" text-anchor="middle" font-size="12" fill="#222">Critic: different family</text>
+<rect x="32" y="460" width="196" height="30" rx="8" fill="#fff" stroke="#5FA777" stroke-width="1.5"/><text x="130.0" y="479.2" text-anchor="middle" font-size="12" fill="#222">Embedder + Reranker</text>
+<line x1="390" y1="236" x2="390" y2="276" stroke="#555" stroke-width="1.5" marker-start="url(#a)" marker-end="url(#a)"/>
+<rect x="280" y="276" width="220" height="230" rx="14" fill="#FDF1E3" stroke="#D69A4B" stroke-width="1.5"/>
+<text x="390" y="304" text-anchor="middle" font-size="15" font-weight="700" fill="#222">RAG (data access)</text>
+<rect x="292" y="316" width="196" height="30" rx="8" fill="#fff" stroke="#D69A4B" stroke-width="1.5"/><text x="390.0" y="335.2" text-anchor="middle" font-size="12" fill="#222">System knowledge</text>
+<rect x="292" y="352" width="196" height="30" rx="8" fill="#fff" stroke="#D69A4B" stroke-width="1.5"/><text x="390.0" y="371.2" text-anchor="middle" font-size="12" fill="#222">External / live data</text>
+<rect x="292" y="388" width="196" height="30" rx="8" fill="#fff" stroke="#D69A4B" stroke-width="1.5"/><text x="390.0" y="407.2" text-anchor="middle" font-size="12" fill="#222">Private data (ACL)</text>
+<rect x="292" y="424" width="196" height="30" rx="8" fill="#fff" stroke="#D69A4B" stroke-width="1.5"/><text x="390.0" y="443.2" text-anchor="middle" font-size="12" fill="#222">Hybrid retrieval + citations</text>
+<rect x="292" y="460" width="196" height="30" rx="8" fill="#fff" stroke="#D69A4B" stroke-width="1.5"/><text x="390.0" y="479.2" text-anchor="middle" font-size="12" fill="#222">Injection isolation</text>
+<line x1="650" y1="236" x2="650" y2="276" stroke="#555" stroke-width="1.5" marker-start="url(#a)" marker-end="url(#a)"/>
+<rect x="540" y="276" width="220" height="230" rx="14" fill="#F3EBF8" stroke="#9A6BBE" stroke-width="1.5"/>
+<text x="650" y="304" text-anchor="middle" font-size="15" font-weight="700" fill="#222">Memory</text>
+<rect x="552" y="316" width="196" height="30" rx="8" fill="#fff" stroke="#9A6BBE" stroke-width="1.5"/><text x="650.0" y="335.2" text-anchor="middle" font-size="12" fill="#222">Working + scratchpad</text>
+<rect x="552" y="352" width="196" height="30" rx="8" fill="#fff" stroke="#9A6BBE" stroke-width="1.5"/><text x="650.0" y="371.2" text-anchor="middle" font-size="12" fill="#222">Episodic (past runs)</text>
+<rect x="552" y="388" width="196" height="30" rx="8" fill="#fff" stroke="#9A6BBE" stroke-width="1.5"/><text x="650.0" y="407.2" text-anchor="middle" font-size="12" fill="#222">Semantic (durable facts)</text>
+<rect x="552" y="424" width="196" height="30" rx="8" fill="#fff" stroke="#9A6BBE" stroke-width="1.5"/><text x="650.0" y="443.2" text-anchor="middle" font-size="12" fill="#222">Procedural (playbooks)</text>
+<rect x="552" y="460" width="196" height="30" rx="8" fill="#fff" stroke="#9A6BBE" stroke-width="1.5"/><text x="650.0" y="479.2" text-anchor="middle" font-size="12" fill="#222">System (registry, config)</text>
+<line x1="910" y1="236" x2="910" y2="276" stroke="#555" stroke-width="1.5" marker-start="url(#a)" marker-end="url(#a)"/>
+<rect x="800" y="276" width="220" height="230" rx="14" fill="#FBEAEA" stroke="#C46A6A" stroke-width="1.5"/>
+<text x="910" y="304" text-anchor="middle" font-size="15" font-weight="700" fill="#222">Tools</text>
+<rect x="812" y="316" width="196" height="30" rx="8" fill="#fff" stroke="#C46A6A" stroke-width="1.5"/><text x="910.0" y="335.2" text-anchor="middle" font-size="12" fill="#222">Read: auto-approve</text>
+<rect x="812" y="352" width="196" height="30" rx="8" fill="#fff" stroke="#C46A6A" stroke-width="1.5"/><text x="910.0" y="371.2" text-anchor="middle" font-size="12" fill="#222">Write: policy check</text>
+<rect x="812" y="388" width="196" height="30" rx="8" fill="#fff" stroke="#C46A6A" stroke-width="1.5"/><text x="910.0" y="407.2" text-anchor="middle" font-size="12" fill="#222">Irreversible: human approval</text>
+<rect x="812" y="424" width="196" height="30" rx="8" fill="#fff" stroke="#C46A6A" stroke-width="1.5"/><text x="910.0" y="443.2" text-anchor="middle" font-size="12" fill="#222">Structured errors</text>
+<rect x="812" y="460" width="196" height="30" rx="8" fill="#fff" stroke="#C46A6A" stroke-width="1.5"/><text x="910.0" y="479.2" text-anchor="middle" font-size="12" fill="#222">Output truncation</text>
+<text x="520" y="540" text-anchor="middle" font-size="14" font-weight="700" fill="#444">Cross-cutting planes</text>
+<rect x="20" y="552" width="320" height="64" rx="10" fill="#fff" stroke="#888" stroke-width="1.5" stroke-dasharray="6 4"/><text x="180.0" y="579.7" text-anchor="middle" font-size="12" font-weight="700" fill="#222">Observability</text><text x="180.0" y="596.7" text-anchor="middle" font-size="12" fill="#222">trace every step, replay, cost ledger</text>
+<rect x="360" y="552" width="320" height="64" rx="10" fill="#fff" stroke="#888" stroke-width="1.5" stroke-dasharray="6 4"/><text x="520.0" y="579.7" text-anchor="middle" font-size="12" font-weight="700" fill="#222">Eval</text><text x="520.0" y="596.7" text-anchor="middle" font-size="12" fill="#222">golden tasks, trajectory scoring, regression</text>
+<rect x="700" y="552" width="320" height="64" rx="10" fill="#fff" stroke="#888" stroke-width="1.5" stroke-dasharray="6 4"/><text x="860.0" y="579.7" text-anchor="middle" font-size="12" font-weight="700" fill="#222">Security</text><text x="860.0" y="596.7" text-anchor="middle" font-size="12" fill="#222">least privilege, trifecta check, secrets</text>
+</svg>

@@ -17,69 +17,13 @@ tags: [draft, Agentic]
 
 **Conclusion:** A fully agentic system is four layers (Model, RAG, Harness, Memory) plus three cross-cutting planes (Eval, Observability, Security). Most home-built stacks are strong on Model, half done on RAG, and thin on Harness, Memory lifecycle, and the cross-cutting planes. **The agent proposes; the harness disposes.** Safety, budget, and termination live outside the model.
 
-> Diagrams use Mermaid. They render in GitHub, Obsidian, VS Code (with a Mermaid extension), and most markdown viewers.
+> Diagrams are static SVGs. Place them in `/assets/img/charts/2026-11-27/` (files named `agentic-*.svg`).
 
 ---
 
 ## 0. The Big Picture
 
-```mermaid
-flowchart TB
-    U([User / Trigger]) --> H
-
-    subgraph H[Harness: control plane]
-        direction TB
-        LOOP[Loop controller<br/>plan, act, observe, verify]
-        GATE[Permission gates + hooks]
-        BUD[Budget + termination guards]
-        CTX[Context manager<br/>compaction, scratchpad]
-    end
-
-    subgraph M[Model layer]
-        direction TB
-        RT{Router}
-        P[Planner<br/>strong, thinking ON]
-        E[Executor<br/>fast, thinking OFF]
-        C[Critic<br/>different model family]
-        EM[Embedder + Reranker]
-        RT --> P
-        RT --> E
-        RT --> C
-    end
-
-    subgraph R[RAG: data access]
-        direction TB
-        SYS[(System knowledge)]
-        EXT[(External / live)]
-        PRV[(Private data)]
-    end
-
-    subgraph MEM[Memory]
-        direction TB
-        WK[Working]
-        EP[Episodic]
-        SE[Semantic]
-        PR[Procedural]
-    end
-
-    subgraph T[Tools]
-        TR[Read]
-        TW[Write]
-        TI[Irreversible]
-    end
-
-    H <--> M
-    H <--> R
-    H <--> MEM
-    H --> GATE --> T
-
-    OBS[[Observability: trace every step]]
-    EV[[Eval: golden tasks + regression]]
-    SEC[[Security: least privilege, injection isolation]]
-    H -.-> OBS
-    OBS -.-> EV
-    SEC -.-> H
-```
+![Reference architecture overview](/assets/img/charts/agentic-01-overview.svg)
 
 ---
 
@@ -89,19 +33,7 @@ flowchart TB
 
 One model for everything is the most common mistake. Split by role, then route by signal.
 
-```mermaid
-flowchart LR
-    IN[Task] --> CLS{Classify<br/>type, context length,<br/>tool complexity,<br/>failure count}
-    CLS -->|ambiguous / multi-step| PL[Planner<br/>big model<br/>thinking ON]
-    CLS -->|mechanical / tool call| EX[Executor<br/>small model<br/>thinking OFF]
-    CLS -->|retrieval| EMB[Embedder + Reranker]
-    PL --> VER{Verifier}
-    EX --> VER
-    VER -->|pass| OUT[Result]
-    VER -->|fail / low confidence| ESC[Escalate to stronger model]
-    ESC --> VER
-    VER -->|N failures| HUM[Human or abort]
-```
+![Role-based model routing with cascade escalation](/assets/img/charts/agentic-02-routing.svg)
 
 | Role | Model type | Thinking | Why |
 |---|---|---|---|
@@ -140,20 +72,7 @@ flowchart LR
 
 ### 2.1 Three planes, three rule sets
 
-```mermaid
-flowchart TB
-    Q[Agent query] --> QR[Query planner<br/>reformulate, multi-hop,<br/>decide: retrieve or not]
-    QR --> S[(System plane<br/>docs, specs, code<br/>indexed, versioned)]
-    QR --> X[(External plane<br/>web, APIs, live data<br/>TTL, provenance, rate limit)]
-    QR --> P[(Private plane<br/>user files, sensitive data<br/>ACL, confinement)]
-    S --> F[Fusion: BM25 + vector]
-    X --> F
-    P --> F
-    F --> RR[Reranker]
-    RR --> CIT[Context with citations<br/>source + timestamp]
-    CIT --> ISO[Untrusted-content wrapper<br/>data, never instructions]
-    ISO --> AG[Agent]
-```
+![RAG: three data planes and retrieval pipeline](/assets/img/charts/agentic-03-rag-planes.svg)
 
 | Plane | Content | Key requirement |
 |---|---|---|
@@ -178,23 +97,7 @@ flowchart TB
 
 The loop is **act, observe, verify, update**, not just act and observe.
 
-```mermaid
-stateDiagram-v2
-    [*] --> Plan
-    Plan --> Act: step chosen
-    Act --> Observe: tool result
-    Observe --> Verify
-    Verify --> Update: pass
-    Verify --> Repair: fail (repairable)
-    Repair --> Act
-    Verify --> Escalate: fail (repeated)
-    Escalate --> Plan: stronger model / replan
-    Update --> Plan: more work
-    Update --> Done: goal met
-    Escalate --> Abort: budget hit / fatal
-    Done --> [*]
-    Abort --> [*]
-```
+![Agent loop: plan, act, observe, verify](/assets/img/charts/agentic-04-loop-states.svg)
 
 ### 3.2 Control-plane checklist
 
@@ -212,30 +115,11 @@ stateDiagram-v2
 
 ### 3.3 Permission tiers
 
-```mermaid
-flowchart LR
-    TC[Tool call] --> CL{Class}
-    CL -->|read| A[Auto-approve<br/>log only]
-    CL -->|write| B[Policy check<br/>confirm if outside scope]
-    CL -->|irreversible| C[Human approval<br/>required]
-    A --> EXE[Execute]
-    B --> EXE
-    C --> EXE
-```
+![Permission tiers by tool class](/assets/img/charts/agentic-05-permission-tiers.svg)
 
 ### 3.4 Multi-agent orchestration
 
-```mermaid
-flowchart TB
-    O[Orchestrator<br/>owns goal + plan] --> W1[Worker A<br/>isolated context]
-    O --> W2[Worker B<br/>isolated context]
-    O --> W3[Worker C<br/>isolated context]
-    W1 -->|summary only| O
-    W2 -->|summary only| O
-    W3 -->|summary only| O
-    O --> V[Verifier / Critic]
-    V --> OUT[Final result]
-```
+![Orchestrator and isolated workers](/assets/img/charts/agentic-06-multi-agent.svg)
 
 ---
 
@@ -243,25 +127,7 @@ flowchart TB
 
 ### 4.1 Five types
 
-```mermaid
-flowchart LR
-    subgraph Short[Short-term]
-        W[Working<br/>context window +<br/>structured scratchpad]
-    end
-    subgraph Long[Long-term]
-        EP[Episodic<br/>past runs + outcome labels]
-        SE[Semantic<br/>durable facts]
-        PR[Procedural<br/>playbooks, skills]
-    end
-    SY[System<br/>tool catalog, model registry,<br/>config state]
-
-    W -->|run ends| EP
-    EP -->|consolidate| SE
-    EP -->|distill successes| PR
-    SE -->|retrieve| W
-    PR -->|retrieve| W
-    SY -->|inject| W
-```
+![Five memory types and how they relate](/assets/img/charts/agentic-07-memory-types.svg)
 
 | Type | Holds | Store | Policy |
 |---|---|---|---|
@@ -275,18 +141,7 @@ flowchart LR
 
 ### 4.2 Lifecycle (where most designs fail)
 
-```mermaid
-flowchart LR
-    OBS[Observation] --> F{Filter:<br/>user-stated or verified?<br/>from trusted source?}
-    F -->|no| DROP[Discard]
-    F -->|yes| DD[Dedupe / merge<br/>with existing entry]
-    DD --> ST[(Store<br/>+ provenance + confidence)]
-    ST --> CONS[Periodic consolidation<br/>episodes to facts and playbooks]
-    CONS --> ST
-    ST --> DEC[Decay / TTL /<br/>supersede on contradiction]
-    ST --> RET[Retrieval score:<br/>recency x relevance x importance]
-    RET --> CTX[Context]
-```
+![Memory write, merge, consolidate, forget lifecycle](/assets/img/charts/agentic-08-memory-lifecycle.svg)
 
 **Rules**
 - **Write policy:** store only user-stated or verified facts. Never store model guesses.
@@ -303,21 +158,7 @@ flowchart LR
 
 ### 5.1 Eval and self-improvement loop
 
-```mermaid
-flowchart LR
-    RUN[Production runs] --> TR[Traces]
-    TR --> FAIL{Failed?}
-    FAIL -->|yes| EV[New eval case]
-    FAIL -->|success| PM[Procedural memory]
-    EV --> GS[Golden task suite]
-    GS --> REG[Regression run<br/>on every model / prompt / index change]
-    REG --> GATE{Pass?}
-    GATE -->|yes| DEP[Deploy change]
-    GATE -->|no| FIX[Fix]
-    FIX --> REG
-    PM --> RUN
-    DEP --> RUN
-```
+![Eval and self-improvement loop](/assets/img/charts/agentic-09-eval-loop.svg)
 
 - Score **trajectories**, not just final answers (steps, cost, tool misuse).
 - Without a regression suite, every routing or memory change is blind.
@@ -330,13 +171,7 @@ flowchart LR
 
 ### 5.3 Security: the lethal trifecta
 
-```mermaid
-flowchart TB
-    A((Private data)) --- X{{All three<br/>unguarded}}
-    B((Untrusted content)) --- X
-    C((Exfiltration channel)) --- X
-    X --> BAD[Data leak risk]
-```
+![The lethal trifecta](/assets/img/charts/agentic-10-lethal-trifecta.svg)
 
 Never let all three coexist in one agent without a gate. Remove at least one leg: confine private data to a worker with no network, strip untrusted content of instruction authority, or require approval on outbound calls.
 
@@ -394,15 +229,6 @@ Mark each item as Present / Partial / Missing.
 
 ## 7. Build Order (highest leverage first)
 
-```mermaid
-flowchart LR
-    S1[1. Trace + event log<br/>termination + budget] --> S2[2. Verifier +<br/>small golden eval]
-    S2 --> S3[3. Context compaction<br/>+ scratchpad]
-    S3 --> S4[4. Memory lifecycle<br/>write, merge, forget]
-    S4 --> S5[5. Hybrid retrieval<br/>+ retrieval eval]
-    S5 --> S6[6. Cascade routing<br/>+ cross-family critic]
-    S6 --> S7[7. Permission tiers<br/>+ injection isolation]
-    S7 --> S8[8. Procedural memory<br/>+ self-improvement loop]
-```
+![Build order, highest leverage first](/assets/img/charts/agentic-11-build-order.svg)
 
 **Why this order:** steps 1 and 2 make everything after them measurable. Without traces and evals, routing, memory, and retrieval changes cannot be judged.
